@@ -8,12 +8,35 @@
     <link rel="stylesheet" href="style/style.css"/>
   </head>
   <body class="background">
-                <div class="center-container">
-                  <div class="col-3">
-                    <h1 class="title"> Quick Credit</h1>
-                    <h2 class="title_description">Take your project to the next Level with low interest loans</h2>
-                  </div>
-                </div>
-                
+      <div class="index-menu"><a class="api-doc" href="https://fistlemoisson.docs.apiary.io/" >View the api documentation</a><a class="api-doc" >Contact Support Team</a></div>
+    <div class="center-container">
+      <div class="col-6">
+        <h1 class="title"> Quick Credit </h1>
+        <h2 class="title_description">Take your project to the next Level with low interest loans</h2>
+      </div>
+      <div class="col-6">
+        <div class="account-box">
+            <form  action="dashboard.html" class="form-content row" id="connection">
+            <input  type="mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" class="col-10" placeholder="Your email address" id="mail" required/>
+            <input  id="password_login" type="password" class="col-10" placeholder="Your password" required/>
+            <a href="#" class="forgot col-12">Forgot password ?</a>
+            <input value="Sign in"  type="submit" class="submit "name="button" id="loginBtn" />
+            <p class="swtch_create col-12"><b>-- Or --</b></p>
+            <p href="#" class="swtch_create col-12">No account Yet? <a href="#" onclick='switchForm("reg1")' >Switch to create account</a> </p>
+          </form>
+
+          <div class="tab_menu">
+        <p type="button" onclick='switchForm("login")' class="tab-connection-active" id="connection_tab">
+          <b>SIGN IN</b>
+        </p>
+        <p type="button" class="tab-connection" onclick='switchForm("reg1")' id="registerTab">
+          <b>SIGN UP</b>
+        </p>
+        </div>
+        </div>
+      </div>
+    </div>
+    
+
   </body>
   </html>

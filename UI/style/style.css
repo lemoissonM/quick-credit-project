@@ -1,33 +1,219 @@
+/* set inputs styles */
+
+input{display: inline-block;margin:10px;background-color: transparent;border-top: 0px;border-bottom: 1px solid #dadada;border-right:0px;border-left: 0px;color:#660048;font-size: 16px}
+select{display: inline-block;margin:10px 10px 10px 4px ;background-color: transparent;border-top: 0px;border-bottom: 1px solid #dadada;border-right:0px;border-left: 0px;color:#660048;font-size: 16px}
+input:focus{border-bottom:1px solid #660048;border-top: 0px; border-right:0px;border-left: 0px}
+a{color:#85035e}
+label {color:#665f64;margin:10px;background-color: transparent;font-size: 17px}
+.label-image{float: right;height:15px;width:15px;margin-right:22px}
+
 h1{color:white}
+.submit{ width:90%;margin-top:40px;margin-left:3%;margin-right:5%;font-size:15px;border-radius: 3px;border:0px;color:white;background: linear-gradient(184deg, rgba(2,0,36,1) 0%, rgba(255,165,228,1) 0%, rgba(133,3,94,1) 100%);height:50px}
 .background{background-image: url('../images/background/background_image.jpg')}
-.title{color: #ffffff;}
-.title_description{color:#f0fffe;}
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+[class*="col-"] {
+  float: left;
+  padding: 15px;
+}
+/* text colors  */
+.color-primary{color:rgba(133,3,94,1)}
+.status-pending{color:#3f48cc}
+.status-accepted{color:#03852a}
+.status-denied{color:#85031d}
+.red{color:#ee6267}
+.grey{color:#a4a4a4}
+
+/* background colors */
+.background-primary{background-color:rgba(133,3,94,1) }
+/* size style */
+.size-font-small{font-size:14px}
+.size-font-medium{font-size:16px}
+.text-left{text-align: left;}
+/* For big screens <desktops, etc> */
 @media screen and (min-width: 975px) {
+  h2{width: 400px;}
+/* spliting the page into colomns and setting width of colomns*/
+.col-1{width:2%}
+.col-3{width: 30%}
+.col-4{width: 35%}
+.col-5 {width: 41.66%;}
+.col-6{width:50%}
+.col-7 {width: 58.33%;}
+.col-8 {width:70%}
+.col-9 { width : 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+/* setup the container to align alement at the center*/
+.center-container
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height:100%;
+}
+/* application title and description stle */
 .title{width:80%;font-size: 6vw;margin-left: 0%;display: block;text-align: center}
 .title_description{width:80%;text-align: center;font-size: 1.5vw;margin-top: -30px;margin-left: 0px}
 
+/* setting style to login and signup forms */
+.form-content{
+  height:450px;
+  width:400px;
+  padding-top:60px;
+  top:155px;
+  right:10%;
+}
+.tab_menu{  right:40px;right:6%;}
+.tab-connection
+{
+  width:250px;
+}
+.tab-connection-active
+{
+  width:290px;
+}
 }
 
+/* for screens between 800px and 975px*/
 @media screen and (max-width: 975px) {
+/* spliting the page into colomns and setting width of colomns*/
 h2{width: 200px;}
+.col-3{width: 50%}
+.col-4{width: 80%}
+.col-5 {width: 41.66%;}
+.col-6{width:50%}
+.col-7 {width: 100%;}
+.col-10 {width: 80%;}
+.col-11 {width: 80%;}
+.col-12 {width: 100%;}
+/* application title and description style */
 .title{font-size: 60px;font-size: 6vw;margin-left: 8px;display: block;text-align: left}
 .title_description{width:300px;text-align: center;font-size: 1.5vw;margin-top: -30px;margin-left: 20px}
 
+/* setting style to login and signup forms */
+.form-content{
+  height:420px;
+  width:340px;
+  padding-top:60px;
+  top:155px;
+  right:5%;
+}
+.tab-connection
+{
+  width:180px;
+}
+.tab-connection-active
+{
+  width:230px;
+}
+#firstname{margin-top: -30px}
+.center-container
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height:100%;
+}
 }
 
 /*for screens width below 800px */
 @media screen and (max-width: 890px)
 {
-    @media screen and (min-width: 420px)
-    {
+  /* setting upp the container to align eelements from top-bottom*/
+  .center-container
+  {
+    display: block;
+    align-items: left;
+    justify-content: left;
+    height:100%;
+  }
+  /* setup the width of columns */
+  .col-3{width: 80%}
+  .col-4{width:80% }
+  .col-5 {width: 41.66%;}
+  .col-6{width:100%}
+  .col-7 {width: 100%;}
+  .col-10 {width: 80%;}
+  .col-11 {width: 80%;}
+  .col-12 {width: 100%;}
+
+  /* for screen width between 800 and 420 px*/
+  @media screen and (min-width: 420px)
+  {
+    /* application title and description style */
     .title{position: absolute;margin-bottom: 40px;width:90%;font-size: 40px;margin-left: 20px;display: block;text-align: center}
     .title_description{top: 130px;position: absolute;width:80%;text-align: center;font-size: 15px;margin-left: 8%}
-    
+    /* setting up login and signup forms style*/
+    .form-content{
+      height:400px;
+      width:60%;
+      padding-top:60px;
+      top:270px;
+      left:15%;
     }
-}
-@media screen and (max-width: 420px)
+    .tab_menu{ width:100%; left:15%;margin-top: 70px}
+    .tab-connection
+    {
+      width:34%;
+    }
+    .tab-connection-active
+    {
+      width:40%;
+    }
+      #firstname{margin-top: -50px}
+  }
+  /* for screen width below 420 px*/
+  @media screen and (max-width: 420px)
   {
     /* application title and description style */
     .title{margin-bottom: 40px;width:80%;font-size: 40px;margin-left: 20px;display: block;text-align: center}
     .title_description{width:80%;text-align: center;font-size: 15px;margin-top: -30px;margin-left: 8%}
+    /* setting up login and signup forms style*/
+    .form-content{
+      height:400px;
+      width:60%;
+      padding-top:60px;
+      top:260px;
+      left:10%;
+    }
+    .tab_menu{ width:100%; left:15%;margin-top: -40px}
+    .tab-connection
+    {
+      width:39%;
+    }
+    .tab-connection-active
+    {
+      width:40%;
+    }
+    #firstname{margin-top: -50px}
   }
+}
+/*setting title and descritpion colors*/
+.title{color: #ffffff;}
+.title_description{color:#f0fffe;}
+/* setting general style*/
+.forgot{color:#85035e;font-size: 17px;margin-left: -38px;margin-top: 10px;margin-bottom: 0px;text-align: right}
+.form-content{padding-left: 10px;border-left: 1px solid #85035e;border-bottom: 1px solid #85035e;border-top: 1px solid #85035e;margin-left:35px;z-index: 10;position:absolute;margin-right:1px;margin-top:15px;border-radius: 10px;
+  background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(255,236,249,1) 0%, rgba(255,255,255,1) 98%);
+  ;margin-top: -20px;}
+.tab-connection-active{font-family: cambria;
+  display:inline-block;
+  text-decoration: none;
+  background: linear-gradient(184deg, rgba(2,0,36,1) 0%, rgba(255,165,228,1) 0%, rgba(133,3,94,1) 100%);
+  height:560px;color:#c32089;font-size:16px;text-align: center;padding-top: 20px;border-radius:20px;}
+.tab-connection{font-size:16px;font-family: cambria;display:inline-block;text-decoration: none;background: transparent;height:600px;color:#ffffff;text-align: center;padding-top: 1px;}
+.account-box{opacity: 1;border-radius: 3px;height:600px;margin:5%}
+.tab_menu{  position: absolute;}
+/* Hide sign up forms */
+#register1{display: none;}
+#register2{display: none}
+
+/* set form content style */
+.swtch_create{color:#85035e;font-size: 17px;margin-left: -20px;margin-top: 0px;margin-bottom: 0px;text-align: center}
+#login_btn{margin-top: 15px;}
+#mail{margin-top: 25px}
