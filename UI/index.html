@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>quick credit</title>
+    <link rel="stylesheet" href="style/style.css"/>
+  </head>
+  <body class="background">
+      <div class="index-menu"><a class="api-doc" href="https://fistlemoisson.docs.apiary.io/" >View the api documentation</a><a class="api-doc" >Contact Support Team</a></div>
+    <div class="center-container">
+      <div class="col-6">
+        <h1 class="title"> Quick Credit </h1>
+        <h2 class="title_description">Take your project to the next Level with low interest loans</h2>
+      </div>
+      <div class="col-6">
+        <div class="account-box">
+
+            <form  class="form-content row" id="register1">
+            <input required type="text" name="fname" id="fname_input" class="col-4" placeholder="Firstname" pattern=".{2,}"/>
+            <input required type="text" name="lname" id="lname_input" class="col-4" placeholder="Lastname" pattern=".{2,}"/>
+            <input required type="mail" name="mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" id="mail_input"  class="col-10" placeholder="Your email address"/>
+            <input required type="password" name="password" id="password_input" class="col-10" placeholder="Create your password"/>
+            <input required type="password" name="cpassword" id="cpassword_input" class="col-10" placeholder="Confirm your password"/>
+            <input type="submit" value="Continue" class="submit col-11" name="button" onclick='letCheckRegForm1()'/>
+          </form>
+
+
+            <form  action="dashboard.html" class="form-content row" id="register2">
+            <select required class="col-11"><option value="">Select your country</option> <option>Republic of Rwanda</option></select>
+            <select required class="col-11"><option value="">Select your region / province</option><option>West region</option><option>East region</option> <option>Kigali</option></select>
+            <select required class="col-11"><option value="">Select your city / town</option><option>Gisenyi</option><option>Musanze</option><option>Kigali</option></select>
+            <input required type="text" class="col-9" placeholder="Enter the street number"/>
+            <input  type="submit" value="create account" type="button" class="submit col-11" name="button" id="register_btn"/>
+            </form>
+            <form  action="dashboard.html" class="form-content row" id="connection">
+            <input  type="mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" class="col-10" placeholder="Your email address" id="mail" required/>
+            <input  id="password_login" type="password" class="col-10" placeholder="Your password" required/>
+            <a href="#" class="forgot col-12">Forgot password ?</a>
+            <input value="Sign in"  type="submit" class="submit "name="button" id="loginBtn" />
+            <p class="swtch_create col-12"><b>-- Or --</b></p>
+            <p href="#" class="swtch_create col-12">No account Yet? <a href="#" onclick='switchForm("reg1")' >Switch to create account</a> </p>
+          </form>
+
+          <div class="tab_menu">
+        <p type="button" onclick='switchForm("login")' class="tab-connection-active" id="connection_tab">
+          <b>SIGN IN</b>
+        </p>
+        <p type="button" class="tab-connection" onclick='switchForm("reg1")' id="registerTab">
+          <b>SIGN UP</b>
+        </p>
+        </div>
+        </div>
+      </div>
+    </div>
+    <script src="scripts/home_script.js" type="text/javascript">
+
+    </script>
+
+  </body>
+  </html>
