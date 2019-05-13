@@ -1,0 +1,33 @@
+h1{color:white}
+.background{background-image: url('../images/background/background_image.jpg')}
+.title{color: #ffffff;}
+.title_description{color:#f0fffe;}
+@media screen and (min-width: 975px) {
+.title{width:80%;font-size: 6vw;margin-left: 0%;display: block;text-align: center}
+.title_description{width:80%;text-align: center;font-size: 1.5vw;margin-top: -30px;margin-left: 0px}
+
+}
+
+@media screen and (max-width: 975px) {
+h2{width: 200px;}
+.title{font-size: 60px;font-size: 6vw;margin-left: 8px;display: block;text-align: left}
+.title_description{width:300px;text-align: center;font-size: 1.5vw;margin-top: -30px;margin-left: 20px}
+
+}
+
+/*for screens width below 800px */
+@media screen and (max-width: 890px)
+{
+    @media screen and (min-width: 420px)
+    {
+    .title{position: absolute;margin-bottom: 40px;width:90%;font-size: 40px;margin-left: 20px;display: block;text-align: center}
+    .title_description{top: 130px;position: absolute;width:80%;text-align: center;font-size: 15px;margin-left: 8%}
+    
+    }
+}
+@media screen and (max-width: 420px)
+  {
+    /* application title and description style */
+    .title{margin-bottom: 40px;width:80%;font-size: 40px;margin-left: 20px;display: block;text-align: center}
+    .title_description{width:80%;text-align: center;font-size: 15px;margin-top: -30px;margin-left: 8%}
+  }
