@@ -44,7 +44,7 @@
     </nav>
 
       <div class="body row">
-        <div class="menu-mobilegit  ">
+        <div class="menu-mobile ">
           <button class="menu-mobile-tab menu-active" onclick="setMenu1Visible(1)" id="menu-1">REQUEST A LOAN</button>
           <button class="menu-mobile-tab " id="menu-2" onclick="setMenu2Visible(1)">MY LOANS </button>
           <button class="menu-mobile-tab " id="menu-3" onclick="setMenu3Visible(1)">LOAN HISTORY </button>
@@ -52,108 +52,211 @@
       <section class="width-section left-nav">
       </section>
       <section class="width-section shadow-box pad-bottom margin-top user-section" id="user-section">
-          <p class="card-title-full-width">REQUEST NEW LOAN</p>
-          <form class="form-request-loan pad-bottom row" >
-  
-            <input required type="number" class="col-10" placeholder="Enter the amount of the loan" id="mail" required/>
-            <select required class="col-11 grey" placeholder="Select your country">
-              <Option value="">Select the paiement tenor</Option>
-              <Option>1 month</Option>
-              <Option>2 months</Option>
-              <Option>3 months</Option>
-              <Option>4 months</Option>
-              <Option>5 months</Option>
-              <Option>6 months</Option>
-              <Option>7 month</Option>
-              <Option>8 months</Option>
-              <Option>9 months</Option>
-              <Option>10 months</Option>
-              <Option>11 months</Option>
-              <Option>12 months</Option>
-            </select>
-            <label class="col-11"> Interest            :  50 USD <div class="tooltip"> <img class="label-image tooltip" src="images/icons/information.png"/><span class="tooltiptext">A 5% interest is applied to the loan amount</span></div> </label>
-            <label class="col-11"> Amount due / month  :  150 USD <div class="tooltip"><img class="label-image" src="images/icons/information.png"/><span class="tooltiptext">This is the amount to be paid per month </span></div> </label>
-            <input value="Request a loan" type="submit" class="submit "name="button" id="loginBtn"/>
-          </form>
-        </section>
-        <section class="width-section  section-loan-list " id="section-loan-list">
-            <div class="card-loans-number shadow-box">
-              <p class="card-title">LOAN SUMMARY </p>
-              <div class="new_users_div color-primary">
-                <p class="new_user_number">1 </p>
-                <p class="new_user_desc">Current loan </p>
+        <p class="card-title-full-width">REQUEST NEW LOAN</p>
+        <form class="form-request-loan pad-bottom row" >
+
+          <input required type="number" class="col-10" placeholder="Enter the amount of the loan" id="mail" required/>
+          <select required class="col-11 grey" placeholder="Select your country">
+            <Option value="">Select the paiement tenor</Option>
+            <Option>1 month</Option>
+            <Option>2 months</Option>
+            <Option>3 months</Option>
+            <Option>4 months</Option>
+            <Option>5 months</Option>
+            <Option>6 months</Option>
+            <Option>7 month</Option>
+            <Option>8 months</Option>
+            <Option>9 months</Option>
+            <Option>10 months</Option>
+            <Option>11 months</Option>
+            <Option>12 months</Option>
+          </select>
+          <label class="col-11"> Interest            :  50 USD <div class="tooltip"> <img class="label-image tooltip" src="images/icons/information.png"/><span class="tooltiptext">A 5% interest is applied to the loan amount</span></div> </label>
+          <label class="col-11"> Amount due / month  :  150 USD <div class="tooltip"><img class="label-image" src="images/icons/information.png"/><span class="tooltiptext">This is the amount to be paid per month </span></div> </label>
+          <input value="Request a loan" type="submit" class="submit "name="button" id="loginBtn"/>
+        </form>
+      </section>
+      <section class="width-section  section-loan-list " id="section-loan-list">
+        <div class="card-loans-number shadow-box">
+          <p class="card-title">LOAN SUMMARY </p>
+          <div class="new_users_div color-primary">
+            <p class="new_user_number">1 </p>
+            <p class="new_user_desc">Current loan </p>
+          </div>
+            <div class="total_users_div grey">
+              <p class="new_user_number">20  </p>
+              <p class="new_user_desc">Total loans </p>
+            </div>
+            </div>
+            <div class="card-user-list shadow-box">
+              <p class="card-tab card-tab-active"> Current loan : 50% paid </p><span class="loan-status">STATUS : ACCEPTED</span>
+
+
+              <div class="loan-content">
+                <p class="loan-user-name">Date : saturday, 27-03/2015  <span class="right">Loan Id :l458-m</span> </p>
+                <p class="loan-detail1 grey"> Amount : 500 USD  <span class="right">Tenor : 12 </span> </p>
+                <p class="loan-detail grey"> Remaining amount : 250 USD  <span class="right">paid amount : 300 USD </span> </p>
+                <p class="loan-detail grey"> Total interest : 250 USD  <span class="right">monthly paiment : 300 USD </span> </p>
+              <p class="loan-user-name text-center" onclick="showPostLoanDialog()">VIEW REPAYMENT HISTORY</p>
+
+
               </div>
-                <div class="total_users_div grey">
-                  <p class="new_user_number">20  </p>
-                  <p class="new_user_desc">Total loans </p>
-                </div>
-                </div>
-                <div class="card-user-list shadow-box">
-                  <p class="card-tab card-tab-active"> Current loan : 50% paid </p><span class="loan-status">STATUS : ACCEPTED</span>
-    
-    
-                  <div class="loan-content">
-                    <p class="loan-user-name">Date : saturday, 27-03/2015  <span class="right">Loan Id :l458-m</span> </p>
-                    <p class="loan-detail1 grey"> Amount : 500 USD  <span class="right">Tenor : 12 </span> </p>
-                    <p class="loan-detail grey"> Remaining amount : 250 USD  <span class="right">paid amount : 300 USD </span> </p>
-                    <p class="loan-detail grey"> Total interest : 250 USD  <span class="right">monthly paiment : 300 USD </span> </p>
-                  <p class="loan-user-name text-center" onclick="showPostLoanDialog()">VIEW REPAYMENT HISTORY</p>
-    
-    
-                  </div>
-    
-          </section>
-          <section class="width-section  " id="section-history">
-              <div class="card-user-list shadow-box">
-                  <p class="card-tab card-tab-active " id="menu-loan-1" onclick="setPastLoanVisible()"> Past loans </p>
-                  <p class="card-tab grey " id="menu-loan-2" onclick="setRejectedLoanVisible()"> Rejected loans </p>
-                  <div class="scrollable">
+
+      </section>
+
+      <section class="width-section  " id="section-history">
+          <div class="card-user-list shadow-box">
+              <p class="card-tab card-tab-active " id="menu-loan-1" onclick="setPastLoanVisible()"> Past loans </p>
+              <p class="card-tab grey " id="menu-loan-2" onclick="setRejectedLoanVisible()"> Rejected loans </p>
+              <div class="scrollable">
+                  <div class="loan-content" >
+      
+                      <p class="loan-user-name" onclick="showLoanDetail()">Date : saturday, 27-03/2015  <span class="right">Loan Id :l458-m</span> </p>
+                      <p class="loan-detail1 grey" onclick="showLoanDetail()"> Amount : 500 USD  <span class="right">Tenor : 12 </span> </p>
+                      <p class="loan-detail grey"  id="loan-hidden"> Balance : 250 USD  <span class=" post-button right" onclick="showLoanDetail()">View details </span> </p>
+                    </div>
+            
+                    <div class="loan-content" >
+      
+                        <p class="loan-user-name" onclick="showLoanDetail()">Date : saturday, 27-03/2015  <span class="right">Loan Id :l458-m</span> </p>
+                        <p class="loan-detail1 grey" onclick="showLoanDetail()"> Amount : 500 USD  <span class="right">Tenor : 12 </span> </p>
+                        <p class="loan-detail grey"  id="loan-hidden"> Balance : 250 USD  <span class=" post-button right" onclick="showLoanDetail()">View details </span> </p>
+                      </div>
                       <div class="loan-content" >
-          
+      
                           <p class="loan-user-name" onclick="showLoanDetail()">Date : saturday, 27-03/2015  <span class="right">Loan Id :l458-m</span> </p>
                           <p class="loan-detail1 grey" onclick="showLoanDetail()"> Amount : 500 USD  <span class="right">Tenor : 12 </span> </p>
                           <p class="loan-detail grey"  id="loan-hidden"> Balance : 250 USD  <span class=" post-button right" onclick="showLoanDetail()">View details </span> </p>
                         </div>
-                
                         <div class="loan-content" >
-          
+      
                             <p class="loan-user-name" onclick="showLoanDetail()">Date : saturday, 27-03/2015  <span class="right">Loan Id :l458-m</span> </p>
                             <p class="loan-detail1 grey" onclick="showLoanDetail()"> Amount : 500 USD  <span class="right">Tenor : 12 </span> </p>
                             <p class="loan-detail grey"  id="loan-hidden"> Balance : 250 USD  <span class=" post-button right" onclick="showLoanDetail()">View details </span> </p>
                           </div>
                           <div class="loan-content" >
-          
+      
                               <p class="loan-user-name" onclick="showLoanDetail()">Date : saturday, 27-03/2015  <span class="right">Loan Id :l458-m</span> </p>
                               <p class="loan-detail1 grey" onclick="showLoanDetail()"> Amount : 500 USD  <span class="right">Tenor : 12 </span> </p>
                               <p class="loan-detail grey"  id="loan-hidden"> Balance : 250 USD  <span class=" post-button right" onclick="showLoanDetail()">View details </span> </p>
                             </div>
                             <div class="loan-content" >
-          
+      
                                 <p class="loan-user-name" onclick="showLoanDetail()">Date : saturday, 27-03/2015  <span class="right">Loan Id :l458-m</span> </p>
                                 <p class="loan-detail1 grey" onclick="showLoanDetail()"> Amount : 500 USD  <span class="right">Tenor : 12 </span> </p>
                                 <p class="loan-detail grey"  id="loan-hidden"> Balance : 250 USD  <span class=" post-button right" onclick="showLoanDetail()">View details </span> </p>
                               </div>
-                              <div class="loan-content" >
-          
-                                  <p class="loan-user-name" onclick="showLoanDetail()">Date : saturday, 27-03/2015  <span class="right">Loan Id :l458-m</span> </p>
-                                  <p class="loan-detail1 grey" onclick="showLoanDetail()"> Amount : 500 USD  <span class="right">Tenor : 12 </span> </p>
-                                  <p class="loan-detail grey"  id="loan-hidden"> Balance : 250 USD  <span class=" post-button right" onclick="showLoanDetail()">View details </span> </p>
-                                </div>
-                                <div class="loan-content" >
-          
-                                    <p class="loan-user-name" onclick="showLoanDetail()">Date : saturday, 27-03/2015  <span class="right">Loan Id :l458-m</span> </p>
-                                    <p class="loan-detail1 grey" onclick="showLoanDetail()"> Amount : 500 USD  <span class="right">Tenor : 12 </span> </p>
-                                    <p class="loan-detail grey"  id="loan-hidden"> Balance : 250 USD  <span class=" post-button right" onclick="showLoanDetail()">View details </span> </p>
-                                  </div>
-                  </div>
               </div>
-          </section>
+          </div>
+      </section>
     </div>
+<div class="modal-content">
+<div class="modal-body">
+  <p class="modal-title left-padding">Loan detail :  Loan N° l35-145 <span class="right close" onclick="closeLoanDetail()">X</span> </p>
+  <div class="loan-content">
+    <p class="loan-user-name">Murhula Metre, KG245 Kigali  <span class="right">Date 14-03-2016</span> </p>
+    <p class="loan-detail grey"> Amount : 500 USD  <span class="right">Tenor : 12 </span> </p>
+    <p class="loan-detail grey"> Interest : 500 USD  <span class="right">payment intallement : 120 USD </span> </p>
+    <p class="loan-detail grey" id="loan-hidden"> Balance : 250 USD  <span class=" post-button right" onclick="showPostLoanDialog()">Post payment </span> </p>
+  </div>
+ 
+  <div class="card-user-list shadow-box modal-scroll-repayment">
+      <p class="loan-user-name color-primary">LON REPAYMENT HISTORY  <span class="right">Status : Repaid</span> </p>
+      <div class="loan-content ">
+        <p class="loan-user-name">Amount : 500 USD  <span class="right">Tenors : January, february</span> </p>
+        <p class="loan-detail grey"> Date : 21-05-2019  <span class="right">Remaining : 200 USD </span> </p>
+      </div>
+      <div class="loan-content ">
+        <p class="loan-user-name">Amount : 500 USD  <span class="right">Tenors : January, february</span> </p>
+        <p class="loan-detail grey"> Date : 21-05-2019  <span class="right">Remaining : 200 USD </span> </p>
+      </div>
+      <div class="loan-content ">
+        <p class="loan-user-name">Amount : 500 USD  <span class="right">Tenors : January, february</span> </p>
+        <p class="loan-detail grey"> Date : 21-05-2019  <span class="right">Remaining : 200 USD </span> </p>
+      </div>
+      <div class="loan-content ">
+        <p class="loan-user-name">Amount : 500 USD  <span class="right">Tenors : January, february</span> </p>
+        <p class="loan-detail grey"> Date : 21-05-2019  <span class="right">Remaining : 200 USD </span> </p>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+    <div class="modal-body">
+      <p class="modal-title left-padding">Loan detail :  Loan N° l35-145 <span class="right close" onclick="closeLoanDetail()">X</span> </p>
+      <div class="loan-content">
+        <p class="loan-user-name">Murhula Metre, KG245 Kigali  <span class="right">Date 14-03-2016</span> </p>
+        <p class="loan-detail grey"> Amount : 500 USD  <span class="right">Tenor : 12 </span> </p>
+        <p class="loan-detail grey"> Interest : 500 USD  <span class="right">payment intallement : 120 USD </span> </p>
+        <p class="loan-detail grey" id="loan-hidden"> Balance : 250 USD  <span class=" post-button right" onclick="showPostLoanDialog()">Post payment </span> </p>
+      </div>
+     
+      <div class="card-user-list shadow-box modal-scroll-repayment">
+          <p class="loan-user-name color-primary">LON REPAYMENT HISTORY  <span class="right">Status : Repaid</span> </p>
+          <div class="loan-content ">
+            <p class="loan-user-name">Amount : 500 USD  <span class="right">Tenors : January, february</span> </p>
+            <p class="loan-detail grey"> Date : 21-05-2019  <span class="right">Remaining : 200 USD </span> </p>
+          </div>
+          <div class="loan-content ">
+            <p class="loan-user-name">Amount : 500 USD  <span class="right">Tenors : January, february</span> </p>
+            <p class="loan-detail grey"> Date : 21-05-2019  <span class="right">Remaining : 200 USD </span> </p>
+          </div>
+          <div class="loan-content ">
+            <p class="loan-user-name">Amount : 500 USD  <span class="right">Tenors : January, february</span> </p>
+            <p class="loan-detail grey"> Date : 21-05-2019  <span class="right">Remaining : 200 USD </span> </p>
+          </div>
+          <div class="loan-content ">
+            <p class="loan-user-name">Amount : 500 USD  <span class="right">Tenors : January, february</span> </p>
+            <p class="loan-detail grey"> Date : 21-05-2019  <span class="right">Remaining : 200 USD </span> </p>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    </div>
+    <div id="myModal2" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+    <div class="modal-body">
+      <p class="modal-title"> Loans repayment history, loan N° l35-145 <span class="right close" onclick="closeDialog()">X</span> </p>
+      <div class="card-user-list shadow-box modal-scroll">
 
+        <div class="loan-content ">
+          <p class="loan-user-name">Amount : 500 USD  <span class="right">Tenors : January, february</span> </p>
+          <p class="loan-detail grey"> Date : 21-05-2019  <span class="right">Remaining : 200 USD </span> </p>
+        </div>
+        <div class="loan-content ">
+          <p class="loan-user-name">Amount : 500 USD  <span class="right">Tenors : January, february</span> </p>
+          <p class="loan-detail grey"> Date : 21-05-2019  <span class="right">Remaining : 200 USD </span> </p>
+        </div>
+        <div class="loan-content ">
+          <p class="loan-user-name">Amount : 500 USD  <span class="right">Tenors : January, february</span> </p>
+          <p class="loan-detail grey"> Date : 21-05-2019  <span class="right">Remaining : 200 USD </span> </p>
+        </div>
+        <div class="loan-content ">
+          <p class="loan-user-name">Amount : 500 USD  <span class="right">Tenors : January, february</span> </p>
+          <p class="loan-detail grey"> Date : 21-05-2019  <span class="right">Remaining : 200 USD </span> </p>
+        </div>
+        <div class="loan-content ">
+          <p class="loan-user-name">Amount : 500 USD  <span class="right">Tenors : January, february</span> </p>
+          <p class="loan-detail grey"> Date : 21-05-2019  <span class="right">Remaining : 200 USD </span> </p>
+        </div>
+        <div class="loan-content ">
+          <p class="loan-user-name">Amount : 500 USD  <span class="right">Tenors : January, february</span> </p>
+          <p class="loan-detail grey"> Date : 21-05-2019  <span class="right">Remaining : 200 USD </span> </p>
+        </div>
+      </div>
+    </div>
+    </div>
     <script src="scripts/mobile_menu.js" type="text/javascript">
 
     </script>
-    
+    <script src="scripts/dashboard_user.js" type="text/javascript">
+
+    </script>
 
   </body>
   </html>

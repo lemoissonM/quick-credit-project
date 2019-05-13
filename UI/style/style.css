@@ -6,7 +6,9 @@ input:focus{border-bottom:1px solid #660048;border-top: 0px; border-right:0px;bo
 a{color:#85035e}
 label {color:#665f64;margin:10px;background-color: transparent;font-size: 17px}
 .label-image{float: right;height:15px;width:15px;margin-right:22px}
-
+.api-doc{cursor: pointer;text-decoration: none;margin-right:20px;position:Relative; color :rgb(250, 233, 241);border-bottom:1px solid white; padding:5px;font-size: 15px;border-radius: 10px;display: inline-block}
+.api-doc:hover{color:white}
+.index-menu{position:absolute;top:4%;left:1.5%; }
 h1{color:white}
 .submit{ width:90%;margin-top:40px;margin-left:3%;margin-right:5%;font-size:15px;border-radius: 3px;border:0px;color:white;background: linear-gradient(184deg, rgba(2,0,36,1) 0%, rgba(255,165,228,1) 0%, rgba(133,3,94,1) 100%);height:50px}
 .background{background-image: url('../images/background/background_image.jpg')}
@@ -132,6 +134,8 @@ h2{width: 200px;}
     justify-content: left;
     height:100%;
   }
+  .api-doc{width: 30%;margin-left: 10%;text-align: center}
+  .index-menu{width: 100%;top:1%}
   /* setup the width of columns */
   .col-3{width: 80%}
   .col-4{width:80% }
@@ -288,7 +292,7 @@ h2{width: 200px;}
 /* dashboard general menu style  */
 .menu{box-shadow: 1px 1px 0px 0px #f1f1f1;margin-top:25px;margin-left:-0px; width:100%;position:fixed;height:60px;background:#ffffff}
 .support-bar{margin-top:-10px;margin-left:-8px; width:100%;position:fixed;height:30px;background-image:url('../images/background/background_image.jpg')}
-.body{ border-right: 16px solid rgba(133,3,94,1);background-color:#ffffffs;width:100%;margin-top:0px;margin-left:-8px;padding-top: 80px}
+.body{ border-right: 16px solid rgba(133,3,94,1);background-color:#ffffff;width:100%;margin-top:0px;margin-left:-8px;padding-top: 80px}
 .main-menu{float:right;color:white;display: inline-block;margin-right:20px};
 .main-menu li{display: inline-block; list-style-type: none;opacity:0.8;font-family: consolas}
 .menu_item{cursor: pointer;margin: 0px 0px 15px 15px;padding-left: 10px;border-left:1px solid #ffe0f6;font-size:13px;display: inline-block; list-style-type: none;font-family: arial; }
@@ -486,6 +490,10 @@ display: flex;
   display: inline-block;;
   cursor: pointer;
 }
+.card-tab-three
+{
+  width:32.5%;
+}
 .card-tab-active
 {
   color:rgba(133,3,94,1);
@@ -553,13 +561,14 @@ padding-top:5px;
   color:back;
   font-size:15px;
   font-family:calibri;
-
+  position:relative;
 }
 .loan-content:hover
 {
   border-left: 1px solid rgba(133,3,94);border-bottom-left-radius: 3px;
   cursor:pointer;
 }
+
 .text-center{text-align: center;color:black}
 .loan-user-name
 {
@@ -668,7 +677,33 @@ padding-top:5px;
   width: 100%;
   margin-top:-4px;
 }
-
+.view-detail{
+  position: absolute;
+  background-color:rgba(133,3,94);
+  width:100%;
+  height:100%;
+  display: none;
+  opacity: 0.9;
+}
+.view-detail-text{
+  margin-top:30px;
+  color:white;
+  text-align: center;
+  width:45%;
+  display: inline-block;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin-left : 2%;
+  border-radius: 10px;
+  border: 1px white solid;
+  
+}
+.view-detail-text:hover{
+  margin-top:30px;
+  background-color:white;
+  color:rgba(133,3,94);
+  border: 1px white solid;
+}
 /* the tooltip section */
 /* Tooltip text */
 .tooltip .tooltiptext {
@@ -771,6 +806,7 @@ margin-right: 0px;
 }
 
 .modal-scroll{height:400px;overflow: auto}
+.modal-scroll-repayment{height:200px;overflow: auto;margin-left:0px}
 .modal-body {padding: 2px 16px;font-size:18px;padding-bottom: 20px;;}
 
 .modal-footer {
@@ -779,3 +815,4 @@ margin-right: 0px;
   color: white;
 }
 .modal-confirm{width:49%;border-right:1px solid rgba(133,3,94,1); background:white;font-size: 16px;height:40px;border:0px ;}
+.fill-width{width:80%}

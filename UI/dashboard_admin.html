@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>quick credit</title>
+    <link rel="stylesheet" href="style/style.css"/>
+  </head>
+  <body>
+    <header>
+    <div class="support-bar"/>
+    <div class="menu row">
+      <h1 class="menu-title color-primary"> Quick credit</h1>
+        <ul class="main-menu">
+
+          <li class="menu_item color-primary" ><img class="menu-item-image-right" onclick="showNotification()" src="images/icons/alarm.png"><b><span onclick="showNotification()" class="menu-text">Notifications  </b><img class="menu-item-image" src="images/icons/down.png"></span></li>
+          <li class="menu_item color-primary"><img class="menu-item-image-right" src="images/icons/support.png" ><span class="menu-text"> Support</span> </li>
+          <li class="menu_item color-primary" id="user-menu" ><img class="menu-item-image-right" onclick="showProfile()" src="images/icons/user_pp.png"><span  class="menu-text" onclick="showProfile()"> Admin : Murhula M <img class="menu-item-image " onclick="showProfile()" src="images/icons/down.png"></span></span> </li>
+
+        </ul>
+    </div>
+    </header>
+    <nav>
+    <div class="menu-content" id="menu-content-user">
+      <img class="menu-content-user-img" src="images/icons/user_pp.png"/>
+      <div class="menu-content-user-id">
+        <p class="profile-name"> Murhula Metre </p>
+        <p class="profile-mail"> Lemoissonjoellfj@gmail.com </p>
+      </div>
+      <p class="profile-address-street"> Street : Mabanga Sub 18, Goma </p>
+      <p class="profile-address-country"> Republic of Rwanda </p>
+      <p class="profile-password color-primary"> Change my password </p>
+    </div>
+      <div class="menu-content-notification" id="menu-content-notification">
+
+        <p class="notification-element">You have two new application loans </p>
+        <p class="notification-element"> you have two new users </p>
+
+      </div>
+
+
+    </nav>
+        <div class="body row">
+        <div class="menu-mobile ">
+          <button class="menu-mobile-tab menu-active" onclick="setMenu1Visible(1)" id="menu-1">REQUEST A LOAN</button>
+          <button class="menu-mobile-tab " id="menu-2" onclick="setMenu2Visible(1)">MY LOANS </button>
+          <button class="menu-mobile-tab " id="menu-3" onclick="setMenu3Visible(1)">LOAN HISTORY </button>
+
+        </div>
+  <section class="width-section left-nav">
+
+  </section>
+<section class="width-section" id="user-section">
+  <div class="card-user shadow-box">
+    <p class="card-title">USER SECTION </p>
+    <div class="new_users_div color-primary">
+      <p class="new_user_number">50 </p>
+      <p class="new_user_desc">Unverified users </p>
+    </div>
+      <div class="total_users_div grey">
+        <p class="new_user_number">143 </p>
+        <p class="new_user_desc">Total  users </p>
+      </div>
+      </div>
+
+      <div class="card-user-list shadow-box">
+        <p class="card-tab card-tab-active"> Unverified users </p>
+        <p class="card-tab grey"> All users </p>
+
+
+
+        <div class="user-content">
+          <p class="user-name">Murhula Metre, KG245 Kigali, Rwanda </p>
+          <img class="user-verify-btn" onclick="verify(this.parentNode)" src="images/icons/check-mark.png"/>
+          <p class="user-mail grey">lemoissonjoellfj@gmail.com </p>
+        </div>
+
+        <div class="user-content">
+          <p class="user-name">Murhula Metre, KG245 Kigali, Rwanda </p>
+          <img class="user-verify-btn" onclick="verify(this.parentNode)" src="images/icons/check-mark.png"/>
+          <p class="user-mail grey">lemoissonjoellfj@gmail.com </p>
+        </div>
+        <div class="user-content">
+          <p class="user-name">Murhula Metre, KG245 Kigali, Rwanda </p>
+          <img class="user-verify-btn" onclick="verify(this.parentNode)" src="images/icons/check-mark.png"/>
+          <p class="user-mail grey">lemoissonjoellfj@gmail.com </p>
+        </div>
+        <div class="user-content">
+          <p class="user-name">Murhula Metre, KG245 Kigali, Rwanda </p>
+          <img class="user-verify-btn" onclick="verify(this.parentNode)" src="images/icons/check-mark.png"/>
+          <p class="user-mail grey">lemoissonjoellfj@gmail.com </p>
+        </div>
+        <div class="user-content">
+          <p class="user-name">Murhula Metre, KG245 Kigali, Rwanda </p>
+          <img class="user-verify-btn" onclick="verify(this.parentNode)" src="images/icons/check-mark.png"/>
+          <p class="user-mail grey">lemoissonjoellfj@gmail.com </p>
+        </div>
+        <div class="user-content">
+          <p class="user-name">Murhula Metre, KG245 Kigali, Rwanda </p>
+          <img class="user-verify-btn" onclick="verify(this.parentNode)" src="images/icons/check-mark.png"/>
+          <p class="user-mail grey">lemoissonjoellfj@gmail.com </p>
+        </div>
+      </div>
+  </section>
+    
+<script src="scripts/dashoard_admin_script.js" type="text/javascript">
+
+</script>
+<script src="scripts/mobile_menu.js" type="text/javascript">
+
+</script>
+
+  </body>
+  </html>
