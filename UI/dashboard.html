@@ -44,14 +44,38 @@
     </nav>
 
       <div class="body row">
-        <div class="menu-mobile ">
+        <div class="menu-mobilegit  ">
           <button class="menu-mobile-tab menu-active" onclick="setMenu1Visible(1)" id="menu-1">REQUEST A LOAN</button>
           <button class="menu-mobile-tab " id="menu-2" onclick="setMenu2Visible(1)">MY LOANS </button>
           <button class="menu-mobile-tab " id="menu-3" onclick="setMenu3Visible(1)">LOAN HISTORY </button>
        </div>
       <section class="width-section left-nav">
       </section>
-      
+      <section class="width-section shadow-box pad-bottom margin-top user-section" id="user-section">
+          <p class="card-title-full-width">REQUEST NEW LOAN</p>
+          <form class="form-request-loan pad-bottom row" >
+  
+            <input required type="number" class="col-10" placeholder="Enter the amount of the loan" id="mail" required/>
+            <select required class="col-11 grey" placeholder="Select your country">
+              <Option value="">Select the paiement tenor</Option>
+              <Option>1 month</Option>
+              <Option>2 months</Option>
+              <Option>3 months</Option>
+              <Option>4 months</Option>
+              <Option>5 months</Option>
+              <Option>6 months</Option>
+              <Option>7 month</Option>
+              <Option>8 months</Option>
+              <Option>9 months</Option>
+              <Option>10 months</Option>
+              <Option>11 months</Option>
+              <Option>12 months</Option>
+            </select>
+            <label class="col-11"> Interest            :  50 USD <div class="tooltip"> <img class="label-image tooltip" src="images/icons/information.png"/><span class="tooltiptext">A 5% interest is applied to the loan amount</span></div> </label>
+            <label class="col-11"> Amount due / month  :  150 USD <div class="tooltip"><img class="label-image" src="images/icons/information.png"/><span class="tooltiptext">This is the amount to be paid per month </span></div> </label>
+            <input value="Request a loan" type="submit" class="submit "name="button" id="loginBtn"/>
+          </form>
+        </section>
     </div>
 
     <script src="scripts/mobile_menu.js" type="text/javascript">
