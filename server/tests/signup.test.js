@@ -3,7 +3,7 @@
 /* eslint-disable no-undef */
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const { app } = require('../index');
+const { app, closeServer } = require('../index');
 
 chai.use(chaiHttp);
 const loginDetails = {
@@ -54,7 +54,8 @@ describe('Signup', () => {
         res.should.have.status(201);
         chai.expect(res.body.data.email).equal('lemoissonM@quick-credit.com');
         console.log(res.body.data);
-        done();
+        closeServer();
+        done();      
       });
   });
 });
