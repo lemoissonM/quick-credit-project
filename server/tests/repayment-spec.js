@@ -72,7 +72,6 @@ describe('Post a repayment transaction', () => {
       });
   });
 });
-/*
 describe('Get a loan repayment transaction', () => {
   it('it should return a 200 and a list containing one repayment', (done) => {
     chai.request(app)
@@ -86,7 +85,7 @@ describe('Get a loan repayment transaction', () => {
         done();
       });
   });
-}); 
+});
 describe('It should check the token in authorization header before any repayment transaction', () => {
   it('it should return 401 status because a bad token is provided', (done) => {
     chai.request(app)
@@ -132,4 +131,4 @@ describe('It should check the token in authorization header before any repayment
         done();
       });
   });
-}); */
+});
