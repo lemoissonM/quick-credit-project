@@ -11,7 +11,12 @@ export default function getloans(req, res) {
   if (status === 'approved' && repaid === 'false') {
     res.status(200).send({
       status: 200,
-      data: getCurrentLoans(req.params.email.trim()),
+      data: getCurrentLoans(),
+    });
+  } else if (status === 'approved' && repaid === 'true') {
+    res.status(200).send({
+      status: 200,
+      data: getRepaidLoans(),
     });
   } else if (!status && !repaid) {
     res.status(200).send({
