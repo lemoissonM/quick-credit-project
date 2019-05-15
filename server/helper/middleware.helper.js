@@ -15,7 +15,7 @@ export function validateToken(token) {
 export function tokenError(res) {
   return res.status(401).json({
     success: false,
-    message: 'The authorization Token provided is not valid',
+    message: 'The authorization Token provided is not valid, please provide a valid token in the authorization header',
   });
 }
 export function TokenUnauthorized(res) {
@@ -27,6 +27,6 @@ export function TokenUnauthorized(res) {
 export function notValidToken(res) {
   return res.status(401).json({
     success: false,
-    message: 'The Token provided is not valid',
+    message: 'The authorization Token provided is not valid, please provide a valid token in the authorization header',
   });
 }
