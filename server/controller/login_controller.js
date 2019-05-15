@@ -13,10 +13,10 @@ export default function login(req, res) {
   if (email === undefined) {
     res.status(400).send({
       status: 400,
-      message: 'the email is required, please provide it before proceeding',
+      message: 'The email is required',
     });
   } else if (password === undefined) {
-    wrongDataStatus(res, 'the password is required, please provide it before proceeding');
+    wrongDataStatus(res, 'The password is required');
   } else if (!password || !email) {
     res.status(401).send({
       status: 401,

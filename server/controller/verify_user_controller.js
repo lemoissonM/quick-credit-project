@@ -23,7 +23,7 @@ export default function verify(req, res) {
   } else {
     res.status(400).send({
       status: 400,
-      message: 'bad request, please provide valid parameter',
+      message: 'Please provide valid parameter',
     });
   }
 }

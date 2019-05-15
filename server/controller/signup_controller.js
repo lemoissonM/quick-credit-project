@@ -9,12 +9,12 @@ function signup(req, res) {
     email, password, fname, lname, address, country,
   } = req.body;
 
-  if (!email) errorMessage = 'Email is not defined';
+  if (!email) errorMessage = 'The email is not defined';
   else if (!password)errorMessage = 'The password is not defined';
   else if (!fname)errorMessage = 'The first name is not defined';
   else if (!lname)errorMessage = 'The last name is not defined';
-  else if (!address)errorMessage = 'the address is not defined';
-  else if (!country)errorMessage = 'The country does not exist';
+  else if (!address)errorMessage = 'The address is not defined';
+  else if (!country)errorMessage = 'The country is not defined';
   if (errorMessage) {
     res.status(400).send({
       status: 400,
