@@ -1,17 +1,31 @@
 /* eslint-disable linebreak-style */
 import {
-  addUserLoan, getLoanCount, getPendingLoans, getAllLoans,
+  addUserLoan, getLoanCount, getPendingLoans, getAllLoans, getCurrentLoans,
 } from '../helper/loansHelper';
 import { getSingleUser } from '../helper/userHelper';
+import { checkSpaces } from '../helper/string_check';
 
 const Loan = require('../model/Loan');
 
 export function getUserLoan(req, res) {
   const { email } = req.params;
-  res.status(200).send({
-    status: 200,
-    data: getAllLoans(email),
-  });
+  const { status, repaid } = req.query;
+  if (status === 'approved' && repaid === 'false') {
+    res.status(200).send({
+      status: 200,
+      data: getCurrentLoans(req.params.email),
+    });
+  } else if ((checkSpaces(status) && checkSpaces(repaid)) || (!status && !repaid)) {
+    res.status(200).send({
+      status: 200,
+      data: getAllLoans(email),
+    });
+  } else {
+    res.status(404).send({
+      status: 404,
+      message: 'Unable to access this endpoint, please verify your query parameters and make sure they are corrects',
+    });
+  }
 }
 
 export function addNewLoan(req, res) {
