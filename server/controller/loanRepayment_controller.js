@@ -7,9 +7,10 @@ export function addPayment(req, res) {
   const loan = getSingleLoan(req.params.loanID);
   if (loan) {
     if (!loan.isRepaid()) {
-      if (req.body.amount && !isNaN(req.body.amount)) {
+      if (req.body.amount && !Number.isNaN(req.body.amount)) {
         const tenorCovered = Number.parseFloat(req.body.amount) / loan.getPaymentInstallment();
-        const newRepayment = new LoanRepayment(getRepaymentCount(), loan.getID(), req.body.amount, tenorCovered);
+        const newRepayment = new LoanRepayment(getRepaymentCount(),
+          loan.getID(), req.body.amount, tenorCovered);
         res.status(201).send({
           status: 201,
           data: addNewLoanRepayment(newRepayment),
