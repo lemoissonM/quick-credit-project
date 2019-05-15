@@ -1,13 +1,8 @@
 /* eslint-disable linebreak-style */
 
 export function validateToken(token) {
-  let newToken = '';
-  if (token) {
-    if (token.startsWith('Bearer ')) {
-    // Remove Bearer from string
-      newToken = token.slice(7, token.length);
-      return newToken;
-    }
+  if (token && token.startsWith('Bearer ')) {
+    return token.slice(7, token.length);
   }
   return token;
 }

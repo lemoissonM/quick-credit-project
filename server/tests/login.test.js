@@ -27,7 +27,6 @@ describe('login', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(400);
-        console.log(res.body.message);
         done();
       });
   });
@@ -37,7 +36,6 @@ describe('login', () => {
       .send(loginDetails)
       .end((err, res) => {
         res.should.have.status(401);
-        console.log(res.body.message);
         done();
       });
   });
@@ -48,9 +46,7 @@ describe('login', () => {
       .end((err, res) => {
         res.should.have.status(200);
         chai.expect(res.body.data.email).equal('lemoisson@quick-credit.com');
-        console.log(res.body.data);
         done();
-        // app.closeServer();
       });
   });
 });

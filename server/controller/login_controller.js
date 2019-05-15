@@ -24,25 +24,16 @@ export default function login(req, res) {
     });
   } else {
     const [user] = getSingleUser(email);
-    if (user) {
-      if (user.validatePassword(password)) {
-        const userN = user;
-        res.status(200).json({
-          status: 200,
-          data: userN.toJSON(),
-        });
-      } else {
-        res.status(401).send({
-          status: 401,
-          message: 'You provided a wrong email or password',
-        });
-      }
-    } else {
-      res.status(401).send({
-        status: 401,
-        message: 'You provided a wrong email or password',
+    if (user && user.validatePassword(password)) {
+      return res.status(200).json({
+        status: 200,
+        data: user.toJSON(),
       });
     }
+    return res.status(401).send({
+      status: 401,
+      message: 'You provided a wrong email or password',
+    });
   }
   return res;
 }
