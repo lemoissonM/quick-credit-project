@@ -21,7 +21,7 @@ export function tokenError(res) {
 export function TokenUnauthorized(res) {
   return res.status(403).json({
     status: 403,
-    message: 'You are forbiden to make this request, you don\'t have enough permission, please contact your administrator for more inquieries',
+    message: 'You are forbiden to make this request, you don\'t have enough permission, please contact your administrator for more details',
   });
 }
 export function notValidToken(res) {
