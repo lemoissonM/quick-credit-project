@@ -2,7 +2,7 @@
 import express from 'express';
 import { addNewLoan, getUserLoan } from '../../controller/loan_user_controller';
 import checkToken from '../../midleware/auhentication.postloan';
-import { getloans, getSpecificLoan } from '../../controller/loan.admin.controller';
+import { getloans, getSpecificLoan, approveLoan } from '../../controller/loan.admin.controller';
 import checkTokenLoan from '../../midleware/authenticateLoans';
 import checkAdmin from '../../midleware/authenticateAdmin';
 import { addPayment, getRepayments } from '../../controller/loanRepayment_controller';
@@ -15,6 +15,7 @@ router.post('/', checkToken, addNewLoan);
 router.get('/', checkAdmin, getloans);
 router.get('/user/:email/', checkTokenLoan, getUserLoan);
 router.get('/:loanID', checkSpecificLoan, getSpecificLoan);
+router.patch('/:loanID', checkAdmin, approveLoan);
 
 // loans repayment route
 router.post('/:loanID/repayment', checkAdmin, addPayment);

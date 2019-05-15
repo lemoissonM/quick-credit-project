@@ -245,3 +245,41 @@ describe('Get single loan spec', () => {
       });
   });
 });
+describe('approve or reject loan', () => {
+  it('it should a 404 status because for not found loan id', (done) => {
+    chai.request(app)
+      .patch('/api/v1/loans/200')
+      .set('Authorization', `Bearer ${users[0].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(404);
+        console.log(res.body);
+        done();
+      });
+  });
+  it('it should a 403 status when loan already approved', (done) => {
+    chai.request(app)
+      .patch('/api/v1/loans/0')
+      .set('Authorization', `Bearer ${users[0].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(403);
+        console.log(res.body);
+        done();
+      });
+  });
+  it('it should a 200 status and loan data when everything is okay', (done) => {
+    const requestString = {
+      status: 'approved',
+    };
+    chai.request(app)
+      .patch('/api/v1/loans/7')
+      .set('Authorization', `Bearer ${users[0].token}`)
+      .send(requestString)
+      .end((err, res) => {
+        res.should.have.status(200);
+        console.log(res.body);
+        done();
+      });
+  });
+});

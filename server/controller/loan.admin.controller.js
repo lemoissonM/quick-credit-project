@@ -63,3 +63,36 @@ export function getSpecificLoan(req, res) {
     });
   }
 }
+export function approveLoan(req, res) {
+  const loan = getSingleLoan(req.params.loanID);
+  if (loan) {
+    if (loan.status === 'approved') {
+      res.status(403).send({
+        status: 403,
+        error: 'you are not authorised to modify the status of this loan',
+      });
+    } else if (req.body.status === 'approved') {
+      loan.status = 'approved';
+      res.status(200).send({
+        status: 200,
+        data: updateLoan(loan),
+      });
+    } else if (req.body.status === 'rejected') {
+      loan.status = 'rejected';
+      res.status(200).send({
+        status: 200,
+        data: updateLoan(loan),
+      });
+    } else {
+      res.status(400).send({
+        status: 400,
+        error: 'Please provide a valid status, the status should be either (approved) or (rejected)',
+      });
+    }
+  } else {
+    res.status(404).send({
+      status: 404,
+      error: 'We cannot find a loan with such an ID, please check the loan ID and try again',
+    });
+  }
+}
