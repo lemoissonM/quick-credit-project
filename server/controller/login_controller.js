@@ -1,17 +1,23 @@
 /* eslint-disable linebreak-style */
 import { getSingleUser } from '../helper/userHelper';
 
+const wrongDataStatus = (res, message) => {
+  res.status(400).send({
+    status: 400,
+    message,
+  });
+};
+
 export default function login(req, res) {
-  if (!req.body.email) {
+  if (req.body.email === undefined) {
     res.status(400).send({
-      success: 'false',
-      message: 'the email is required',
+      status: 400,
+      message: 'the email is required, please provide it before proceeding',
     });
-  } else if (!req.body.password) {
-    res.status(400).send({
-      success: 'false',
-      message: 'the password is required',
-    });
+  } else if (req.body.password === undefined) {
+    wrongDataStatus(res, 'the password is required, please provide it before proceeding');
+  } else if (!req.body.password || !req.body.email) {
+    wrongDataStatus(res, 'lease provide correct parameters, (email and password) ensure they are not emppty');
   } else {
     const user = getSingleUser(req.body.email);
     if (user[0]) {
@@ -23,14 +29,14 @@ export default function login(req, res) {
         });
       } else {
         res.status(401).send({
-          status: 400,
-          message: 'wrong email or password',
+          status: 401,
+          message: 'You provided a wrong email or password',
         });
       }
     } else {
       res.status(401).send({
-        status: 400,
-        message: 'wrong email or password',
+        status: 401,
+        message: 'You provided a wrong email or password',
       });
     }
   }
