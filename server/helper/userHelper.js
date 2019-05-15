@@ -18,7 +18,12 @@ export function checkTokenAdmin(token) {
   const result = users.findIndex(user => (user.isAdmin && user.token === token));
   return result;
 }
+<<<<<<< HEAD
 export function checkLoan(id, email) {
   const result = users.findIndex(user => ((user.email === email && user.id === id) || (user.id === id && user.isAdmin)));
+=======
+export function checkLoan(id) {
+  const result = users.find(user => ((user.id === id) || (user.id === id && user.isAdmin)));
+>>>>>>> feature(new-loan-endpoint) add a new loan application [starts #165993306]
   return result;
 }
