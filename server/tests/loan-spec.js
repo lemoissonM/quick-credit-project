@@ -107,3 +107,53 @@ describe('Get all  loans specs', () => {
       });
   });
 });
+describe('Get current loans spec', () => {
+  it('it should return the currents loans', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/?status=approved&repaid=false')
+      .set('Authorization', `Bearer ${users[0].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(200);
+        console.log(res.body);
+        done();
+      });
+  });
+  it('it should return the current loans of lemoisson@quick-credit.com', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/user/lemoisson@quick-credit.com/?status=approved&repaid=false')
+      .set('Authorization', `Bearer ${users[1].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(1).to.be.equal(res.body.data.length);
+        console.log(res.body);
+        done();
+      });
+  });
+});
+describe('Get all repaid loans specs', () => {
+  it('it should return all the repaid loans', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/?status=approved&repaid=true')
+      .set('Authorization', `Bearer ${users[0].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(200);
+        console.log(res.body);
+        done();
+      });
+  });
+  it('it should return all the repaid loans for a specific user', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/user/lemoisson@quick-credit.com/?status=approved&repaid=true')
+      .set('Authorization', `Bearer ${users[0].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(200);
+        chai.expect(1).to.be.equal(res.body.data.length);
+        console.log(res.body);
+        done();
+      });
+  });
+});

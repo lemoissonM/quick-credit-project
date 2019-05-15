@@ -1,6 +1,7 @@
 /* eslint-disable linebreak-style */
 import {
   addUserLoan, getLoanCount, getPendingLoans, getAllLoans, getCurrentLoans,
+  getRepaidLoans,
 } from '../helper/loansHelper';
 import { getSingleUser } from '../helper/userHelper';
 import { checkSpaces } from '../helper/string_check';
@@ -13,7 +14,12 @@ export function getUserLoan(req, res) {
   if (status === 'approved' && repaid === 'false') {
     res.status(200).send({
       status: 200,
-      data: getCurrentLoans(req.params.email),
+      data: getCurrentLoans(email),
+    });
+  } else if (status === 'approved' && repaid === 'true') {
+    res.status(200).send({
+      status: 200,
+      data: getRepaidLoans(email),
     });
   } else if ((checkSpaces(status) && checkSpaces(repaid)) || (!status && !repaid)) {
     res.status(200).send({
