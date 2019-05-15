@@ -1,10 +1,9 @@
 /* eslint-disable linebreak-style */
 import {
   addUserLoan, getLoanCount, getPendingLoans, getAllLoans, getCurrentLoans,
-  getRepaidLoans,
+  getRepaidLoans, getDeniedLoans,
 } from '../helper/loansHelper';
 import { getSingleUser } from '../helper/userHelper';
-import { checkSpaces } from '../helper/string_check';
 
 const Loan = require('../model/Loan');
 
@@ -21,7 +20,17 @@ export function getUserLoan(req, res) {
       status: 200,
       data: getRepaidLoans(email),
     });
-  } else if ((checkSpaces(status) && checkSpaces(repaid)) || (!status && !repaid)) {
+  } else if (status === 'pending') {
+    res.status(200).send({
+      status: 200,
+      data: getPendingLoans(),
+    });
+  } else if (status === 'rejected') {
+    res.status(200).send({
+      status: 200,
+      data: getDeniedLoans(),
+    });
+  } else if (!repaid && !status) {
     res.status(200).send({
       status: 200,
       data: getAllLoans(email),
