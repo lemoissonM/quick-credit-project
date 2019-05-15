@@ -19,9 +19,17 @@ export function checkTokenAdmin(token) {
   return result;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 export function checkLoan(id, email) {
   const result = users.findIndex(user => ((user.email === email && user.id === id) || (user.id === id && user.isAdmin)));
 =======
+=======
+export function checkLoanEmail(id, email) {
+  const result = users.findIndex(user => ((user.email === email && user.id === id) || (user.id === id && user.isAdmin)));
+  console.log(`id ${id} email ${email} result ${result} `);
+  return result;
+}
+>>>>>>> feature(get-all-loans) Creates endpoints to get all loans [starts #166023103]
 export function checkLoan(id) {
   const result = users.find(user => ((user.id === id) || (user.id === id && user.isAdmin)));
 >>>>>>> feature(new-loan-endpoint) add a new loan application [starts #165993306]
