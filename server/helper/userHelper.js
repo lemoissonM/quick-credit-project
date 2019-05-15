@@ -1,5 +1,9 @@
 /* eslint-disable linebreak-style */
 import { users } from '../model/user';
+<<<<<<< HEAD
+=======
+import { getSingleLoan } from './loansHelper';
+>>>>>>> feature(add-repayment-endpoint) creates the endppoint to add repayment [starts #166024906]
 
 
 export const getUsersCount = users.length;
@@ -35,3 +39,16 @@ export function checkLoan(id) {
 >>>>>>> feature(new-loan-endpoint) add a new loan application [starts #165993306]
   return result;
 }
+<<<<<<< HEAD
+=======
+
+export function checkUserLoan(id, loanID) {
+  const loan = getSingleLoan(loanID);
+  if (loan) {
+    const email = loan.userMail;
+    const result = users.findIndex(user => ((user.email === email && user.id === id) || (user.id === id && user.isAdmin)));
+    /* console.log(`id ${id} email ${email} result ${result} `); */
+    return result;
+  } return -2;
+}
+>>>>>>> feature(add-repayment-endpoint) creates the endppoint to add repayment [starts #166024906]

@@ -10,7 +10,7 @@ export function validateToken(token) {
 export function tokenError(res) {
   return res.status(401).json({
     status: 401,
-    message: 'The authorization Token provided is not valid, please provide a valid token in the authorization header',
+    message: 'The authorization Token provided is not valid for this request, please provide a valid token in the authorization header',
   });
 }
 export function TokenUnauthorized(res) {
