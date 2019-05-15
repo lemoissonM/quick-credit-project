@@ -30,6 +30,7 @@ describe('login', () => {
         done();
       });
   });
+
   it('should return a 401 status when wrong mail or password provided', (done) => {
     chai.request(app)
       .post('/api/v1/auth/signin')
@@ -39,6 +40,7 @@ describe('login', () => {
         done();
       });
   });
+
   it('should return a 200 status and user data when everything is okey', (done) => {
     chai.request(app)
       .post('/api/v1/auth/signin')
