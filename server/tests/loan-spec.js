@@ -209,3 +209,39 @@ describe('Get all rejected  loans specs', () => {
       });
   });
 });
+
+describe('Get single loan spec', () => {
+  it('it should return the loan with id=0', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/0')
+      .set('Authorization', `Bearer ${users[1].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(200);
+        console.log(res.body);
+        done();
+      });
+  });
+  it('it should an error since a string is provided as loan id', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/lee')
+      .set('Authorization', `Bearer ${users[1].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(400);
+        console.log(res.body);
+        done();
+      });
+  });
+  it('it should return a 404 status since the loan id 1500 doesn\'t exist', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/1500')
+      .set('Authorization', `Bearer ${users[1].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(404);
+
+        done();
+      });
+  });
+});

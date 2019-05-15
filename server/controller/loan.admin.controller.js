@@ -4,7 +4,7 @@ import {
   updateLoan, getPendingLoans, getDeniedLoans,
 } from '../helper/loansHelper';
 
-export default function getloans(req, res) {
+export function getloans(req, res) {
   let { status, repaid } = req.query;
   if (status) { status = status.trim(); }
   if (repaid) { repaid = repaid.trim(); }
@@ -37,6 +37,29 @@ export default function getloans(req, res) {
     res.status(404).send({
       status: 404,
       message: 'Unable to access this endpoint, please verify your query parameters and make sure they are corrects',
+    });
+  }
+}
+
+export function getSpecificLoan(req, res) {
+  const { loanID } = req.params;
+  if (loanID && !isNaN(loanID)) {
+    const loan = getSingleLoan(loanID);
+    if (loan) {
+      res.status(200).send({
+        status: 200,
+        data: loan,
+      });
+    } else {
+      res.status(404).send({
+        status: 404,
+        error: 'We cannot find a loan with such an ID, please check the loan ID and try again',
+      });
+    }
+  } else {
+    res.status(400).send({
+      status: 400,
+      error: 'You should provide a valid loan ID, it should be a number',
     });
   }
 }
