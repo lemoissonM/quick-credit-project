@@ -41,12 +41,12 @@ describe('Signup', () => {
       .post('/api/v1/auth/signup')
       .send(loginDetails)
       .end((err, res) => {
-        res.should.have.status(401);
+        res.should.have.status(409);
         console.log(res.body.message);
         done();
       });
   });
-  it('should return a 200 status and user data when everything is okey', (done) => {
+  it('should return a 201 status and user data when everything is okey', (done) => {
     chai.request(app)
       .post('/api/v1/auth/signup')
       .send(loginDetailsTrue)

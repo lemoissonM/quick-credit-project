@@ -14,19 +14,19 @@ export function validateToken(token) {
 
 export function tokenError(res) {
   return res.status(401).json({
-    success: false,
-    message: 'The authorization Token provided is not valid',
+    status: 401,
+    message: 'The Token you provided in the authorization header is not a valid token, please check it and provide a correct one',
   });
 }
 export function TokenUnauthorized(res) {
-  return res.status(401).json({
-    success: false,
-    message: 'You are not authorized to make this request',
+  return res.status(403).json({
+    status: 403,
+    message: 'You don\'t have enough permissions to make this request',
   });
 }
 export function notValidToken(res) {
   return res.status(401).json({
-    success: false,
-    message: 'The Token provided is not valid',
+    status: 401,
+    message: 'The Token you provided in the authorization header is not a valid token, please check it and provide a correct one',
   });
 }
