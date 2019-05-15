@@ -18,7 +18,7 @@ describe('verify user', () => {
       .end((err, res) => { // when we get a response from the endpoint
         // in other words,
         // the res object should have a status of 201
-        res.should.have.status(401);
+        res.should.have.status(403);
         console.log(res.body.message);
         done();
       });

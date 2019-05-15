@@ -1,12 +1,20 @@
 /* eslint-disable linebreak-style */
 import {
-  addUserLoan, getLoanCount, getPendingLoans,
+  addUserLoan, getLoanCount, getPendingLoans, getAllLoans,
 } from '../helper/loansHelper';
 import { getSingleUser } from '../helper/userHelper';
 
 const Loan = require('../model/Loan');
 
-export default function addNewLoan(req, res) {
+export function getUserLoan(req, res) {
+  const { email } = req.params;
+  res.status(200).send({
+    status: 200,
+    data: getAllLoans(email),
+  });
+}
+
+export function addNewLoan(req, res) {
   let errorMessage = '';
   let status = 400;
   const { userMail } = req;

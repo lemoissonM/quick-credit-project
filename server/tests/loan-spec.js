@@ -81,3 +81,29 @@ describe('Post a new loan', () => {
       });
   });
 });
+
+describe('Get all  loans specs', () => {
+  it('it should return all loans', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/')
+      .set('Authorization', `Bearer ${users[0].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(200);
+        console.log(res.body);
+        done();
+      });
+  });
+  it('it should return all loans for a specific user', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/user/lemoisson@quick-credit.com/')
+      .set('Authorization', `Bearer ${users[0].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(7).to.be.equal(res.body.data.length);
+        console.log(res.body);
+        done();
+      });
+  });
+});

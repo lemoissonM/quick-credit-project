@@ -19,6 +19,11 @@ export function checkTokenAdmin(token) {
   const result = users.findIndex(user => (user.isAdmin && user.token === token));
   return result;
 }
+export function checkLoanEmail(id, email) {
+  const result = users.findIndex(user => ((user.email === email && user.id === id) || (user.id === id && user.isAdmin)));
+  console.log(`id ${id} email ${email} result ${result} `);
+  return result;
+}
 export function checkLoan(id) {
   const result = users.find(user => ((user.id === id) || (user.id === id && user.isAdmin)));
   return result;
