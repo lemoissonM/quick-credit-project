@@ -18,6 +18,16 @@ export default function getloans(req, res) {
       status: 200,
       data: getRepaidLoans(),
     });
+  } else if (status === 'pending') {
+    res.status(200).send({
+      status: 200,
+      data: getPendingLoans(),
+    });
+  } else if (status === 'rejected') {
+    res.status(200).send({
+      status: 200,
+      data: getDeniedLoans(),
+    });
   } else if (!status && !repaid) {
     res.status(200).send({
       status: 200,

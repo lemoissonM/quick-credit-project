@@ -157,3 +157,55 @@ describe('Get all repaid loans specs', () => {
       });
   });
 });
+describe('Get all pending loans specs', () => {
+  it('it should return all the pending loans for a specific user', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/user/lemoisson@quick-credit.com/?status=pending')
+      .set('Authorization', `Bearer ${users[0].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(200);
+        chai.expect(6).to.be.equal(res.body.data.length);
+        console.log(res.body);
+        done();
+      });
+  });
+  it('it should return all the pending loans for a specific user', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/?status=pending')
+      .set('Authorization', `Bearer ${users[0].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(200);
+        chai.expect(6).to.be.equal(res.body.data.length);
+        console.log(res.body);
+        done();
+      });
+  });
+});
+describe('Get all rejected  loans specs', () => {
+  it('it should return all the rejected loans for a specific user', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/user/lemoisson@quick-credit.com/?status=rejected')
+      .set('Authorization', `Bearer ${users[0].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(200);
+        chai.expect(0).to.be.equal(res.body.data.length);
+        console.log(res.body);
+        done();
+      });
+  });
+  it('it should return all the rejected loans for a specific user', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/?status=rejected')
+      .set('Authorization', `Bearer ${users[0].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(200);
+        chai.expect(0).to.be.equal(res.body.data.length);
+        console.log(res.body);
+        done();
+      });
+  });
+});
