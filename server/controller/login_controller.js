@@ -9,23 +9,24 @@ const wrongDataStatus = (res, message) => {
 };
 
 export default function login(req, res) {
-  if (req.body.email === undefined) {
+  const { email, password } = req.body;
+  if (email === undefined) {
     res.status(400).send({
       status: 400,
       message: 'the email is required, please provide it before proceeding',
     });
-  } else if (req.body.password === undefined) {
+  } else if (password === undefined) {
     wrongDataStatus(res, 'the password is required, please provide it before proceeding');
-  } else if (!req.body.password || !req.body.email) {
+  } else if (!password || !email) {
     res.status(401).send({
       status: 401,
       message: 'You provided a wrong email or password',
     });
   } else {
-    const user = getSingleUser(req.body.email);
-    if (user[0]) {
-      if (user[0].validatePassword(req.body.password)) {
-        const userN = user[0];
+    const [user] = getSingleUser(email);
+    if (user) {
+      if (user.validatePassword(password)) {
+        const userN = user;
         res.status(200).json({
           status: 200,
           data: userN.toJSON(),

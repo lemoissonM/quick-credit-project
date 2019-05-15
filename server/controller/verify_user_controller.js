@@ -3,10 +3,9 @@ const { updateUser, getSingleUser } = require('../helper/userHelper');
 
 // Parse incoming requests data
 export default function verify(req, res) {
-  if (req.params.userEmail) {
-    const email = req.params.userEmail;
-
-    const user = getSingleUser(email)[0];
+  const [email] = req.params;
+  if (email) {
+    const [user] = getSingleUser(email);
     if (user) {
       user.setStatus('verified');
       const newUser = updateUser(user);
