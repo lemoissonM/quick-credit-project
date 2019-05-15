@@ -17,7 +17,10 @@ export default function login(req, res) {
   } else if (req.body.password === undefined) {
     wrongDataStatus(res, 'the password is required, please provide it before proceeding');
   } else if (!req.body.password || !req.body.email) {
-    wrongDataStatus(res, 'lease provide correct parameters, (email and password) ensure they are not emppty');
+    res.status(401).send({
+      status: 401,
+      message: 'You provided a wrong email or password',
+    });
   } else {
     const user = getSingleUser(req.body.email);
     if (user[0]) {
