@@ -17,10 +17,10 @@ describe('verify user', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(403);
-        console.log(res.body.message);
         done();
       });
   });
+
   it('Bad authorization token provided', (done) => {
     chai.request(app)
       .patch('/api/v1/users/leol@gmail.com/verify')
@@ -28,42 +28,31 @@ describe('verify user', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(401);
-        console.log(res.body.message);
         done();
       });
   });
+
   it('No authorization token provided', (done) => {
     chai.request(app)
       .patch('/api/v1/users/leol@gmail.com/verify')
       .send('')
       .end((err, res) => {
         res.should.have.status(401);
-        console.log(res.body.message);
         done();
       });
   });
-  it('No authorization token provided', (done) => {
-    chai.request(app)
-      .patch('/api/v1/users/leol@gmail.com/verify')
-      .set('Authorization', 'Bearer ')
-      .send('')
-      .end((err, res) => {
-        res.should.have.status(401);
-        console.log(res.body.message);
-        done();
-      });
-  });
+
   it('it should not verify user if mail does not exist', (done) => {
     chai.request(app)
       .patch('/api/v1/users/leol@gmail.com/verify')
       .set('Authorization', `Bearer ${users.users[0].token}`)
       .send('')
-      .end((err, res) => { 
+      .end((err, res) => {
         res.should.have.status(404);
-        console.log(res.body.message);
         done();
       });
   });
+
   it('should return a 200 and new userdata when email exists', (done) => {
     chai.request(app)
       .patch('/api/v1/users/lemoisson@quick-credit.com/verify')
@@ -71,6 +60,33 @@ describe('verify user', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
+        done();
+        closeServer();
+      });
+  });
+});
+const userData = {
+  newPassword: 'lemoisson',
+};
+describe('Reset a password', () => {
+  it('it should change the password to lemoisson', (done) => {
+    chai.request(app)
+      .patch('/api/v1/users/lemoisson@quick-credit.com/resetPass')
+      .send(userData)
+      .end((err, res) => {
+        res.should.have.status(200);
+        chai.expect(users.users[1].password).to.equal('lemoisson');
+        console.log(res.body.message);
+        done();
+      });
+  });
+
+  it('should return a 400 status since data are not present', (done) => {
+    chai.request(app)
+      .patch('/api/v1/users/lemoisson@gmail.com/resetPass')
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(400);
         console.log(res.body);
         done();
         closeServer();

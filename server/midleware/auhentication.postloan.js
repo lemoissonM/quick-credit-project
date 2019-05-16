@@ -15,15 +15,24 @@ export default function checkToken(req, res, next) {
         return notValidToken(res);
       }
       req.decoded = decoded;
-      const { email } = checkLoan(req.decoded.id);
-      if (email) {
-        req.userMail = email;
-        next();
+      const resultUser = checkLoan(req.decoded.id);
+      if (resultUser) {
+        const { email } = resultUser;
+        if (email) {
+          req.userMail = email;
+          next();
+        } else {
+          res.status(403)
+            .send({
+              status: 403,
+              message: 'You are not authorized to acces this resource',
+            });
+        }
       } else {
-        res.status(404)
+        res.status(403)
           .send({
-            status: 404,
-            message: 'We don\'t have a user with such a token, this user doesn\'t exist',
+            status: 403,
+            message: 'You are not authorized to acces this resource',
           });
       }
     });

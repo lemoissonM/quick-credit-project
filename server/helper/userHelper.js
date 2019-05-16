@@ -21,8 +21,8 @@ export function checkTokenAdmin(token) {
 }
 
 export function checkLoanEmail(id, email) {
-  const result = users.findIndex(user => ((user.email === email && user.id === id) || (user.id === id && user.isAdmin)));
-  console.log(`id ${id} email ${email} result ${result} `);
+  const result = users.findIndex(user => ((user.email === email && user.id === id)
+  || (user.id === id && user.isAdmin)));
   return result;
 }
 export function checkLoan(id) {
@@ -34,8 +34,8 @@ export function checkUserLoan(id, loanID) {
   const loan = getSingleLoan(loanID);
   if (loan) {
     const email = loan.userMail;
-    const result = users.findIndex(user => ((user.email === email && user.id === id) || (user.id === id && user.isAdmin)));
-    /* console.log(`id ${id} email ${email} result ${result} `); */
+    const result = users.findIndex(user => ((user.email === email && user.id === id)
+     || (user.id === id && user.isAdmin)));
     return result;
   } return -2;
 }

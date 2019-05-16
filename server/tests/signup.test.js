@@ -15,6 +15,22 @@ const loginDetails = {
   address: 'Rubavu',
   city: 'Gisenyi',
 };
+const loginDetailsUndefinned = {
+  email: 'lemoisson@quick-credit.com',
+  password: '12345678',
+  fname: 'lemoissn',
+  country: 'Republic of Rwanda ',
+  address: 'Rubavu',
+  city: 'Gisenyi',
+};
+const loginDetailsInvalidMail = {
+  email: 'lemoissonquick-credit.com',
+  password: '12345678',
+};
+const loginDetailsInvalidPassword = {
+  email: 'lemoissonquick-credit.com',
+  password: '1234',
+};
 const loginDetailsTrue = {
   email: 'lemoissonM@quick-credit.com',
   password: '12345678',
@@ -31,7 +47,6 @@ describe('Signup', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(400);
-        console.log(res.body.message);
         done();
       });
   });
@@ -42,10 +57,11 @@ describe('Signup', () => {
       .send(loginDetails)
       .end((err, res) => {
         res.should.have.status(409);
-        console.log(res.body.message);
+
         done();
       });
   });
+
   it('should return a 200 status and user data when everything is okey', (done) => {
     chai.request(app)
       .post('/api/v1/auth/signup')
@@ -53,9 +69,42 @@ describe('Signup', () => {
       .end((err, res) => {
         res.should.have.status(201);
         chai.expect(res.body.data.email).equal('lemoissonM@quick-credit.com');
-        console.log(res.body.data);
         closeServer();
-        done();      
+        done();
+      });
+  });
+
+
+  it('should not create account with invalid mail', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signup')
+      .send(loginDetailsInvalidMail)
+      .end((err, res) => {
+        res.should.have.status(400);
+        closeServer();
+        done();
+      });
+  });
+
+  it('should not create account with a password having less than 8 characters', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signup')
+      .send(loginDetailsInvalidPassword)
+      .end((err, res) => {
+        res.should.have.status(400);
+        closeServer();
+        done();
+      });
+  });
+
+  it('should not create account with undefinned parameters', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signup')
+      .send(loginDetailsUndefinned)
+      .end((err, res) => {
+        res.should.have.status(400);
+        closeServer();
+        done();
       });
   });
 });

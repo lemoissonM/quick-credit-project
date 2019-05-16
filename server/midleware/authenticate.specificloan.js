@@ -15,7 +15,8 @@ export default function checkToken(req, res, next) {
         return notValidToken(res);
       }
       req.decoded = decoded;
-      if (checkUserLoan(req.decoded.id, req.params.loanID) >= 0 || checkUserLoan(req.decoded.id, req.params.loanID) === -2) { next(); } else {
+      if (checkUserLoan(req.decoded.id, req.params.loanID) >= 0
+      || checkUserLoan(req.decoded.id, req.params.loanID) === -2) { next(); } else {
         return tokenError(res);
       }
     });

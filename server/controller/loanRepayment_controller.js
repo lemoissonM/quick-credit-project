@@ -5,37 +5,48 @@ import { getLoanRepayment, addNewLoanRepayment, getRepaymentCount } from '../hel
 
 export function addPayment(req, res) {
   const loan = getSingleLoan(req.params.loanID);
+  const { amount } = req.body;
+
   if (loan) {
     if (!loan.isRepaid()) {
-      if (req.body.amount && !Number.isNaN(req.body.amount)) {
-        const tenorCovered = Number.parseFloat(req.body.amount) / loan.getPaymentInstallment();
-        const newRepayment = new LoanRepayment(getRepaymentCount(),
-          loan.getID(), req.body.amount, tenorCovered);
-        res.status(201).send({
-          status: 201,
-          data: addNewLoanRepayment(newRepayment),
-        });
+      if (loan.status === 'approved') {
+        if (amount && !Number.isNaN(amount) && amount > 0) {
+          const tenorCovered = Number.parseFloat(amount) / loan.getPaymentInstallment();
+          const newRepayment = new LoanRepayment(getRepaymentCount(),
+            loan.getID(), amount, tenorCovered);
+          res.status(201).send({
+            status: 201,
+            data: addNewLoanRepayment(newRepayment),
+          });
+        } else {
+          res.status(400).send({
+            status: 400,
+            message: 'Amount should be a positive number',
+          });
+        }
       } else {
-        res.status(400).send({
-          status: 400,
-          message: 'Please provide a valid amount, it should be a number',
+        res.status(403).send({
+          status: 403,
+          message: 'You are not authorized to add repayment for this loan',
         });
       }
     } else {
       res.status(403).send({
         status: 403,
-        message: 'You can\'t add a repayment transaction to this loan because it is completely repaid',
+        message: 'Your loan is already fully paid',
       });
     }
   } else {
     res.status(404).send({
       status: 404,
-      message: 'There is no loan with such an ID, check the loan ID and try again',
+      message: 'No loan found for the given ID',
     });
   }
 }
+
 export function getRepayments(req, res) {
   const loans = getLoanRepayment(req.params.loanID);
+
   if (loans) {
     res.status(200).send({
       status: 200,
@@ -44,7 +55,7 @@ export function getRepayments(req, res) {
   } else {
     res.status(404).send({
       status: 404,
-      message: 'We cannot find a loan with such an ID, please check the loan ID and retry again',
+      message: 'No loan found for the given ID',
     });
   }
 }

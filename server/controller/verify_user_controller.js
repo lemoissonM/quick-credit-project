@@ -3,10 +3,9 @@ const { updateUser, getSingleUser } = require('../helper/userHelper');
 
 // Parse incoming requests data
 export function verify(req, res) {
-  if (req.params.userEmail) {
-    const email = req.params.userEmail;
-
-    const user = getSingleUser(email)[0];
+  const { userEmail } = req.params;
+  if (userEmail) {
+    const [user] = getSingleUser(userEmail);
     if (user) {
       user.setStatus('verified');
       const newUser = updateUser(user);
@@ -16,8 +15,8 @@ export function verify(req, res) {
         data: newUser,
       });
     } else {
-      res.status(403).send({
-        status: 403,
+      res.status(404).send({
+        status: 404,
         message: 'This email does not exist',
       });
     }
@@ -29,10 +28,13 @@ export function verify(req, res) {
   }
 }
 export function resetPassword(req, res) {
-  if (req.body.newPassword) {
-    const user = getSingleUser(req.params.userEmail)[0];
+  const { userEmail } = req.params;
+  const { newPassword } = req.body;
+
+  if (newPassword) {
+    const [user] = getSingleUser(userEmail);
     if (user) {
-      user.password = req.body.newPassword;
+      user.password = newPassword;
       const result = updateUser(user);
       if (result) {
         res.status(200).send({

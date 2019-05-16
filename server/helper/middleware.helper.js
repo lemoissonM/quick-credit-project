@@ -10,18 +10,18 @@ export function validateToken(token) {
 export function tokenError(res) {
   return res.status(401).json({
     status: 401,
-    message: 'The authorization Token provided is not valid for this request, please provide a valid token in the authorization header',
+    message: 'The authorization token provided is invalid',
   });
 }
 export function TokenUnauthorized(res) {
   return res.status(403).json({
     status: 403,
-    message: 'You are forbiden to make this request, you don\'t have enough permission, please contact your administrator for more details',
+    message: 'You are not authorized to access this resource',
   });
 }
 export function notValidToken(res) {
   return res.status(401).json({
     status: 401,
-    message: 'The authorization Token provided is not valid, please provide a valid token in the authorization header',
+    message: 'The authorization token is not valid',
   });
 }

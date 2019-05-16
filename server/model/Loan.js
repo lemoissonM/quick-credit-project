@@ -26,10 +26,6 @@ export class Loan {
     this.status = status;
   }
 
-  getUserMail() {
-    return this.userMail;
-  }
-
   getPaymentInstallment() {
     return this.paymentInstallment;
   }
@@ -50,16 +46,9 @@ export class Loan {
     this.balance = balance;
     if (balance < 0) {
       this.setRepaidStatus(true);
+      this.setStatus('repaid');
       this.balance = 0;
     }
-  }
-
-  getInterest() {
-    return this.interest;
-  }
-
-  getCreatedOn() {
-    return this.createdOn;
   }
 }
 

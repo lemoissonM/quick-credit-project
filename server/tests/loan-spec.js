@@ -25,6 +25,7 @@ const FakeUserLoanRequestData = {
   tenor: 12,
   amount: 2000,
 };
+
 describe('Post a new loan', () => {
   it('it should a 400 status because of Undefinned values', (done) => {
     chai.request(app)
@@ -33,20 +34,20 @@ describe('Post a new loan', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(400);
-        console.log(res.body);
         done();
       });
   });
+
   it('it should a 401 status because the token is not defined', (done) => {
     chai.request(app)
       .post('/api/v1/loans/')
       .send('')
       .end((err, res) => {
         res.should.have.status(401);
-        console.log(res.body);
         done();
       });
   });
+
   it('it should a 401 status because wrong token is provided', (done) => {
     chai.request(app)
       .post('/api/v1/loans/')
@@ -54,10 +55,10 @@ describe('Post a new loan', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(401);
-        console.log(res.body);
         done();
       });
   });
+
   it('it should return the new loan data', (done) => {
     chai.request(app)
       .post('/api/v1/loans/')
@@ -65,10 +66,11 @@ describe('Post a new loan', () => {
       .send(newLoanCorrectData)
       .end((err, res) => {
         res.should.have.status(201);
-        console.log(res.body);
+
         done();
       });
   });
+
   it('it should return 403 status since the user has a current loan', (done) => {
     chai.request(app)
       .post('/api/v1/loans/')
@@ -76,7 +78,7 @@ describe('Post a new loan', () => {
       .send(duplicateLoanRequestData)
       .end((err, res) => {
         res.should.have.status(403);
-        console.log(res.body);
+
         done();
       });
   });
@@ -90,10 +92,11 @@ describe('Get all  loans specs', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
-        console.log(res.body);
+
         done();
       });
   });
+
   it('it should return all loans for a specific user', (done) => {
     chai.request(app)
       .get('/api/v1/loans/user/lemoisson@quick-credit.com/')
@@ -102,7 +105,7 @@ describe('Get all  loans specs', () => {
       .end((err, res) => {
         res.should.have.status(200);
         expect(7).to.be.equal(res.body.data.length);
-        console.log(res.body);
+
         done();
       });
   });
@@ -115,10 +118,11 @@ describe('Get current loans spec', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
-        console.log(res.body);
+
         done();
       });
   });
+
   it('it should return the current loans of lemoisson@quick-credit.com', (done) => {
     chai.request(app)
       .get('/api/v1/loans/user/lemoisson@quick-credit.com/?status=approved&repaid=false')
@@ -127,11 +131,12 @@ describe('Get current loans spec', () => {
       .end((err, res) => {
         res.should.have.status(200);
         expect(1).to.be.equal(res.body.data.length);
-        console.log(res.body);
+
         done();
       });
   });
 });
+
 describe('Get all repaid loans specs', () => {
   it('it should return all the repaid loans', (done) => {
     chai.request(app)
@@ -140,10 +145,11 @@ describe('Get all repaid loans specs', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
-        console.log(res.body);
+
         done();
       });
   });
+
   it('it should return all the repaid loans for a specific user', (done) => {
     chai.request(app)
       .get('/api/v1/loans/user/lemoisson@quick-credit.com/?status=approved&repaid=true')
@@ -152,7 +158,7 @@ describe('Get all repaid loans specs', () => {
       .end((err, res) => {
         res.should.have.status(200);
         chai.expect(1).to.be.equal(res.body.data.length);
-        console.log(res.body);
+
         done();
       });
   });
@@ -166,10 +172,11 @@ describe('Get all pending loans specs', () => {
       .end((err, res) => {
         res.should.have.status(200);
         chai.expect(6).to.be.equal(res.body.data.length);
-        console.log(res.body);
+
         done();
       });
   });
+
   it('it should return all the pending loans for a specific user', (done) => {
     chai.request(app)
       .get('/api/v1/loans/?status=pending')
@@ -178,7 +185,7 @@ describe('Get all pending loans specs', () => {
       .end((err, res) => {
         res.should.have.status(200);
         chai.expect(6).to.be.equal(res.body.data.length);
-        console.log(res.body);
+
         done();
       });
   });
@@ -192,10 +199,11 @@ describe('Get all rejected  loans specs', () => {
       .end((err, res) => {
         res.should.have.status(200);
         chai.expect(0).to.be.equal(res.body.data.length);
-        console.log(res.body);
+
         done();
       });
   });
+
   it('it should return all the rejected loans for a specific user', (done) => {
     chai.request(app)
       .get('/api/v1/loans/?status=rejected')
@@ -204,7 +212,7 @@ describe('Get all rejected  loans specs', () => {
       .end((err, res) => {
         res.should.have.status(200);
         chai.expect(0).to.be.equal(res.body.data.length);
-        console.log(res.body);
+
         done();
       });
   });
@@ -218,10 +226,11 @@ describe('Get single loan spec', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
-        console.log(res.body);
+
         done();
       });
   });
+
   it('it should an error since a string is provided as loan id', (done) => {
     chai.request(app)
       .get('/api/v1/loans/lee')
@@ -229,10 +238,11 @@ describe('Get single loan spec', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(400);
-        console.log(res.body);
+
         done();
       });
   });
+
   it('it should return a 404 status since the loan id 1500 doesn\'t exist', (done) => {
     chai.request(app)
       .get('/api/v1/loans/1500')
@@ -245,6 +255,7 @@ describe('Get single loan spec', () => {
       });
   });
 });
+
 describe('approve or reject loan', () => {
   it('it should a 404 status because for not found loan id', (done) => {
     chai.request(app)
@@ -253,10 +264,11 @@ describe('approve or reject loan', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(404);
-        console.log(res.body);
+
         done();
       });
   });
+
   it('it should a 403 status when loan already approved', (done) => {
     chai.request(app)
       .patch('/api/v1/loans/0')
@@ -264,10 +276,11 @@ describe('approve or reject loan', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(403);
-        console.log(res.body);
+
         done();
       });
   });
+
   it('it should a 200 status and loan data when everything is okay', (done) => {
     const requestString = {
       status: 'approved',
@@ -278,7 +291,7 @@ describe('approve or reject loan', () => {
       .send(requestString)
       .end((err, res) => {
         res.should.have.status(200);
-        console.log(res.body);
+
         done();
       });
   });

@@ -10,24 +10,14 @@ export class LoanRepayment {
     this.tenorCovered = tenorCovered;
   }
 
-  getTenorCovered() {
-    return this.tenorCovered;
-  }
 
   getLoanId() {
     return this.loanId;
   }
 
-  getRepaymentID() {
-    return this.id;
-  }
 
   getAmount() {
     return this.amount;
-  }
-
-  getDate() {
-    return this.createdOn;
   }
 }
 // defining a basic datastructure to contain loan repayments

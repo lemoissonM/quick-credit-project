@@ -17,7 +17,7 @@ export default function checkToken(req, res, next) {
       }
       req.decoded = decoded;
       if (checkLoanEmail(req.decoded.id, req.params.email) >= 0) { next(); } else {
-        return TokenForbidden(res);
+        return TokenUnauthorized(res);
       }
     });
   } else {

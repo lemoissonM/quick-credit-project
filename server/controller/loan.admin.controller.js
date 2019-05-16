@@ -6,8 +6,9 @@ import {
 
 export function getloans(req, res) {
   let { status, repaid } = req.query;
-  if (status) { status = status.trim(); }
-  if (repaid) { repaid = repaid.trim(); }
+  if (status) { status = status.trim(); status = status.toLowerCase(); }
+  if (repaid) { repaid = repaid.trim(); repaid = repaid.toLowerCase(); }
+
   if (status === 'approved' && repaid === 'false') {
     res.status(200).send({
       status: 200,
@@ -36,13 +37,14 @@ export function getloans(req, res) {
   } else {
     res.status(404).send({
       status: 404,
-      message: 'Unable to access this endpoint, please verify your query parameters and make sure they are corrects',
+      message: 'Nothing found at this resource',
     });
   }
 }
 
 export function getSpecificLoan(req, res) {
   const { loanID } = req.params;
+
   if (loanID && !isNaN(loanID)) {
     const loan = getSingleLoan(loanID);
     if (loan) {
@@ -53,31 +55,33 @@ export function getSpecificLoan(req, res) {
     } else {
       res.status(404).send({
         status: 404,
-        error: 'We cannot find a loan with such an ID, please check the loan ID and try again',
+        error: 'No loan found for the given ID',
       });
     }
   } else {
     res.status(400).send({
       status: 400,
-      error: 'You should provide a valid loan ID, it should be a number',
+      error: 'Provide a valid loan id',
     });
   }
 }
 export function approveLoan(req, res) {
   const loan = getSingleLoan(req.params.loanID);
+  const { status } = req.body;
+
   if (loan) {
     if (loan.status === 'approved') {
       res.status(403).send({
         status: 403,
-        error: 'you are not authorised to modify the status of this loan',
+        error: 'You are not authorized to acces this loan status',
       });
-    } else if (req.body.status === 'approved') {
+    } else if (status === 'approved') {
       loan.status = 'approved';
       res.status(200).send({
         status: 200,
         data: updateLoan(loan),
       });
-    } else if (req.body.status === 'rejected') {
+    } else if (status === 'rejected') {
       loan.status = 'rejected';
       res.status(200).send({
         status: 200,
@@ -86,13 +90,13 @@ export function approveLoan(req, res) {
     } else {
       res.status(400).send({
         status: 400,
-        error: 'Please provide a valid status, the status should be either (approved) or (rejected)',
+        error: 'Please provide a valid loan status',
       });
     }
   } else {
     res.status(404).send({
       status: 404,
-      error: 'We cannot find a loan with such an ID, please check the loan ID and try again',
+      error: 'No loan found for the given ID',
     });
   }
 }

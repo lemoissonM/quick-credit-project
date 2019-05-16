@@ -9,27 +9,25 @@ function signup(req, res) {
   const {
     email, password, fname, lname, address, country,
   } = req.body;
+
   if (!email) errorMessage = 'please provide an email address';
   else if (!checkEmail(email)) errorMessage = 'Please provide a valid email address (example@provider.com)';
   else if (!password)errorMessage = 'The password is not defined';
   else if (checkSpaces(password) || password.length < 8) {
-    errorMessage = 'Please provide a correct password, it should have at least 8 character and should not contain only spaces';
-  } else if (!fname)errorMessage = 'The first name is not defined';
-  else if (checkSpaces(fname)) errorMessage = 'Please provide a correct first name, it should not contain only spaces';
-  else if (!req.body.lname)errorMessage = 'The last name is not defined';
-  else if (checkSpaces(lname)) errorMessage = 'Please provide a correct last name, it should not contain only spaces';
-  else if (!address)errorMessage = 'the address is not defined';
-  else if (checkSpaces(address)) errorMessage = 'Please provide a correct address, it should not contain only spaces';
-  else if (!country)errorMessage = 'The country does not exist';
-  else if (checkSpaces(country)) errorMessage = 'Please provide a correct country, it should not contain only spaces';
+    errorMessage = 'Password should be at least 8 characters long and should not contain spaces only';
+  } else if (!fname || checkSpaces(fname))errorMessage = 'Please provide a first last name';
+  else if (!lname || checkSpaces(lname))errorMessage = 'Please provide a correct last name';
+  else if (!address || checkSpaces(address))errorMessage = 'Please provide a correct address';
+  else if (!country || checkSpaces(country))errorMessage = 'Please provide a correct country';
+
   if (errorMessage) {
     res.status(400).send({
       status: 400,
       message: errorMessage,
     });
   } else {
-    const user = getSingleUser(email);
-    if (!user[0]) {
+    const [user] = getSingleUser(email);
+    if (!user) {
       const newUser = new User(getUsersCount, email, req.body.fname,
         req.body.lname, req.body.password, req.body.address, req.body.country, 'unverified', false);
       addUser(newUser);
