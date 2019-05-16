@@ -24,12 +24,14 @@ export default function login(req, res) {
     });
   } else {
     const [user] = getSingleUser(email);
+
     if (user && user.validatePassword(password)) {
       return res.status(200).json({
         status: 200,
         data: user.toJSON(),
       });
     }
+
     return res.status(401).send({
       status: 401,
       message: 'You provided a wrong email or password',

@@ -1,0 +1,289 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable no-console */
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
+/* eslint-disable linebreak-style */
+const assert = require('assert');
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+const { expect } = require('chai');
+const { app } = require('../index');
+const { users } = require('../model/user');
+
+const should = chai.should();
+chai.use(chaiHttp);
+
+const newLoanCorrectData = {
+  tenor: 12,
+  amount: 2000,
+};
+const duplicateLoanRequestData = {
+  tenor: 12,
+  amount: 2000,
+};
+const FakeUserLoanRequestData = {
+  tenor: 12,
+  amount: 2000,
+};
+
+describe('Post a new loan', () => {
+  it('it should a 400 status because of Undefinned values', (done) => {
+    chai.request(app)
+      .post('/api/v1/loans/')
+      .set('Authorization', `Bearer ${users[2].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
+
+  it('it should a 401 status because the token is not defined', (done) => {
+    chai.request(app)
+      .post('/api/v1/loans/')
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(401);
+        done();
+      });
+  });
+
+  it('it should a 401 status because wrong token is provided', (done) => {
+    chai.request(app)
+      .post('/api/v1/loans/')
+      .set('Authorization', 'Bearer jerhrjekekekekekek')
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(401);
+        done();
+      });
+  });
+
+  it('it should return the new loan data', (done) => {
+    chai.request(app)
+      .post('/api/v1/loans/')
+      .set('Authorization', `Bearer ${users[2].token}`)
+      .send(newLoanCorrectData)
+      .end((err, res) => {
+        res.should.have.status(201);
+
+        done();
+      });
+  });
+
+  it('it should return 403 status since the user has a current loan', (done) => {
+    chai.request(app)
+      .post('/api/v1/loans/')
+      .set('Authorization', `Bearer ${users[1].token}`)
+      .send(duplicateLoanRequestData)
+      .end((err, res) => {
+        res.should.have.status(403);
+
+        done();
+      });
+  });
+});
+
+describe('Get all  loans specs', () => {
+  it('it should return all loans', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/')
+      .set('Authorization', `Bearer ${users[0].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
+
+  it('it should return all loans for a specific user', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/user/lemoisson@quick-credit.com/')
+      .set('Authorization', `Bearer ${users[0].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(1).to.be.equal(res.body.data.length);
+
+        done();
+      });
+  });
+});
+
+describe('Get current loans spec', () => {
+  it('it should return the currents loans', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/?status=approved&repaid=false')
+      .set('Authorization', `Bearer ${users[0].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
+
+  it('it should return the current loans of lemoisson@quick-credit.com', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/user/lemoisson@quick-credit.com/?status=approved&repaid=false')
+      .set('Authorization', `Bearer ${users[1].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(0).to.be.equal(res.body.data.length);
+
+        done();
+      });
+  });
+});
+
+describe('Get all repaid loans specs', () => {
+  it('it should return all the repaid loans', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/?status=approved&repaid=true')
+      .set('Authorization', `Bearer ${users[0].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
+
+  it('it should return all the repaid loans for a specific user', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/user/lemoisson@quick-credit.com/?status=approved&repaid=true')
+      .set('Authorization', `Bearer ${users[0].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(200);
+        chai.expect(0).to.be.equal(res.body.data.length);
+        done();
+      });
+  });
+});
+
+describe('Get all pending loans specs', () => {
+  it('it should return all the pending loans for a specific user', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/user/lemoisson@quick-credit.com/?status=pending')
+      .set('Authorization', `Bearer ${users[0].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(200);
+        chai.expect(2).to.be.equal(res.body.data.length);
+        done();
+      });
+  });
+
+  it('it should return all the pending loans ', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/?status=pending')
+      .set('Authorization', `Bearer ${users[0].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(200);
+        chai.expect(2).to.be.equal(res.body.data.length);
+
+        done();
+      });
+  });
+});
+
+describe('Get all rejected  loans specs', () => {
+  it('it should return all the rejected loans for a specific user', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/user/lemoisson@quick-credit.com/?status=rejected')
+      .set('Authorization', `Bearer ${users[0].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(200);
+        chai.expect(0).to.be.equal(res.body.data.length);
+        done();
+      });
+  });
+
+  it('it should return all the rejected loans for a specific user', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/?status=rejected')
+      .set('Authorization', `Bearer ${users[0].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(200);
+        chai.expect(0).to.be.equal(res.body.data.length);
+        done();
+      });
+  });
+});
+
+describe('Get single loan spec', () => {
+  it('it should return the loan with id=0', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/0')
+      .set('Authorization', `Bearer ${users[1].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
+
+  it('it should an error since a string is provided as loan id', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/lee')
+      .set('Authorization', `Bearer ${users[1].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
+
+  it('it should return a 404 status since the loan id 1500 doesn\'t exist', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/1500')
+      .set('Authorization', `Bearer ${users[1].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(404);
+        done();
+      });
+  });
+});
+
+describe('approve or reject loan', () => {
+  it('it should a 404 status because for not found loan id', (done) => {
+    chai.request(app)
+      .patch('/api/v1/loans/200')
+      .set('Authorization', `Bearer ${users[0].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(404);
+        done();
+      });
+  });
+
+  it('it should a 200 status and loan data when everything is okay', (done) => {
+    const requestString = {
+      status: 'approved',
+    };
+    chai.request(app)
+      .patch('/api/v1/loans/0')
+      .set('Authorization', `Bearer ${users[0].token}`)
+      .send(requestString)
+      .end((err, res) => {
+        res.should.have.status(200);
+
+        done();
+      });
+  });
+
+  it('it should a 403 status when loan already approved', (done) => {
+    chai.request(app)
+      .patch('/api/v1/loans/0')
+      .set('Authorization', `Bearer ${users[0].token}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(403);
+        done();
+      });
+  });
+});

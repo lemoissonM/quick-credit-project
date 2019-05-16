@@ -8,5 +8,6 @@ export default function createToken(email) {
     {
       expiresIn: '24h',
     });
+
   return token;
 }

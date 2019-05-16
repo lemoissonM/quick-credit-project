@@ -19,6 +19,10 @@ const loginDetailsTrue = {
   email: 'lemoisson@quick-credit.com',
   password: '12345678',
 };
+const loginDetailsEmpty = {
+  email: 'lemoisson@quick-credit.com',
+  password: '',
+};
 
 describe('login', () => {
   it('it should not login with undefinned values', (done) => {
@@ -27,6 +31,16 @@ describe('login', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(400);
+        done();
+      });
+  });
+
+  it('should return a 401 status when empty mail or password provided', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signin')
+      .send(loginDetailsEmpty)
+      .end((err, res) => {
+        res.should.have.status(401);
         done();
       });
   });

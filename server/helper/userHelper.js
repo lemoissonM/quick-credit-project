@@ -1,5 +1,6 @@
 /* eslint-disable linebreak-style */
 import { users } from '../model/user';
+import { getSingleLoan } from './loansHelper';
 
 
 export const getUsersCount = users.length;
@@ -18,7 +19,23 @@ export function checkTokenAdmin(token) {
   const result = users.findIndex(user => (user.isAdmin && user.token === token));
   return result;
 }
-export function checkLoan(id, email) {
-  const result = users.findIndex(user => ((user.email === email && user.id === id) || (user.id === id && user.isAdmin)));
+
+export function checkLoanEmail(id, email) {
+  const result = users.findIndex(user => ((user.email === email && user.id === id)
+  || (user.id === id && user.isAdmin)));
   return result;
+}
+export function checkLoan(id) {
+  const result = users.find(user => ((user.id === id) || (user.id === id && user.isAdmin)));
+  return result;
+}
+
+export function checkUserLoan(id, loanID) {
+  const loan = getSingleLoan(loanID);
+  if (loan) {
+    const email = loan.userMail;
+    const result = users.findIndex(user => ((user.email === email && user.id === id)
+     || (user.id === id && user.isAdmin)));
+    return result;
+  } return -2;
 }
