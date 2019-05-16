@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/lemoissonM/quick-credit-project.svg?branch=develop)](https://travis-ci.org/lemoissonM/quick-credit-project)
+[![Coverage Status](https://coveralls.io/repos/github/lemoissonM/quick-credit-project/badge.svg?branch=develop)](https://coveralls.io/github/lemoissonM/quick-credit-project?branch=develop)
 
 # quick-credit-project
 Quick credit is an platform that allow you to manage a loan grant system. From this platform users can create and login to their accounts, request as well as manage their loan applications while admins can manage all type of loan transactions, from accepting or rejecting them, to posting repayment transactions for different loans and also manage all users in the system.
