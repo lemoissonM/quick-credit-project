@@ -68,6 +68,7 @@ describe('verify user', () => {
 const userData = {
   newPassword: 'lemoisson',
 };
+
 describe('Reset a password', () => {
   it('it should change the password to lemoisson', (done) => {
     chai.request(app)

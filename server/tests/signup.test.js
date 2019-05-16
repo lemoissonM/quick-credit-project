@@ -15,6 +15,7 @@ const loginDetails = {
   address: 'Rubavu',
   city: 'Gisenyi',
 };
+
 const loginDetailsUndefinned = {
   email: 'lemoisson@quick-credit.com',
   password: '12345678',
@@ -23,14 +24,17 @@ const loginDetailsUndefinned = {
   address: 'Rubavu',
   city: 'Gisenyi',
 };
+
 const loginDetailsInvalidMail = {
   email: 'lemoissonquick-credit.com',
   password: '12345678',
 };
+
 const loginDetailsInvalidPassword = {
   email: 'lemoissonquick-credit.com',
   password: '1234',
 };
+
 const loginDetailsTrue = {
   email: 'lemoissonM@quick-credit.com',
   password: '12345678',
@@ -40,6 +44,7 @@ const loginDetailsTrue = {
   address: 'Rubavu',
   city: 'Gisenyi',
 };
+
 describe('Signup', () => {
   it('it should not create an account with undefinned values', (done) => {
     chai.request(app)

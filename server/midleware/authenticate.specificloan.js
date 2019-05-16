@@ -23,5 +23,4 @@ export default function checkToken(req, res, next) {
   } else {
     return tokenError(res);
   }
-  return '';
 }

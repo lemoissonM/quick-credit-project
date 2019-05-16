@@ -54,17 +54,3 @@ export class Loan {
 
 const firstLoan = new Loan(0, 'lemoisson@quick-credit.com', 12, 1200);
 export const loans = [firstLoan];
-loans.push(new Loan(1, 'lemoissonM@quick-credit.com', 10, 2000));
-loans.push(new Loan(2, 'lemoissonM@quick-credit.com', 9, 1500));
-loans.push(new Loan(3, 'lemoisson@quick-credit.com', 2, 500));
-loans.push(new Loan(4, 'lemoisson@quick-credit.com', 4, 5000));
-loans.push(new Loan(5, 'lemoisson@quick-credit.com', 7, 8000));
-loans.push(new Loan(6, 'lemoisson@quick-credit.com', 4, 300));
-loans.push(new Loan(7, 'lemoisson@quick-credit.com', 9, 5000));
-loans.push(new Loan(8, 'lemoisson@quick-credit.com', 10, 2000));
-loans[0].setStatus('approved');
-loans[1].setStatus('approved');
-loans[2].setStatus('approved');
-loans[3].setStatus('approved');
-loans[1].setRepaidStatus(true);
-loans[3].setRepaidStatus(true);

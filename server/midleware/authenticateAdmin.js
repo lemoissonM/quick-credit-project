@@ -22,5 +22,4 @@ export default function checkAdmin(req, res, next) {
   } else {
     return tokenError(res);
   }
-  return '';
 }

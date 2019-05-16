@@ -92,7 +92,6 @@ describe('Get all  loans specs', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
-
         done();
       });
   });
@@ -104,12 +103,13 @@ describe('Get all  loans specs', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
-        expect(7).to.be.equal(res.body.data.length);
+        expect(1).to.be.equal(res.body.data.length);
 
         done();
       });
   });
 });
+
 describe('Get current loans spec', () => {
   it('it should return the currents loans', (done) => {
     chai.request(app)
@@ -118,7 +118,6 @@ describe('Get current loans spec', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
-
         done();
       });
   });
@@ -130,7 +129,7 @@ describe('Get current loans spec', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
-        expect(1).to.be.equal(res.body.data.length);
+        expect(0).to.be.equal(res.body.data.length);
 
         done();
       });
@@ -145,7 +144,6 @@ describe('Get all repaid loans specs', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
-
         done();
       });
   });
@@ -157,12 +155,12 @@ describe('Get all repaid loans specs', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
-        chai.expect(1).to.be.equal(res.body.data.length);
-
+        chai.expect(0).to.be.equal(res.body.data.length);
         done();
       });
   });
 });
+
 describe('Get all pending loans specs', () => {
   it('it should return all the pending loans for a specific user', (done) => {
     chai.request(app)
@@ -171,25 +169,25 @@ describe('Get all pending loans specs', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
-        chai.expect(6).to.be.equal(res.body.data.length);
-
+        chai.expect(2).to.be.equal(res.body.data.length);
         done();
       });
   });
 
-  it('it should return all the pending loans for a specific user', (done) => {
+  it('it should return all the pending loans ', (done) => {
     chai.request(app)
       .get('/api/v1/loans/?status=pending')
       .set('Authorization', `Bearer ${users[0].token}`)
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
-        chai.expect(6).to.be.equal(res.body.data.length);
+        chai.expect(2).to.be.equal(res.body.data.length);
 
         done();
       });
   });
 });
+
 describe('Get all rejected  loans specs', () => {
   it('it should return all the rejected loans for a specific user', (done) => {
     chai.request(app)
@@ -199,7 +197,6 @@ describe('Get all rejected  loans specs', () => {
       .end((err, res) => {
         res.should.have.status(200);
         chai.expect(0).to.be.equal(res.body.data.length);
-
         done();
       });
   });
@@ -212,7 +209,6 @@ describe('Get all rejected  loans specs', () => {
       .end((err, res) => {
         res.should.have.status(200);
         chai.expect(0).to.be.equal(res.body.data.length);
-
         done();
       });
   });
@@ -226,7 +222,6 @@ describe('Get single loan spec', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
-
         done();
       });
   });
@@ -238,7 +233,6 @@ describe('Get single loan spec', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(400);
-
         done();
       });
   });
@@ -250,7 +244,6 @@ describe('Get single loan spec', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(404);
-
         done();
       });
   });
@@ -264,6 +257,20 @@ describe('approve or reject loan', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(404);
+        done();
+      });
+  });
+
+  it('it should a 200 status and loan data when everything is okay', (done) => {
+    const requestString = {
+      status: 'approved',
+    };
+    chai.request(app)
+      .patch('/api/v1/loans/0')
+      .set('Authorization', `Bearer ${users[0].token}`)
+      .send(requestString)
+      .end((err, res) => {
+        res.should.have.status(200);
 
         done();
       });
@@ -276,22 +283,6 @@ describe('approve or reject loan', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(403);
-
-        done();
-      });
-  });
-
-  it('it should a 200 status and loan data when everything is okay', (done) => {
-    const requestString = {
-      status: 'approved',
-    };
-    chai.request(app)
-      .patch('/api/v1/loans/7')
-      .set('Authorization', `Bearer ${users[0].token}`)
-      .send(requestString)
-      .end((err, res) => {
-        res.should.have.status(200);
-
         done();
       });
   });

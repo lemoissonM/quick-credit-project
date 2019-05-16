@@ -11,18 +11,15 @@ export const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/loans', loanRouter);
-
 
 const PORT = process.env.PORT || 7000;
 const server = app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log('Quick credit, Take your project to the next level');
 });
-
 
 export function closeServer() {
   server.close();

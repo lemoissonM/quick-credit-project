@@ -1,5 +1,4 @@
 /* eslint-disable linebreak-style */
-
 // creating the loan repayment class
 export class LoanRepayment {
   constructor(id, loanId, amount, tenorCovered) {
@@ -10,11 +9,9 @@ export class LoanRepayment {
     this.tenorCovered = tenorCovered;
   }
 
-
   getLoanId() {
     return this.loanId;
   }
-
 
   getAmount() {
     return this.amount;
