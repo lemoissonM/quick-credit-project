@@ -11,7 +11,7 @@ export function getUserLoan(req, res) {
   let { status, repaid } = req.query;
   const { email } = req.params;
 
-  if (repaid) { repaid = Boolean(repaid); }
+  if (repaid) { repaid = repaid.trim().toLowerCase(); }
   if (status) { status = status.trim().toLowerCase(); }
 
   if (status === 'approved' && !repaid) {
