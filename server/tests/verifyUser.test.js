@@ -58,8 +58,8 @@ describe('verify user', () => {
       .patch('/api/v1/users/leol@gmail.com/verify')
       .set('Authorization', `Bearer ${users.users[0].token}`)
       .send('')
-      .end((err, res) => {
-        res.should.have.status(403);
+      .end((err, res) => { 
+        res.should.have.status(404);
         console.log(res.body.message);
         done();
       });
@@ -70,35 +70,7 @@ describe('verify user', () => {
       .set('Authorization', `Bearer ${users.users[0].token}`)
       .send('')
       .end((err, res) => {
-
         res.should.have.status(200);
-        console.log(res.body);
-        done();
-        closeServer();
-      });
-  });
-});
-const userData = {
-  newPassword: 'lemoisson',
-};
-describe('Reset a password', () => {
-  it('it should change the apssword to lemoisson', (done) => {
-    chai.request(app)
-      .patch('/api/v1/users/lemoisson@quick-credit.com/resetPass')
-      .send(userData)
-      .end((err, res) => {
-        res.should.have.status(200);
-        chai.expect(users.users[1].password).to.equal('lemoisson');
-        console.log(res.body.message);
-        done();
-      });
-  });
-  it('should return a 400 status since data are not present', (done) => {
-    chai.request(app)
-      .patch('/api/v1/users/lemoisson@gmail.com/resetPass')
-      .send('')
-      .end((err, res) => {
-        res.should.have.status(400);
         console.log(res.body);
         done();
         closeServer();
