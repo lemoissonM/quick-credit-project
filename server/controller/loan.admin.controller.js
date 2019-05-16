@@ -6,14 +6,15 @@ import {
 
 export function getloans(req, res) {
   let { status, repaid } = req.query;
+  if (repaid) { repaid = Boolean(repaid); }
   if (status) { status = status.trim().toLowerCase(); }
 
-  if (status === 'approved' && repaid === 'false') {
+  if (status === 'approved' && repaid === false) {
     res.status(200).send({
       status: 200,
       data: getCurrentLoans(),
     });
-  } else if (status === 'approved' && repaid === 'true') {
+  } else if (status === 'approved' && repaid === true) {
     res.status(200).send({
       status: 200,
       data: getRepaidLoans(),

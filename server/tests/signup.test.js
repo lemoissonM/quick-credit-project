@@ -6,6 +6,7 @@ const chaiHttp = require('chai-http');
 const { app, closeServer } = require('../index');
 
 chai.use(chaiHttp);
+
 const loginDetails = {
   email: 'lemoisson@quick-credit.com',
   password: '12345678',
