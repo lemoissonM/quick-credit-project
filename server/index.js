@@ -12,7 +12,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/api/v1/auth', authRouter);
+
 app.use('/api/v1/users', userRouter);
+
 app.use('/api/v1/loans', loanRouter);
 
 const PORT = process.env.PORT || 7000;
