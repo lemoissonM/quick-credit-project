@@ -65,6 +65,7 @@ export function getSpecificLoan(req, res) {
     });
   }
 }
+
 export function approveLoan(req, res) {
   const loan = getSingleLoan(req.params.loanID);
   const { status } = req.body;
