@@ -14,12 +14,12 @@ export function getUserLoan(req, res) {
   if (repaid) { repaid = repaid.trim().toLowerCase(); }
   if (status) { status = status.trim().toLowerCase(); }
 
-  if (status === 'approved' && !repaid) {
+  if (status === 'approved' && repaid === 'false') {
     res.status(200).send({
       status: 200,
       data: getCurrentLoans(email),
     });
-  } else if (status === 'approved' && repaid) {
+  } else if (status === 'approved' && repaid === 'true') {
     res.status(200).send({
       status: 200,
       data: getRepaidLoans(email),
