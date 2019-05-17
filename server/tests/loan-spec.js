@@ -173,7 +173,7 @@ describe('Get all pending loans specs', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
-        chai.expect(2).to.be.equal(res.body.data.length);
+        chai.expect(1).to.be.equal(res.body.data.length);
         done();
       });
   });

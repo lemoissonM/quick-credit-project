@@ -30,7 +30,7 @@ export function getCurrentLoans(email) {
   return getApprovedLoans(email).filter(loan => loan.isRepaid() === false);
 }
 export function getRepaidLoans(email) {
-  return getApprovedLoans(email).filter(loan => loan.isRepaid() === true);
+  return getAllLoans(email).filter(loan => loan.isRepaid() === true);
 }
 export function getPendingLoans(email) {
   if (email) return (email, filterByUser(email, loans.filter(loan => loan.getStatus() === 'pending')));

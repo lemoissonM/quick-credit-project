@@ -44,7 +44,7 @@ export class Loan {
 
   setBalance(balance) {
     this.balance = balance;
-    if (balance < 0) {
+    if (balance <= 0) {
       this.setRepaidStatus(true);
       this.setStatus('repaid');
       this.balance = 0;

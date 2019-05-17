@@ -27,12 +27,17 @@ export function getUserLoan(req, res) {
   } else if (status === 'pending') {
     res.status(200).send({
       status: 200,
-      data: getPendingLoans(),
+      data: getPendingLoans(email),
     });
   } else if (status === 'rejected') {
     res.status(200).send({
       status: 200,
-      data: getDeniedLoans(),
+      data: getDeniedLoans(email),
+    });
+  } else if (status === 'approved') {
+    res.status(200).send({
+      status: 200,
+      data: getCurrentLoans(email),
     });
   } else if (!repaid && !status) {
     res.status(200).send({
