@@ -129,8 +129,8 @@
           <p class="loan-user-name">Murhula Metre  <span class="right">Loan Id :l458-m</span> </p>
           <p class="loan-detail1 grey"> Amount : 500 USD  <span class="right">Tenor : 12 </span> </p>
           <p class="loan-detail1 grey"> Total interest : 250 USD  <span class="right">monthly paiment : 300 USD </span> </p>
-        <p class="accept-button" >Accept loan</p>
-        <p class="reject-button" >Reject loan</p>
+        <p class="accept-button" onclick="showConfirmDialog()">Accept loan</p>
+        <p class="reject-button" onclick="showConfirmDialog()">Reject loan</p>
         <p class="divider"/>
 
 
@@ -139,8 +139,8 @@
           <p class="loan-user-name">Murhula Metre  <span class="right">Loan Id :l458-m</span> </p>
           <p class="loan-detail1 grey"> Amount : 500 USD  <span class="right">Tenor : 12 </span> </p>
           <p class="loan-detail1 grey"> Total interest : 250 USD  <span class="right">monthly paiment : 300 USD </span> </p>
-          <p class="accept-button" >Accept loan</p>
-          <p class="reject-button" >Reject loan</p>
+          <p class="accept-button" onclick="showConfirmDialog()" >Accept loan</p>
+          <p class="reject-button" onclick="showConfirmDialog()" >Reject loan</p>
           <p class="divider"/>
 
       </DIV>
@@ -269,7 +269,16 @@
 </div>
 </div>
 </div>
-
+<div id="modal_confirm" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+  <div class="modal-body">
+    <p class=" left-padding text-center"> Do you really want to accept this loan ?</span> </p>
+    <p class = "accept-button" onclick="closeDialogConfirm()"> Confirm</p>
+    <p class = "reject-button" onclick="closeDialogConfirm()"> Cancel</p>
+  </div>
+  </div>
+  </div>
 <script src="scripts/dashoard_admin_script.js" type="text/javascript">
 
 </script>

@@ -3,6 +3,7 @@
 /* eslint-disable func-names */
 const modalDialog = document.getElementById('myModal');
 const modalLoanPaiement = document.getElementById('myModal2');
+const modalConfirm = document.getElementById('modal_confirm');
 const showDialog = function (dialogMsg, yes, no) {
   const modalText = document.getElementById('modal-text');
   modalText.innerHTML = dialogMsg;
@@ -21,7 +22,12 @@ const closeDialog = function () {
 const showPostLoanDialog = function () {
   modalLoanPaiement.style.display = 'block';
 };
-
+const closeDialogConfirm = function () {
+  modalConfirm.style.display = 'none';
+};
+const showConfirmDialog = function () {
+  modalConfirm.style.display = 'block';
+};
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function (event) {
   if (event.target === modalDialog) {
