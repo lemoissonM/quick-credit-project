@@ -22,6 +22,6 @@ export function TokenUnauthorized(res) {
 export function notValidToken(res) {
   return res.status(401).json({
     status: 401,
-    message: 'The authorization token is not valid',
+    message: 'The authorization token provided is invalid',
   });
 }

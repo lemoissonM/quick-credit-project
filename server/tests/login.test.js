@@ -31,6 +31,7 @@ describe('login', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(400);
+        chai.expect(res.body.message).equal('The email is required');
         done();
       });
   });
@@ -41,6 +42,7 @@ describe('login', () => {
       .send(loginDetailsEmpty)
       .end((err, res) => {
         res.should.have.status(401);
+        chai.expect(res.body.message).equal('You provided a wrong email or password');
         done();
       });
   });
@@ -51,6 +53,7 @@ describe('login', () => {
       .send(loginDetails)
       .end((err, res) => {
         res.should.have.status(401);
+        chai.expect(res.body.message).equal('You provided a wrong email or password');
         done();
       });
   });

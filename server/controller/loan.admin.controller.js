@@ -1,20 +1,20 @@
 /* eslint-disable linebreak-style */
 import {
   getCurrentLoans, getRepaidLoans, getAllLoans, getSingleLoan,
-  updateLoan, getPendingLoans, getDeniedLoans,
+  updateLoan, getPendingLoans, getDeniedLoans, getApprovedLoans,
 } from '../helper/loansHelper';
 
 export function getloans(req, res) {
   let { status, repaid } = req.query;
-  if (repaid) { repaid = Boolean(repaid); }
+  if (repaid) { repaid = repaid.trim().toLowerCase(); }
   if (status) { status = status.trim().toLowerCase(); }
 
-  if (status === 'approved' && repaid === false) {
+  if (status === 'approved' && repaid === 'false') {
     res.status(200).send({
       status: 200,
       data: getCurrentLoans(),
     });
-  } else if (status === 'approved' && repaid === true) {
+  } else if (status === 'approved' && repaid === 'true') {
     res.status(200).send({
       status: 200,
       data: getRepaidLoans(),
@@ -23,6 +23,11 @@ export function getloans(req, res) {
     res.status(200).send({
       status: 200,
       data: getPendingLoans(),
+    });
+  } else if (status === 'approved') {
+    res.status(200).send({
+      status: 200,
+      data: getCurrentLoans(),
     });
   } else if (status === 'rejected') {
     res.status(200).send({
