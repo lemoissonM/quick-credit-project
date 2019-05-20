@@ -3,6 +3,7 @@ const { getSingleUser, getUsersCount, addUser } = require('../helper/userHelper'
 const { User } = require('../model/user');
 const { checkEmail, checkSpaces } = require('../helper/string_check');
 
+
 // Parse incoming requests data
 function signup(req, res) {
   let errorMessage = '';
@@ -26,19 +27,19 @@ function signup(req, res) {
       message: errorMessage,
     });
   } else {
-    const [user] = getSingleUser(email);
-    if (!user) {
-      const newUser = new User(getUsersCount, email, req.body.fname,
+    const user = getSingleUser(req.body.email);
+    if (!user[0]) {
+      const newUser = new User(getUsersCount, req.body.email, req.body.fname,
         req.body.lname, req.body.password, req.body.address, req.body.country, 'unverified', false);
       addUser(newUser);
       res.status(201).send({
         status: 201,
-        data: newUser.toJSON(),
+        data: newUser,
       });
     } else {
-      res.status(409).send({
-        status: 409,
-        message: 'This mail already exists, please use another one to create an account',
+      res.status(401).send({
+        status: 401,
+        message: 'This mail already exists',
       });
     }
   }

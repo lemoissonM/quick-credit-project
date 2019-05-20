@@ -4,4 +4,5 @@ coverage
 coverage.html
 build
 out
+.env
 
