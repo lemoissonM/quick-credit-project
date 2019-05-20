@@ -4,6 +4,8 @@ import bodyParser from 'body-parser';
 import authRouter from './routes/v1/auth_routes';
 import userRouter from './routes/v1/user_routes';
 import loanRouter from './routes/v1/loan_routes';
+import pool from './config/config.db';
+import createTableQuery from './model/queries';
 
 export const app = express();
 
@@ -16,6 +18,8 @@ app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);
 
 app.use('/api/v1/loans', loanRouter);
+
+pool.query(createTableQuery()).catch((err) => {});
 
 const PORT = process.env.PORT || 7000;
 const server = app.listen(PORT, () => {
