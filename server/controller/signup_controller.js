@@ -37,8 +37,8 @@ function signup(req, res) {
         data: newUser,
       });
     } else {
-      res.status(401).send({
-        status: 401,
+      res.status(409).send({
+        status: 409,
         message: 'This mail already exists',
       });
     }
