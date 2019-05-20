@@ -34,6 +34,7 @@ describe('Post a new loan', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(400);
+        expect(res.body.error).to.be.equal('Tenor should be a strict positive number');
         done();
       });
   });
@@ -44,6 +45,7 @@ describe('Post a new loan', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(401);
+        expect(res.body.message).to.be.equal('The authorization token provided is invalid');
         done();
       });
   });
@@ -55,6 +57,7 @@ describe('Post a new loan', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(401);
+        expect(res.body.message).to.be.equal('The authorization token provided is invalid');
         done();
       });
   });
@@ -66,7 +69,7 @@ describe('Post a new loan', () => {
       .send(newLoanCorrectData)
       .end((err, res) => {
         res.should.have.status(201);
-
+        expect(res.body.data.balance).to.be.equal(2100);
         done();
       });
   });
@@ -78,7 +81,7 @@ describe('Post a new loan', () => {
       .send(duplicateLoanRequestData)
       .end((err, res) => {
         res.should.have.status(403);
-
+        expect(res.body.error).to.be.equal('You still have another pending loan');
         done();
       });
   });
@@ -92,6 +95,7 @@ describe('Get all  loans specs', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
+        expect(res.body.data.length).to.be.equal(2);
         done();
       });
   });
@@ -104,7 +108,6 @@ describe('Get all  loans specs', () => {
       .end((err, res) => {
         res.should.have.status(200);
         expect(1).to.be.equal(res.body.data.length);
-
         done();
       });
   });
@@ -118,6 +121,7 @@ describe('Get current loans spec', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
+        expect(res.body.data.length).to.be.equal(0);
         done();
       });
   });
@@ -130,7 +134,6 @@ describe('Get current loans spec', () => {
       .end((err, res) => {
         res.should.have.status(200);
         expect(0).to.be.equal(res.body.data.length);
-
         done();
       });
   });
@@ -144,6 +147,7 @@ describe('Get all repaid loans specs', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
+        expect(res.body.data.length).to.be.equal(0);
         done();
       });
   });
@@ -169,7 +173,7 @@ describe('Get all pending loans specs', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
-        chai.expect(2).to.be.equal(res.body.data.length);
+        chai.expect(1).to.be.equal(res.body.data.length);
         done();
       });
   });
@@ -222,6 +226,8 @@ describe('Get single loan spec', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
+        expect(res.body.data.userMail).to.be.equal('lemoisson@quick-credit.com');
+        expect(res.body.data.amount).to.be.equal(1200);
         done();
       });
   });
@@ -233,6 +239,7 @@ describe('Get single loan spec', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(400);
+        expect(res.body.error).to.be.equal('Provide a valid loan id');
         done();
       });
   });
@@ -244,6 +251,7 @@ describe('Get single loan spec', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(404);
+        expect(res.body.error).to.be.equal('No loan found for the given ID');
         done();
       });
   });
@@ -257,6 +265,7 @@ describe('approve or reject loan', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(404);
+        expect(res.body.error).to.be.equal('No loan found for the given ID');
         done();
       });
   });
@@ -271,7 +280,8 @@ describe('approve or reject loan', () => {
       .send(requestString)
       .end((err, res) => {
         res.should.have.status(200);
-
+        expect(res.body.data.userMail).to.be.equal('lemoisson@quick-credit.com');
+        expect(res.body.data.interest).to.be.equal(60);   
         done();
       });
   });
@@ -283,6 +293,7 @@ describe('approve or reject loan', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(403);
+        expect(res.body.error).to.be.equal('You are not authorized to acces this loan status');
         done();
       });
   });

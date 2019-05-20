@@ -11,15 +11,15 @@ export function getUserLoan(req, res) {
   let { status, repaid } = req.query;
   const { email } = req.params;
 
-  if (repaid) { repaid = Boolean(repaid); }
+  if (repaid) { repaid = repaid.trim().toLowerCase(); }
   if (status) { status = status.trim().toLowerCase(); }
 
-  if (status === 'approved' && !repaid) {
+  if (status === 'approved' && repaid === 'false') {
     res.status(200).send({
       status: 200,
       data: getCurrentLoans(email),
     });
-  } else if (status === 'approved' && repaid) {
+  } else if (status === 'approved' && repaid === 'true') {
     res.status(200).send({
       status: 200,
       data: getRepaidLoans(email),
@@ -27,12 +27,17 @@ export function getUserLoan(req, res) {
   } else if (status === 'pending') {
     res.status(200).send({
       status: 200,
-      data: getPendingLoans(),
+      data: getPendingLoans(email),
     });
   } else if (status === 'rejected') {
     res.status(200).send({
       status: 200,
-      data: getDeniedLoans(),
+      data: getDeniedLoans(email),
+    });
+  } else if (status === 'approved') {
+    res.status(200).send({
+      status: 200,
+      data: getCurrentLoans(email),
     });
   } else if (!repaid && !status) {
     res.status(200).send({
