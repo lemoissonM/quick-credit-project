@@ -5,7 +5,8 @@ import authRouter from './routes/v1/authRoutes';
 import userRouter from './routes/v1/userRoutes';
 import loanRouter from './routes/v1/loanRoutes';
 import pool from './config/configDb';
-import { createTablesQuery } from './models/Queries';
+import { createTablesQuery, getSignupQuery } from './models/Queries';
+import { User } from './models/User';
 
 export const app = express();
 
@@ -20,6 +21,12 @@ app.use('/api/v1/users', userRouter);
 app.use('/api/v1/loans', loanRouter);
 
 pool.query(createTablesQuery()).catch((err) => { });
+
+const user = new User(0, 'admin@quick-credit.com', 'admin',
+  'harvest', '12345678', 'gisozi', 'kigali', 'verified', true);
+const userDataArray = Object.keys(user).map(key => user[key]);
+userDataArray.splice(1, 1);
+pool.query(getSignupQuery(userDataArray)).catch((err) => {});
 
 const PORT = process.env.PORT || 7000;
 const server = app.listen(PORT, () => {

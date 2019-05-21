@@ -14,19 +14,11 @@ export default function checkToken(req, res, next) {
         return notValidToken(res);
       }
       req.decoded = decoded;
-      const resultUser = checkLoan(req.decoded.id);
-      if (resultUser) {
-        const { email } = resultUser;
-        if (email) {
-          req.userMail = email;
-          next();
-        } else {
-          res.status(403)
-            .send({
-              status: 403,
-              message: 'You are not authorized to acces this resource',
-            });
-        }
+
+      const email = decoded.id;
+      if (email) {
+        req.userMail = email;
+        next();
       } else {
         res.status(403)
           .send({

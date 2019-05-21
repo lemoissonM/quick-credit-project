@@ -16,8 +16,7 @@
     "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha  --exit server/tests/*js ",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "npm run clean && npm run build-babel",
-    "start": "npm run build && node ./build/index.js",
-    "serve": "node dist/config/index"
+    "start": "npm run build && node ./build/index.js"
   },
   "keywords": [],
   "author": "",

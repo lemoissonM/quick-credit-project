@@ -10,6 +10,7 @@ chai.use(chaiHttp);
 
 // deleting the testing user if already exists
 pool.query(getDeleteUserQuery(['lemoissonM@quick-credit.com'])).then((result) => {}).catch((err) => {});
+pool.query(getDeleteUserQuery(['lemoisson@quick-credit.com'])).then((result) => {}).catch((err) => {});
 
 const loginDetails = {
   email: 'lemoissonM@quick-credit.com',

@@ -6,11 +6,12 @@ import checkTokenLoan from '../../midleware/authenticateLoans';
 import checkAdmin from '../../midleware/authenticateAdmin';
 import { addPayment, getRepayments } from '../../controller/loanRepaymentController';
 import checkSpecificLoan from '../../midleware/authenticateSpecificloan';
+import checkPostLoanData from '../../midleware/checkPostLoanData';
 
 const router = express.Router();
 
 // loans routes
-router.post('/', checkToken, addNewLoan);
+router.post('/', checkToken, checkPostLoanData, addNewLoan);
 router.get('/', checkAdmin, getloans);
 router.get('/user/:email/', checkTokenLoan, getUserLoan);
 router.get('/:loanID', checkSpecificLoan, getSpecificLoan);
