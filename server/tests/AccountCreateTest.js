@@ -8,6 +8,8 @@ const { app, closeServer } = require('../index');
 
 chai.use(chaiHttp);
 
+// deleting the testing user if already exists
+pool.query(getDeleteUserQuery(['lemoissonM@quick-credit.com'])).then((result) => {}).catch((err) => {});
 
 const loginDetails = {
   email: 'lemoissonM@quick-credit.com',
@@ -110,7 +112,6 @@ describe('Signup', () => {
       .send(loginDetailsUndefinned)
       .end((err, res) => {
         res.should.have.status(400);
-        pool.query(getDeleteUserQuery(['lemoissonM@quick-credit.com'])).then(result => {}).catch((err) => {});
         closeServer();
         done();
       });

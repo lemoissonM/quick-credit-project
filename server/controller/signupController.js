@@ -26,9 +26,9 @@ function signup(req, res) {
           message: 'This mail already exists, please use another one to create an account',
         });
       }
-      res.status(400).send({
-        status: 400,
-        message: 'An error occured when creating account',
+      console.debug(err);
+      res.status(204).send({
+        status: 204,
       });
     });
 }
