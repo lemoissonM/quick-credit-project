@@ -1,6 +1,5 @@
-/* eslint-disable linebreak-style */
 import express from 'express';
-import { verify, resetPassword } from '../../controller/verify_user_controller';
+import { verify, resetPassword } from '../../controller/verifyUserController';
 import adminCheck from '../../midleware/authenticateAdmin';
 
 const router = express.Router();

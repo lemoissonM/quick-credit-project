@@ -1,8 +1,6 @@
-/* eslint-disable linebreak-style */
-import { users } from '../model/user';
+import { users } from '../models/User';
 import { getSingleLoan } from './loansHelper';
-import pool from '../config/config.db';
-import { getSignupQuery } from '../model/queries';
+
 
 export const getUsersCount = users.length;
 

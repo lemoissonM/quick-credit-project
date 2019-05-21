@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 import {
   getCurrentLoans, getRepaidLoans, getAllLoans, getSingleLoan,
   updateLoan, getPendingLoans, getDeniedLoans, getApprovedLoans,

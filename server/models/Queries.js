@@ -1,5 +1,3 @@
-/* eslint-disable linebreak-style */
-
 
 const createUserTableString = `CREATE TABLE public.users ( 
      id serial PRIMARY KEY,
@@ -7,10 +5,11 @@ const createUserTableString = `CREATE TABLE public.users (
      firstname varchar(30),
      lastname varchar(30), 
      password text, 
-     addess text, 
-     country varchar(20), 
-     status varchar(20), 
-     isAdmin boolean
+     address text, 
+     country varchar(50), 
+     status varchar(50), 
+     isAdmin boolean,
+     token text
      );
      `;
 const createLoanTableString = `CREATE TABLE public.loans ( 
@@ -41,7 +40,16 @@ const createRepaymentTableString = `CREATE TABLE loanRepayments (
         ON DELETE CASCADE
     );`;
 
-const createTablesQuery = () => ({
+export const createTablesQuery = () => ({
   text: `${createUserTableString} ${createLoanTableString} ${createRepaymentTableString}`,
 });
-export default createTablesQuery;
+
+export const getSignupQuery = values => ({
+  text: 'INSERT INTO users (token,email,firstName, lastName, password, address, country, status, isadmin) values($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING id',
+  values,
+});
+
+export const getDeleteUserQuery = values => ({
+  text: 'DELETE from users where email = $1',
+  values,
+});

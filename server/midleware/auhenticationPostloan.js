@@ -1,16 +1,17 @@
-/* eslint-disable linebreak-style */
 import jwt from 'jsonwebtoken';
-import config from '../config/config';
+import dotenv from 'dotenv';
 import { checkLoan } from '../helper/userHelper';
 import {
   validateToken, notValidToken, tokenError,
-} from '../helper/middleware.helper';
+} from '../helper/middlewareHelper';
 
+dotenv.config();
 export default function checkToken(req, res, next) {
   let token = req.headers['x-access-token'] || req.headers.authorization;
   token = validateToken(token);
   if (token) {
-    jwt.verify(token, config.secret, (err, decoded) => {
+    const { secret } = process.env;
+    jwt.verify(token, secret, (err, decoded) => {
       if (err) {
         return notValidToken(res);
       }

@@ -1,5 +1,3 @@
-/* eslint-disable linebreak-style */
-
 export class Loan {
   constructor(id, userMail, tenor, amount) {
     this.id = id;

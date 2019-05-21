@@ -1,5 +1,4 @@
-/* eslint-disable linebreak-style */
-import { loanRepaymentData } from '../model/LoanRepayment';
+import { loanRepaymentData } from '../models/LoanRepayment';
 import { getSingleLoan, updateLoan } from './loansHelper';
 
 export function updateLoanPayment(loanID, newAmount) {

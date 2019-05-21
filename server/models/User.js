@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style */
+
 import { hashPassword, comparePassword } from '../helper/hashPassword';
 import createToken from '../midleware/createToken';
 

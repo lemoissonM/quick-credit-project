@@ -1,5 +1,3 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable no-console */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable linebreak-style */
@@ -8,7 +6,7 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const { expect } = require('chai');
 const { app } = require('../index');
-const { users } = require('../model/user');
+const { users } = require('../models/User');
 
 const should = chai.should();
 chai.use(chaiHttp);

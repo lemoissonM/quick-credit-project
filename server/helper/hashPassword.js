@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 import bcrypt from 'bcrypt';
 
 const saltRounds = 10;

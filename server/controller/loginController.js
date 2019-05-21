@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 import { getSingleUser } from '../helper/userHelper';
 
 const wrongDataStatus = (res, message) => {

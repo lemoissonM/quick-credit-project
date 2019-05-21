@@ -1,14 +1,8 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable no-console */
 /* eslint-disable no-undef */
-const assert = require('assert');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const { expect } = require('chai');
 const { app } = require('../index');
-const { users } = require('../model/user');
 
-const should = chai.should();
 chai.use(chaiHttp);
 
 const loginDetails = {

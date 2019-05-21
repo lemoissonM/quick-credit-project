@@ -1,10 +1,12 @@
-/* eslint-disable linebreak-style */
 import jwt from 'jsonwebtoken';
-import config from '../config/config';
+import dotenv from 'dotenv';
+
+dotenv.config();
+const { secret } = process.env;
 
 export default function createToken(email) {
   const token = jwt.sign({ id: email },
-    config.secret,
+    secret,
     {
       expiresIn: '24h',
     });

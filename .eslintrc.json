@@ -13,6 +13,7 @@
         "sourceType": "module"
     },
     "rules": {
+        "linebreak-style": 0
     }
 }
 

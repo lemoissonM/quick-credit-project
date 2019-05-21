@@ -1,6 +1,5 @@
-/* eslint-disable linebreak-style */
 import { getSingleLoan } from '../helper/loansHelper';
-import { LoanRepayment } from '../model/LoanRepayment';
+import { LoanRepayment } from '../models/LoanRepayment';
 import { getLoanRepayment, addNewLoanRepayment, getRepaymentCount } from '../helper/loanRepaymentsHelper';
 
 export function addPayment(req, res) {

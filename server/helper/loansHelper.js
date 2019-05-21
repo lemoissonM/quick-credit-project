@@ -1,5 +1,4 @@
-/* eslint-disable linebreak-style */
-import { loans } from '../model/Loan';
+import { loans } from '../models/Loan';
 
 export function updateLoan(loan) {
   loans[loan.id] = loan;
