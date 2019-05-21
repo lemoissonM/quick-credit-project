@@ -10,7 +10,7 @@ const loginDetails = {
   password: 'metre',
 };
 const loginDetailsTrue = {
-  email: 'lemoisson@quick-credit.com',
+  email: 'lemoissonM@quick-credit.com',
   password: '12345678',
 };
 const loginDetailsEmpty = {
@@ -58,7 +58,7 @@ describe('login', () => {
       .send(loginDetailsTrue)
       .end((err, res) => {
         res.should.have.status(200);
-        chai.expect(res.body.data.email).equal('lemoisson@quick-credit.com');
+        chai.expect(res.body.data.email).equal('lemoissonM@quick-credit.com');
         done();
       });
   });

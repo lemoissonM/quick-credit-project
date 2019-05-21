@@ -4,9 +4,6 @@ import { getSingleLoan } from './loansHelper';
 
 export const getUsersCount = users.length;
 
-export const addUser = (user) => {
-  users.push(user);
-};
 export function getSingleUser(email) {
   return users.filter(user => user.email === email);
 }

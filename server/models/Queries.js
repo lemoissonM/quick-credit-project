@@ -53,3 +53,7 @@ export const getDeleteUserQuery = values => ({
   text: 'DELETE from users where email = $1',
   values,
 });
+export const getSigninQuery = values => ({
+  text: 'SELECT * from users where email = $1',
+  values,
+});
