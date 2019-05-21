@@ -6,6 +6,7 @@ node_js:
 after_success: npm run coverage
 env:
   -DATABASE_URL=postgres://lemoisson:12345678@localhost/quick_credit_db
+  -secret = willLy
 services:
   - postgresql
 before_script:
