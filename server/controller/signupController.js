@@ -20,7 +20,7 @@ function signup(req, res) {
         data: newUser.toJSON(),
       });
     }).catch((err) => {
-      if (err.constraint === 'users_email_key') {
+      if (err.constraint === 'users_email_key' || (err.routine && err.routine === '_bt_check_unique')) {
         return res.status(409).send({
           status: 409,
           message: 'This mail already exists, please use another one to create an account',
