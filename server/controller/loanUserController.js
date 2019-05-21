@@ -71,7 +71,6 @@ export function addNewLoan(req, res) {
               data: myLoan,
             });
           }).catch((errs) => {
-            console.log(errs);
             res.status(203).send({
               status: 203,
               message: 'An error occured when creating account',
@@ -85,6 +84,5 @@ export function addNewLoan(req, res) {
       }
     })
     .catch((err) => {
-      console.log(err);
     });
 }
