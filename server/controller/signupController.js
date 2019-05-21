@@ -5,13 +5,13 @@ const { User } = require('../models/User');
 
 function signup(req, res) {
   const {
-    email, password, fname, lname, address, country,
+    email, password, firstname, lastname, address, country,
   } = req.body;
-  const user = new User(0, email, fname,
-    lname, password, address, country, 'unverified', false);
-  const values = Object.keys(user).map(key => user[key]);
-  values.splice(1, 1);
-  pool.query(getSignupQuery(values))
+  const user = new User(0, email, firstname,
+    lastname, password, address, country, 'unverified', false);
+  const userDataArray = Object.keys(user).map(key => user[key]);
+  userDataArray.splice(1, 1);
+  pool.query(getSignupQuery(userDataArray))
     .then((result) => {
       const newUser = user;
       newUser.id = result.rows[0].id;

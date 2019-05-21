@@ -5,9 +5,7 @@ node_js:
 - 'lts/*'
 after_success: npm run coverage
 env:
-  - user = postgres
-  - database = travis_ci_test
-  - password = 
+  - userTest = postgres databaseTest = travis_ci_test passwordTest = 
 services:
   - postgresql
 before_script:

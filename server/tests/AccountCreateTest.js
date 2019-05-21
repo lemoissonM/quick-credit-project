@@ -14,8 +14,8 @@ pool.query(getDeleteUserQuery(['lemoissonM@quick-credit.com'])).then((result) =>
 const loginDetails = {
   email: 'lemoissonM@quick-credit.com',
   password: '12345678',
-  fname: 'lemoissn',
-  lname: 'metre',
+  firstname: 'lemoissn',
+  lastname: 'metre',
   country: 'Republic of Rwanda ',
   address: 'Rubavu',
   city: 'Gisenyi',
@@ -43,8 +43,8 @@ const loginDetailsInvalidPassword = {
 const loginDetailsTrue = {
   email: 'lemoissonM@quick-credit.com',
   password: '12345678',
-  fname: 'lemoissn',
-  lname: 'metre',
+  firstname: 'lemoissn',
+  lastname: 'metre',
   country: 'Republic of Rwanda ',
   address: 'Rubavu',
   city: 'Gisenyi',

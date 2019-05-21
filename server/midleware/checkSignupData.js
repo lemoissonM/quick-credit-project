@@ -2,7 +2,7 @@ const { checkEmail, checkSpaces } = require('../helper/stringCheck');
 
 export default function checkSignupData(req, res, next) {
   const {
-    email, password, fname, lname, address, country,
+    email, password, firstname, lastname, address, country,
   } = req.body;
   let errorMessage = '';
   if (!email) errorMessage = 'please provide an email address';
@@ -10,8 +10,8 @@ export default function checkSignupData(req, res, next) {
   else if (!password)errorMessage = 'The password is not defined';
   else if (checkSpaces(password) || password.length < 8) {
     errorMessage = 'Password should be at least 8 characters long and should not contain spaces only';
-  } else if (!fname || checkSpaces(fname))errorMessage = 'Please provide a first last name';
-  else if (!lname || checkSpaces(lname))errorMessage = 'Please provide a correct last name';
+  } else if (!firstname || checkSpaces(firstname))errorMessage = 'Please provide a first last name';
+  else if (!lastname || checkSpaces(lastname))errorMessage = 'Please provide a correct last name';
   else if (!address || checkSpaces(address))errorMessage = 'Please provide a correct address';
   else if (!country || checkSpaces(country))errorMessage = 'Please provide a correct country';
   if (errorMessage) {
