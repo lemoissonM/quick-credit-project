@@ -1,12 +1,11 @@
-/* eslint-disable linebreak-style */
 import express from 'express';
-import { addNewLoan, getUserLoan } from '../../controller/loan_user_controller';
-import checkToken from '../../midleware/auhentication.postloan';
-import { getloans, getSpecificLoan, approveLoan } from '../../controller/loan.admin.controller';
+import { addNewLoan, getUserLoan } from '../../controller/loanUserController';
+import checkToken from '../../midleware/auhenticationPostloan';
+import { getloans, getSpecificLoan, approveLoan } from '../../controller/loanAdminController';
 import checkTokenLoan from '../../midleware/authenticateLoans';
 import checkAdmin from '../../midleware/authenticateAdmin';
-import { addPayment, getRepayments } from '../../controller/loanRepayment_controller';
-import checkSpecificLoan from '../../midleware/authenticate.specificloan';
+import { addPayment, getRepayments } from '../../controller/loanRepaymentController';
+import checkSpecificLoan from '../../midleware/authenticateSpecificloan';
 
 const router = express.Router();
 

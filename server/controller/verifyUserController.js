@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 const { updateUser, getSingleUser } = require('../helper/userHelper');
 
 // Parse incoming requests data

@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 // creating the loan repayment class
 export class LoanRepayment {
   constructor(id, loanId, amount, tenorCovered) {

@@ -1,11 +1,10 @@
-/* eslint-disable linebreak-style */
 import {
   addUserLoan, getLoanCount, getPendingLoans, getAllLoans, getCurrentLoans,
   getRepaidLoans, getDeniedLoans,
 } from '../helper/loansHelper';
 import { getSingleUser } from '../helper/userHelper';
 
-const Loan = require('../model/Loan');
+const Loan = require('../models/Loan');
 
 export function getUserLoan(req, res) {
   let { status, repaid } = req.query;

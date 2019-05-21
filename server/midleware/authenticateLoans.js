@@ -1,17 +1,15 @@
-/* eslint-disable linebreak-style */
 import jwt from '../../node_modules/jsonwebtoken';
-import config from '../config/config';
 import { checkLoanEmail } from '../helper/userHelper';
 import {
   validateToken, notValidToken, TokenUnauthorized, tokenError,
-} from '../helper/middleware.helper';
-
+} from '../helper/middlewareHelper';
 
 export default function checkToken(req, res, next) {
   let token = req.headers['x-access-token'] || req.headers.authorization;
   token = validateToken(token);
   if (token) {
-    jwt.verify(token, config.secret, (err, decoded) => {
+    const { secret } = process.env;
+    jwt.verify(token, secret, (err, decoded) => {
       if (err) {
         return notValidToken(res);
       }

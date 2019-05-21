@@ -1,10 +1,7 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable no-undef */
-/* eslint-disable no-console */
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const { app, closeServer } = require('../index');
-const users = require('../model/user');
+const users = require('../models/User');
 
 chai.use(chaiHttp);
 

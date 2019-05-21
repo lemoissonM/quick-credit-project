@@ -1,11 +1,13 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
+
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const { expect } = require('chai');
 const { app } = require('../index');
-const users = require('../model/user');
+
+const users = require('../models/User');
 
 chai.use(chaiHttp);
 const fakeRepaymentData = {
@@ -14,7 +16,6 @@ const fakeRepaymentData = {
 const correctRepaymentData = {
   amount: '210',
 };
-
 describe('Post a repayment transaction', () => {
   it('it should return a 400 status when amount is  not a number', (done) => {
     chai.request(app)
@@ -45,7 +46,7 @@ describe('Post a repayment transaction', () => {
       .send(correctRepaymentData)
       .end((err, res) => {
         res.should.have.status(404);
-        
+
         done();
       });
   });
@@ -57,7 +58,7 @@ describe('Post a repayment transaction', () => {
       .send(correctRepaymentData)
       .end((err, res) => {
         res.should.have.status(201);
-    
+
         done();
       });
   });

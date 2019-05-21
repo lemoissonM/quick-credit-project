@@ -1,17 +1,21 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable no-console */
 /* eslint-disable no-undef */
+import pool from '../config/configDb';
+import { getDeleteUserQuery } from '../models/Queries';
+
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const { app, closeServer } = require('../index');
 
 chai.use(chaiHttp);
 
+// deleting the testing user if already exists
+pool.query(getDeleteUserQuery(['lemoissonM@quick-credit.com'])).then((result) => {}).catch((err) => {});
+
 const loginDetails = {
-  email: 'lemoisson@quick-credit.com',
+  email: 'lemoissonM@quick-credit.com',
   password: '12345678',
-  fname: 'lemoissn',
-  lname: 'metre',
+  firstname: 'lemoissn',
+  lastname: 'metre',
   country: 'Republic of Rwanda ',
   address: 'Rubavu',
   city: 'Gisenyi',
@@ -39,8 +43,8 @@ const loginDetailsInvalidPassword = {
 const loginDetailsTrue = {
   email: 'lemoissonM@quick-credit.com',
   password: '12345678',
-  fname: 'lemoissn',
-  lname: 'metre',
+  firstname: 'lemoissn',
+  lastname: 'metre',
   country: 'Republic of Rwanda ',
   address: 'Rubavu',
   city: 'Gisenyi',
@@ -57,17 +61,6 @@ describe('Signup', () => {
       });
   });
 
-  it('it should not create an account if the email is already taken', (done) => {
-    chai.request(app)
-      .post('/api/v1/auth/signup')
-      .send(loginDetails)
-      .end((err, res) => {
-        res.should.have.status(409);
-
-        done();
-      });
-  });
-
   it('should return a 200 status and user data when everything is okey', (done) => {
     chai.request(app)
       .post('/api/v1/auth/signup')
@@ -80,6 +73,16 @@ describe('Signup', () => {
       });
   });
 
+  it('it should not create an account if the email is already taken', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signup')
+      .send(loginDetailsTrue)
+      .end((err, res) => {
+        res.should.have.status(409);
+
+        done();
+      });
+  });
 
   it('should not create account with invalid mail', (done) => {
     chai.request(app)

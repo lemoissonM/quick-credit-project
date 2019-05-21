@@ -1,5 +1,3 @@
-/* eslint-disable linebreak-style */
-
 export function validateToken(token) {
   if (token && token.startsWith('Bearer ')) {
     return token.slice(7, token.length);
