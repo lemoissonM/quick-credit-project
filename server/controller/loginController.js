@@ -1,6 +1,7 @@
 import { comparePassword } from '../helper/hashPassword';
-import { getSigninQuery } from '../models/Queries';
+import { getSigninQuery, setUserTokenQuery } from '../models/Queries';
 import pool from '../config/configDb';
+import createToken from '../midleware/createToken';
 
 export default function login(req, res) {
   const { email, password } = req.body;
@@ -11,7 +12,13 @@ export default function login(req, res) {
       if (result.rowCount > 0) {
         const user = result.rows[0];
         if (user && comparePassword(password, user.password)) {
+          user.token = createToken(email);
           user.password = '';
+          pool.query(setUserTokenQuery([user.token, user.email])).catch((err) => {
+            res.status(500).send({
+              status: 500,
+            });
+          });
           res.status(200).json({
             status: 200,
             data: user,

@@ -3,7 +3,7 @@ import {
   updateLoan, getPendingLoans, getDeniedLoans, getApprovedLoans,
 } from '../helper/loansHelper';
 import pool from '../config/configDb';
-import { getSpecificLoanQuery } from '../models/Queries';
+import { getSpecificLoanQuery, UpdateLoanQuery, approveLoanQuery } from '../models/Queries';
 
 export function getloans(req, res) {
   const { status, repaid } = req.query;
@@ -47,37 +47,31 @@ export function getSpecificLoan(req, res) {
 }
 
 export function approveLoan(req, res) {
-  const loan = getSingleLoan(req.params.loanID);
+  const { loanID } = req.params;
   const { status } = req.body;
 
-  if (loan) {
-    if (loan.status === 'approved') {
-      res.status(403).send({
-        status: 403,
-        error: 'You are not authorized to acces this loan status',
-      });
-    } else if (status === 'approved') {
-      loan.status = 'approved';
-      res.status(200).send({
-        status: 200,
-        data: updateLoan(loan),
-      });
-    } else if (status === 'rejected') {
-      loan.status = 'rejected';
-      res.status(200).send({
-        status: 200,
-        data: updateLoan(loan),
-      });
+  pool.query(getSpecificLoanQuery([loanID])).then((result) => {
+    if (result.rowCount > 0) {
+      const newLoan = result.rows[0];
+      if (result.rows[0].status === 'pending') {
+        pool.query(approveLoanQuery([loanID, status])).then((newRepayment) => {
+          newLoan.status = status;
+          res.status(200).send({
+            status: 200,
+            data: newLoan,
+          });
+        });
+      } else {
+        res.status(403).send({
+          status: 403,
+          error: 'You are not authorized to acces this loan status',
+        });
+      }
     } else {
-      res.status(400).send({
-        status: 400,
-        error: 'Please provide a valid loan status',
+      res.status(404).send({
+        status: 404,
+        error: 'No loan found for the given ID',
       });
     }
-  } else {
-    res.status(404).send({
-      status: 404,
-      error: 'No loan found for the given ID',
-    });
-  }
+  });
 }

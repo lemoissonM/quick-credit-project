@@ -6,16 +6,17 @@ import checkAdmin from '../../midleware/authenticateAdmin';
 import { addPayment, getRepayments } from '../../controller/loanRepaymentController';
 import { checkSpecificLoan, checkOwnerToken } from '../../midleware/authenticateSpecificloan';
 import checkPostLoanData from '../../midleware/checkPostLoanData';
-import checkLoanListRequest from '../../midleware/checkLoanListRequest';
+import normalizeRequest from '../../midleware/checkLoanListRequest';
+import checkApproveLoanData from '../../midleware/CheckApproveLoanData';
 
 const router = express.Router();
 
 // loans routes
 router.post('/', checkToken, checkPostLoanData, addNewLoan);
-router.get('/', checkAdmin, checkLoanListRequest, getloans);
-router.get('/user/:email/', checkOwnerToken, checkLoanListRequest, getUserLoan);
+router.get('/', checkAdmin, normalizeRequest, getloans);
+router.get('/user/:email/', checkOwnerToken, normalizeRequest, getUserLoan);
 router.get('/:loanID', checkSpecificLoan, getSpecificLoan);
-router.patch('/:loanID', checkAdmin, approveLoan);
+router.patch('/:loanID', checkAdmin, checkApproveLoanData, approveLoan);
 
 // loans repayment route
 router.post('/:loanID/repayment', checkAdmin, addPayment);

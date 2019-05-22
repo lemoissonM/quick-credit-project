@@ -303,8 +303,8 @@ describe('approve or reject loan', () => {
   it('it should a 404 status because for not found loan id', (done) => {
     chai.request(app)
       .patch('/api/v1/loans/200')
-      .set('Authorization', `Bearer ${users[0].token}`)
-      .send('')
+      .set('Authorization', `Bearer ${adminToken}`)
+      .send({ status: 'approved' })
       .end((err, res) => {
         res.should.have.status(404);
         expect(res.body.error).to.be.equal('No loan found for the given ID');
@@ -317,22 +317,25 @@ describe('approve or reject loan', () => {
       status: 'approved',
     };
     chai.request(app)
-      .patch('/api/v1/loans/0')
-      .set('Authorization', `Bearer ${users[0].token}`)
+      .patch(`/api/v1/loans/${newLoanID}`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send(requestString)
       .end((err, res) => {
         res.should.have.status(200);
-        expect(res.body.data.userMail).to.be.equal('lemoisson@quick-credit.com');
-        expect(res.body.data.interest).to.be.equal(60);
+        expect(res.body.data.usermail).to.be.equal('lemoisson@quick-credit.com');
+        expect(res.body.data.interest).to.be.equal('100');
         done();
       });
   });
 
   it('it should a 403 status when loan already approved', (done) => {
+    const requestString = {
+      status: 'approved',
+    };
     chai.request(app)
-      .patch('/api/v1/loans/0')
-      .set('Authorization', `Bearer ${users[0].token}`)
-      .send('')
+      .patch(`/api/v1/loans/${newLoanID}`)
+      .set('Authorization', `Bearer ${adminToken}`)
+      .send(requestString)
       .end((err, res) => {
         res.should.have.status(403);
         expect(res.body.error).to.be.equal('You are not authorized to acces this loan status');
