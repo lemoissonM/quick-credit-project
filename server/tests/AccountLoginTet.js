@@ -5,6 +5,8 @@ const { app } = require('../index');
 
 chai.use(chaiHttp);
 
+let adminToken = '';
+let normalUserToken = '';
 const loginDetails = {
   email: 'lemoisson@quick-credit.com',
   password: 'metre',
@@ -13,6 +15,7 @@ const loginDetailsTrue = {
   email: 'lemoissonM@quick-credit.com',
   password: '12345678',
 };
+
 const loginDetailsEmpty = {
   email: 'lemoisson@quick-credit.com',
   password: '',
@@ -59,7 +62,15 @@ describe('login', () => {
       .end((err, res) => {
         res.should.have.status(200);
         chai.expect(res.body.data.email).equal('lemoissonM@quick-credit.com');
+        normalUserToken = res.body.data.token;
         done();
       });
   });
 });
+export function getAdminToken() {
+  return adminToken;
+}
+
+export function getNormalToken() {
+  return normalUserToken;
+}

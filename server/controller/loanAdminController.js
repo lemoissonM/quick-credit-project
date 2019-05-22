@@ -1,7 +1,9 @@
 import {
   getCurrentLoans, getRepaidLoans, getAllLoans, getSingleLoan,
-  updateLoan, getPendingLoans, getDeniedLoans, getApprovedLoans,
+  updateLoan, getPendingLoans, getDeniedLoans,
 } from '../helper/loansHelper';
+import pool from '../config/configDb';
+import { getSpecificLoanQuery } from '../models/Queries';
 
 export function getloans(req, res) {
   let { status, repaid } = req.query;
@@ -49,12 +51,11 @@ export function getloans(req, res) {
 export function getSpecificLoan(req, res) {
   const { loanID } = req.params;
 
-  if (loanID && !isNaN(loanID)) {
-    const loan = getSingleLoan(loanID);
-    if (loan) {
+  pool.query(getSpecificLoanQuery([loanID])).then((result) => {
+    if (result.rowCount > 0) {
       res.status(200).send({
         status: 200,
-        data: loan,
+        data: result.rows[0],
       });
     } else {
       res.status(404).send({
@@ -62,12 +63,7 @@ export function getSpecificLoan(req, res) {
         error: 'No loan found for the given ID',
       });
     }
-  } else {
-    res.status(400).send({
-      status: 400,
-      error: 'Provide a valid loan id',
-    });
-  }
+  });
 }
 
 export function approveLoan(req, res) {

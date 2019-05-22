@@ -1,10 +1,10 @@
 import {
-  addUserLoan, getLoanCount, getPendingLoans, getAllLoans, getCurrentLoans,
+  getLoanCount, getPendingLoans, getAllLoans, getCurrentLoans,
   getRepaidLoans, getDeniedLoans,
 } from '../helper/loansHelper';
-import { getSingleUser } from '../helper/userHelper';
-
-const Loan = require('../models/Loan');
+import pool from '../config/configDb';
+import { addLoanQuery, getUserLoansQuery } from '../models/Queries';
+import { Loan } from '../models/Loan';
 
 export function getUserLoan(req, res) {
   let { status, repaid } = req.query;
@@ -52,37 +52,36 @@ export function getUserLoan(req, res) {
 }
 
 export function addNewLoan(req, res) {
-  let errorMessage = '';
-  let status = 400;
   const { userMail } = req;
   const { tenor, amount } = req.body;
-
-  if (!userMail) errorMessage = 'Please provide the user email';
-  else if (!tenor || isNaN(tenor) || tenor < 1) errorMessage = 'Tenor should be a strict positive number';
-  else if (!amount || isNaN(amount) || amount < 1) errorMessage = 'Amount should be a strict positive number';
-  else {
-    const [user] = getSingleUser(userMail);
-    const [currentLoans] = getPendingLoans(userMail);
-    if (!user) {
-      errorMessage = 'No user found for the given email';
-      status = 404;
-    } else if (currentLoans) {
-      errorMessage = 'You still have another pending loan';
-      status = 403;
-    } else {
-      // eslint-disable-next-line max-len
-      const newLoan = addUserLoan(new Loan.Loan(getLoanCount(), userMail, Number.parseInt(tenor, 10), Number.parseInt(amount, 10)));
-      res.status(201).send({
-        status: 201,
-        data: newLoan,
-      });
-    }
-  }
-
-  if (errorMessage) {
-    res.status(status).send({
-      status,
-      error: errorMessage,
+  const newLoan = new Loan(getLoanCount(), userMail, Number.parseInt(tenor, 10),
+    Number.parseInt(amount, 10));
+  const loanDataArray = Object.keys(newLoan).map(key => newLoan[key]);
+  loanDataArray.splice(0, 1);
+  pool.query(getUserLoansQuery(undefined, 'pending', newLoan.userMail))
+    .then((result) => {
+      if (result.rowCount < 1) {
+        pool.query(addLoanQuery(loanDataArray))
+          .then((myloans) => {
+            const myLoan = newLoan;
+            myLoan.id = myloans.rows[0].id;
+            return res.status(201).send({
+              status: 201,
+              data: myLoan,
+            });
+          }).catch((errs) => {
+            res.status(500).send({
+              status: 500,
+              message: 'An error occured when creating account',
+            });
+          });
+      } else {
+        res.status(403).send({
+          status: 403,
+          message: 'You still have another pending loan',
+        });
+      }
+    })
+    .catch((err) => {
     });
-  }
 }

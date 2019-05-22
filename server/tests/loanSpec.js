@@ -24,11 +24,53 @@ const FakeUserLoanRequestData = {
   amount: 2000,
 };
 
+const loginDetailsAdmin = {
+  email: 'admin@quick-credit.com',
+  password: '12345678',
+  firstname: 'lemoissn',
+  lastname: 'metre',
+  country: 'Republic of Rwanda ',
+  address: 'Rubavu',
+  city: 'Gisenyi',
+  isAdmin: 'true',
+};
+let adminToken = '';
+it('should return a 200 status and user data when everything is okey', (done) => {
+  chai.request(app)
+    .post('/api/v1/auth/signup')
+    .send(loginDetailsAdmin)
+    .end((err, res) => {
+      adminToken = res.body.data.token;
+      done();
+    });
+});
+
+const loginDetails = {
+  email: 'lemoisson@quick-credit.com',
+  password: '12345678',
+  firstname: 'lemoissn',
+  lastname: 'metre',
+  country: 'Republic of Rwanda ',
+  address: 'Rubavu',
+  city: 'Gisenyi',
+};
+let normalToken = '';
+let newLoanID = '';
+it('should return a 200 status and user data when everything is okey', (done) => {
+  chai.request(app)
+    .post('/api/v1/auth/signup')
+    .send(loginDetails)
+    .end((err, res) => {
+      normalToken = res.body.data.token;
+      done();
+    });
+});
+
 describe('Post a new loan', () => {
   it('it should a 400 status because of Undefinned values', (done) => {
     chai.request(app)
       .post('/api/v1/loans/')
-      .set('Authorization', `Bearer ${users[2].token}`)
+      .set('Authorization', `Bearer ${normalToken}`)
       .send('')
       .end((err, res) => {
         res.should.have.status(400);
@@ -63,11 +105,13 @@ describe('Post a new loan', () => {
   it('it should return the new loan data', (done) => {
     chai.request(app)
       .post('/api/v1/loans/')
-      .set('Authorization', `Bearer ${users[2].token}`)
+      .set('Authorization', `Bearer ${normalToken}`)
       .send(newLoanCorrectData)
       .end((err, res) => {
         res.should.have.status(201);
         expect(res.body.data.balance).to.be.equal(2100);
+        newLoanID = res.body.data.id;
+        console.debug(newLoanID);
         done();
       });
   });
@@ -75,11 +119,11 @@ describe('Post a new loan', () => {
   it('it should return 403 status since the user has a current loan', (done) => {
     chai.request(app)
       .post('/api/v1/loans/')
-      .set('Authorization', `Bearer ${users[1].token}`)
+      .set('Authorization', `Bearer ${normalToken}`)
       .send(duplicateLoanRequestData)
       .end((err, res) => {
         res.should.have.status(403);
-        expect(res.body.error).to.be.equal('You still have another pending loan');
+        expect(res.body.message).to.be.equal('You still have another pending loan');
         done();
       });
   });
@@ -89,11 +133,11 @@ describe('Get all  loans specs', () => {
   it('it should return all loans', (done) => {
     chai.request(app)
       .get('/api/v1/loans/')
-      .set('Authorization', `Bearer ${users[0].token}`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
-        expect(res.body.data.length).to.be.equal(2);
+        expect(res.body.data.length).to.be.equal(1);
         done();
       });
   });
@@ -101,7 +145,7 @@ describe('Get all  loans specs', () => {
   it('it should return all loans for a specific user', (done) => {
     chai.request(app)
       .get('/api/v1/loans/user/lemoisson@quick-credit.com/')
-      .set('Authorization', `Bearer ${users[0].token}`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
@@ -115,7 +159,7 @@ describe('Get current loans spec', () => {
   it('it should return the currents loans', (done) => {
     chai.request(app)
       .get('/api/v1/loans/?status=approved&repaid=false')
-      .set('Authorization', `Bearer ${users[0].token}`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
@@ -127,7 +171,7 @@ describe('Get current loans spec', () => {
   it('it should return the current loans of lemoisson@quick-credit.com', (done) => {
     chai.request(app)
       .get('/api/v1/loans/user/lemoisson@quick-credit.com/?status=approved&repaid=false')
-      .set('Authorization', `Bearer ${users[1].token}`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
@@ -141,7 +185,7 @@ describe('Get all repaid loans specs', () => {
   it('it should return all the repaid loans', (done) => {
     chai.request(app)
       .get('/api/v1/loans/?status=approved&repaid=true')
-      .set('Authorization', `Bearer ${users[0].token}`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
@@ -153,7 +197,7 @@ describe('Get all repaid loans specs', () => {
   it('it should return all the repaid loans for a specific user', (done) => {
     chai.request(app)
       .get('/api/v1/loans/user/lemoisson@quick-credit.com/?status=approved&repaid=true')
-      .set('Authorization', `Bearer ${users[0].token}`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
@@ -167,7 +211,7 @@ describe('Get all pending loans specs', () => {
   it('it should return all the pending loans for a specific user', (done) => {
     chai.request(app)
       .get('/api/v1/loans/user/lemoisson@quick-credit.com/?status=pending')
-      .set('Authorization', `Bearer ${users[0].token}`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
@@ -179,11 +223,11 @@ describe('Get all pending loans specs', () => {
   it('it should return all the pending loans ', (done) => {
     chai.request(app)
       .get('/api/v1/loans/?status=pending')
-      .set('Authorization', `Bearer ${users[0].token}`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
-        chai.expect(2).to.be.equal(res.body.data.length);
+        chai.expect(1).to.be.equal(res.body.data.length);
 
         done();
       });
@@ -194,7 +238,7 @@ describe('Get all rejected  loans specs', () => {
   it('it should return all the rejected loans for a specific user', (done) => {
     chai.request(app)
       .get('/api/v1/loans/user/lemoisson@quick-credit.com/?status=rejected')
-      .set('Authorization', `Bearer ${users[0].token}`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
@@ -206,7 +250,7 @@ describe('Get all rejected  loans specs', () => {
   it('it should return all the rejected loans for a specific user', (done) => {
     chai.request(app)
       .get('/api/v1/loans/?status=rejected')
-      .set('Authorization', `Bearer ${users[0].token}`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
@@ -219,13 +263,13 @@ describe('Get all rejected  loans specs', () => {
 describe('Get single loan spec', () => {
   it('it should return the loan with id=0', (done) => {
     chai.request(app)
-      .get('/api/v1/loans/0')
-      .set('Authorization', `Bearer ${users[1].token}`)
+      .get(`/api/v1/loans/${newLoanID}`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
-        expect(res.body.data.userMail).to.be.equal('lemoisson@quick-credit.com');
-        expect(res.body.data.amount).to.be.equal(1200);
+        expect(res.body.data.usermail).to.be.equal('lemoisson@quick-credit.com');
+        expect(res.body.data.amount).to.be.equal('2000');
         done();
       });
   });
@@ -233,7 +277,7 @@ describe('Get single loan spec', () => {
   it('it should an error since a string is provided as loan id', (done) => {
     chai.request(app)
       .get('/api/v1/loans/lee')
-      .set('Authorization', `Bearer ${users[1].token}`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send('')
       .end((err, res) => {
         res.should.have.status(400);
@@ -245,7 +289,7 @@ describe('Get single loan spec', () => {
   it('it should return a 404 status since the loan id 1500 doesn\'t exist', (done) => {
     chai.request(app)
       .get('/api/v1/loans/1500')
-      .set('Authorization', `Bearer ${users[1].token}`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send('')
       .end((err, res) => {
         res.should.have.status(404);
@@ -279,7 +323,7 @@ describe('approve or reject loan', () => {
       .end((err, res) => {
         res.should.have.status(200);
         expect(res.body.data.userMail).to.be.equal('lemoisson@quick-credit.com');
-        expect(res.body.data.interest).to.be.equal(60);   
+        expect(res.body.data.interest).to.be.equal(60);
         done();
       });
   });

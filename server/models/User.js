@@ -4,7 +4,7 @@ import createToken from '../midleware/createToken';
 
 export class User {
   constructor(id, email, firstName, lastName, password, address, country, status, isAdmin) {
-    this.token = createToken(id);
+    this.token = createToken(email);
     this.id = id;
     this.email = email;
     this.firstName = firstName;

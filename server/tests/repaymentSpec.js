@@ -69,7 +69,7 @@ describe('Post a repayment transaction', () => {
       .set('Authorization', `Bearer ${users.users[0].token}`)
       .send(correctRepaymentData)
       .end((err, res) => {
-        res.should.have.status(403);
+        res.should.have.status(404);
         done();
       });
   });

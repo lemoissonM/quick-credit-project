@@ -57,3 +57,33 @@ export const getSigninQuery = values => ({
   text: 'SELECT * from users where email = $1',
   values,
 });
+
+export const getSpecificLoanQuery = values => ({
+  text: 'select * from loans where id = $1',
+  values,
+});
+
+export const isadminQuery = values => ({
+  text: 'select isadmin from users where email = $1 and isadmin=true',
+  values,
+});
+
+export const isOWnerQuery = values => ({
+  text: 'select count(*) from loans, users where ((usermail = $1 and loans.id = $2) or users.isadmin = true) and  users.email =$1',
+  values,
+});
+
+export const addLoanQuery = values => ({
+  text: 'INSERT INTO loans (userMail, tenor, amount, repaid, interest, paymentinstallment, balance, createdon, status) values ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING id',
+  values,
+});
+
+export const getUserLoanRequestBuilder = (repaid, status) => {
+  if (repaid && status) return `and repaid = '${repaid}' and status = '${status}'`;
+  if (repaid) return ` and repaid = '${repaid}'`;
+  if (status) return `and status = '${status}'`;
+  return '';
+};
+export const getUserLoansQuery = (repaid, status, value) => ({
+  text: `select * from loans where usermail = '${value}' ${getUserLoanRequestBuilder(repaid, status)}`,
+});

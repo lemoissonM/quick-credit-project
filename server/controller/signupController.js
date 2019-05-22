@@ -5,10 +5,13 @@ const { User } = require('../models/User');
 
 function signup(req, res) {
   const {
-    email, password, firstname, lastname, address, country,
+    email, password, firstname, lastname, address, country, isAdmin,
   } = req.body;
+  let admin = false;
+  if (isAdmin && isAdmin === 'true') admin = true;
+  else admin = false;
   const user = new User(0, email, firstname,
-    lastname, password, address, country, 'unverified', false);
+    lastname, password, address, country, 'unverified', admin);
   const userDataArray = Object.keys(user).map(key => user[key]);
   userDataArray.splice(1, 1);
   pool.query(getSignupQuery(userDataArray))

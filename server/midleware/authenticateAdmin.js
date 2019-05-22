@@ -3,20 +3,24 @@ import { checkTokenAdmin } from '../helper/userHelper';
 import {
   validateToken, notValidToken, TokenUnauthorized, tokenError,
 } from '../helper/middlewareHelper';
+import pool from '../config/configDb';
+import { isadminQuery } from '../models/Queries';
 
 export default function checkAdmin(req, res, next) {
   let token = req.headers['x-access-token'] || req.headers.authorization;
   token = validateToken(token);
   if (token) {
-    const { secret } = process.env;
-    jwt.verify(token, secret, (err, decoded) => {
+    jwt.verify(token, process.env.secret, (err, decoded) => {
       if (err) {
         return notValidToken(res);
       }
       req.decoded = decoded;
-      if (checkTokenAdmin(token) >= 0) { next(); } else {
-        return TokenUnauthorized(res);
-      }
+      console.log(decoded.id);
+      pool.query(isadminQuery([req.decoded.id]))
+        .then((result) => {
+          if (result.rowCount > 0) next();
+          else TokenUnauthorized(res);
+        }).catch(error => console.log(error));
     });
   } else {
     return tokenError(res);
