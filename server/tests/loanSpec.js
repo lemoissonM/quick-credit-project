@@ -34,8 +34,9 @@ it('should return a 200 status and user data when everything is okey', (done) =>
     .post('/api/v1/auth/signin')
     .send(loginDetailsAdmin)
     .end((err, res) => {
+      console.debug(res.body);
       adminToken = res.body.data.token;
-      // console.debug(adminToken);
+      console.debug(adminToken);
       done();
     });
 });
@@ -56,6 +57,7 @@ it('should return a 200 status and user data when everything is okey', (done) =>
     .post('/api/v1/auth/signup')
     .send(loginDetails)
     .end((err, res) => {
+      console.debug(res.body);
       normalToken = res.body.data.token;
       done();
     });
