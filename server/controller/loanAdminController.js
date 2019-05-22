@@ -1,45 +1,25 @@
 import {
   getCurrentLoans, getRepaidLoans, getAllLoans, getSingleLoan,
-  updateLoan, getPendingLoans, getDeniedLoans,
+  updateLoan, getPendingLoans, getDeniedLoans, getApprovedLoans,
 } from '../helper/loansHelper';
 import pool from '../config/configDb';
 import { getSpecificLoanQuery } from '../models/Queries';
 
 export function getloans(req, res) {
-  let { status, repaid } = req.query;
-  if (repaid) { repaid = repaid.trim().toLowerCase(); }
-  if (status) { status = status.trim().toLowerCase(); }
+  const { status, repaid } = req.query;
 
   if (status === 'approved' && repaid === 'false') {
-    res.status(200).send({
-      status: 200,
-      data: getCurrentLoans(),
-    });
+    getCurrentLoans(undefined, res);
   } else if (status === 'approved' && repaid === 'true') {
-    res.status(200).send({
-      status: 200,
-      data: getRepaidLoans(),
-    });
+    getRepaidLoans(undefined, res);
   } else if (status === 'pending') {
-    res.status(200).send({
-      status: 200,
-      data: getPendingLoans(),
-    });
+    getPendingLoans(undefined, res);
   } else if (status === 'approved') {
-    res.status(200).send({
-      status: 200,
-      data: getCurrentLoans(),
-    });
+    getApprovedLoans(undefined, res);
   } else if (status === 'rejected') {
-    res.status(200).send({
-      status: 200,
-      data: getDeniedLoans(),
-    });
+    getDeniedLoans(undefined, res);
   } else if (!status && !repaid) {
-    res.status(200).send({
-      status: 200,
-      data: getAllLoans(),
-    });
+    getAllLoans(undefined, res);
   } else {
     res.status(404).send({
       status: 404,
