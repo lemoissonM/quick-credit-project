@@ -27,16 +27,20 @@ const FakeUserLoanRequestData = {
 const loginDetailsAdmin = {
   email: 'admin@quick-credit.com',
   password: '12345678',
+  firstname: 'lemoissn',
+  lastname: 'metre',
+  country: 'Republic of Rwanda ',
+  address: 'Rubavu',
+  city: 'Gisenyi',
+  isAdmin: 'true',
 };
 let adminToken = '';
 it('should return a 200 status and user data when everything is okey', (done) => {
   chai.request(app)
-    .post('/api/v1/auth/signin')
+    .post('/api/v1/auth/signup')
     .send(loginDetailsAdmin)
     .end((err, res) => {
-      console.debug(res.body);
       adminToken = res.body.data.token;
-      console.debug(adminToken);
       done();
     });
 });
@@ -57,7 +61,6 @@ it('should return a 200 status and user data when everything is okey', (done) =>
     .post('/api/v1/auth/signup')
     .send(loginDetails)
     .end((err, res) => {
-      console.debug(res.body);
       normalToken = res.body.data.token;
       done();
     });
@@ -130,7 +133,7 @@ describe('Get all  loans specs', () => {
   it('it should return all loans', (done) => {
     chai.request(app)
       .get('/api/v1/loans/')
-      .set('Authorization', `Bearer ${users[0].token}`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
