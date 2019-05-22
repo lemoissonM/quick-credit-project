@@ -1,5 +1,5 @@
 import {
-  getLoanCount, getPendingLoans, getAllLoans, getCurrentLoans,
+  getLoanCount, getPendingLoans, getAllLoans, getCurrentLoans, getApprovedLoans,
   getRepaidLoans, getDeniedLoans,
 } from '../helper/loansHelper';
 import pool from '../config/configDb';
@@ -13,40 +13,25 @@ export function getUserLoan(req, res) {
   if (repaid) { repaid = repaid.trim().toLowerCase(); }
   if (status) { status = status.trim().toLowerCase(); }
 
+  if (repaid) { repaid = repaid.trim().toLowerCase(); }
+  if (status) { status = status.trim().toLowerCase(); }
+
   if (status === 'approved' && repaid === 'false') {
-    res.status(200).send({
-      status: 200,
-      data: getCurrentLoans(email),
-    });
+    getCurrentLoans(email, res);
   } else if (status === 'approved' && repaid === 'true') {
-    res.status(200).send({
-      status: 200,
-      data: getRepaidLoans(email),
-    });
+    getRepaidLoans(email, res);
   } else if (status === 'pending') {
-    res.status(200).send({
-      status: 200,
-      data: getPendingLoans(email),
-    });
-  } else if (status === 'rejected') {
-    res.status(200).send({
-      status: 200,
-      data: getDeniedLoans(email),
-    });
+    getPendingLoans(email, res);
   } else if (status === 'approved') {
-    res.status(200).send({
-      status: 200,
-      data: getCurrentLoans(email),
-    });
-  } else if (!repaid && !status) {
-    res.status(200).send({
-      status: 200,
-      data: getAllLoans(email),
-    });
+    getApprovedLoans(email, res);
+  } else if (status === 'rejected') {
+    getDeniedLoans(email, res);
+  } else if (!status && !repaid) {
+    getAllLoans(email, res);
   } else {
     res.status(404).send({
       status: 404,
-      message: 'We cannot access to this resource',
+      message: 'Nothing found at this resource',
     });
   }
 }

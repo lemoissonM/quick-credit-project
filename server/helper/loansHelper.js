@@ -1,4 +1,6 @@
 import { loans } from '../models/Loan';
+import pool from '../config/configDb';
+import { getLoansQuery, getUserLoansQuery } from '../models/Queries';
 
 export function updateLoan(loan) {
   loans[loan.id] = loan;
@@ -7,12 +9,42 @@ export function updateLoan(loan) {
 export function getLoanCount() {
   return loans.length;
 }
+function getLoans(email, status, repaid, res) {
+  if (!email) {
+    pool.query(getLoansQuery(repaid, status))
+      .then((result) => {
+        res.status(200).send({
+          status: 200,
+          data: result.rows,
+        });
+        return result;
+      })
+      .catch((err) => {
+        res.status(203).send({
+          status: 203,
+        });
+        return null;
+      });
+  } else {
+    pool.query(getUserLoansQuery(repaid, status, [email]))
+      .then((result) => {
+        res.status(200).send({
+          status: 200,
+          data: result.rows,
+        });
+      })
+      .catch((err) => {
+        res.status(203).send({
+          status: 203,
+        });
+      });
+  }
+}
 export function filterByUser(email, myloans) {
   return myloans.filter(loan => loan.userMail === email);
 }
-export function getAllLoans(email) {
-  if (email) return filterByUser(email, loans);
-  return loans;
+export function getAllLoans(email, res) {
+  getLoans(email, undefined, undefined, res);
 }
 export function addUserLoan(newLoan) {
   loans.push(newLoan);
@@ -21,21 +53,18 @@ export function addUserLoan(newLoan) {
 export function getSingleLoan(loanID) {
   return loans[loanID];
 }
-export function getApprovedLoans(email) {
-  if (email) return (email, filterByUser(email, loans.filter(loan => loan.getStatus() === 'approved')));
-  return loans.filter(loan => loan.getStatus() === 'approved');
+export function getApprovedLoans(email, res) {
+  getLoans(email, 'approved', undefined, res);
 }
-export function getCurrentLoans(email) {
-  return getApprovedLoans(email).filter(loan => loan.isRepaid() === false);
+export function getCurrentLoans(email, res) {
+  getLoans(email, 'approved', false, res);
 }
-export function getRepaidLoans(email) {
-  return getAllLoans(email).filter(loan => loan.isRepaid() === true);
+export function getRepaidLoans(email, res) {
+  getLoans(email, undefined, true, res);
 }
-export function getPendingLoans(email) {
-  if (email) return (email, filterByUser(email, loans.filter(loan => loan.getStatus() === 'pending')));
-  return loans.filter(loan => loan.getStatus() === 'pending');
+export function getPendingLoans(email, res) {
+  getLoans(email, 'pending', undefined, res);
 }
-export function getDeniedLoans(email) {
-  if (email) return (email, filterByUser(email, loans.filter(loan => loan.getStatus() === 'denied')));
-  return loans.filter(loan => loan.getStatus() === 'denied');
+export function getDeniedLoans(email, res) {
+  getLoans(email, 'denied', undefined, res);
 }

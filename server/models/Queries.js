@@ -87,3 +87,16 @@ export const getUserLoanRequestBuilder = (repaid, status) => {
 export const getUserLoansQuery = (repaid, status, value) => ({
   text: `select * from loans where usermail = '${value}' ${getUserLoanRequestBuilder(repaid, status)}`,
 });
+export const getLoanRequestBuilder = (repaid, status) => {
+  if (repaid && status) return `where repaid = '${repaid}' and status = '${status}'`;
+  if (repaid) return `where repaid = '${repaid}'`;
+  if (status) return `where status = '${status}'`;
+  return '';
+};
+export const getLoansQuery = (repaid, status) => ({
+  text: `select * from loans ${getLoanRequestBuilder(repaid, status)}`,
+});
+export const UpdateLoanQuery = values => ({
+  text: 'update loans set status = $2, repaid = $1, balance = $3 where id = $4 RETURNING *',
+  values,
+})
