@@ -20,8 +20,8 @@ function getLoans(email, status, repaid, res) {
         return result;
       })
       .catch((err) => {
-        res.status(203).send({
-          status: 203,
+        res.status(500).send({
+          status: 500,
         });
         return null;
       });
@@ -34,8 +34,8 @@ function getLoans(email, status, repaid, res) {
         });
       })
       .catch((err) => {
-        res.status(203).send({
-          status: 203,
+        res.status(500).send({
+          status: 500,
         });
       });
   }

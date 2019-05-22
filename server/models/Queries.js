@@ -99,4 +99,4 @@ export const getLoansQuery = (repaid, status) => ({
 export const UpdateLoanQuery = values => ({
   text: 'update loans set status = $2, repaid = $1, balance = $3 where id = $4 RETURNING *',
   values,
-})
+});

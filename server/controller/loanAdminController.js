@@ -6,9 +6,7 @@ import pool from '../config/configDb';
 import { getSpecificLoanQuery } from '../models/Queries';
 
 export function getloans(req, res) {
-  let { status, repaid } = req.query;
-  if (repaid) { repaid = repaid.trim().toLowerCase(); }
-  if (status) { status = status.trim().toLowerCase(); }
+  const { status, repaid } = req.query;
 
   if (status === 'approved' && repaid === 'false') {
     getCurrentLoans(undefined, res);
