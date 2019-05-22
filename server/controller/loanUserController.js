@@ -4,8 +4,7 @@ import {
 } from '../helper/loansHelper';
 import pool from '../config/configDb';
 import { addLoanQuery, getUserLoansQuery } from '../models/Queries';
-
-const Loan = require('../models/Loan');
+import { Loan } from '../models/Loan';
 
 export function getUserLoan(req, res) {
   let { status, repaid } = req.query;
@@ -55,7 +54,7 @@ export function getUserLoan(req, res) {
 export function addNewLoan(req, res) {
   const { userMail } = req;
   const { tenor, amount } = req.body;
-  const newLoan = new Loan.Loan(getLoanCount(), userMail, Number.parseInt(tenor, 10),
+  const newLoan = new Loan(getLoanCount(), userMail, Number.parseInt(tenor, 10),
     Number.parseInt(amount, 10));
   const loanDataArray = Object.keys(newLoan).map(key => newLoan[key]);
   loanDataArray.splice(0, 1);
@@ -71,8 +70,8 @@ export function addNewLoan(req, res) {
               data: myLoan,
             });
           }).catch((errs) => {
-            res.status(203).send({
-              status: 203,
+            res.status(500).send({
+              status: 500,
               message: 'An error occured when creating account',
             });
           });

@@ -132,7 +132,7 @@ describe('Get all  loans specs', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
-        expect(res.body.data.length).to.be.equal(2);
+        expect(res.body.data.length).to.be.equal(1);
         done();
       });
   });
@@ -140,7 +140,7 @@ describe('Get all  loans specs', () => {
   it('it should return all loans for a specific user', (done) => {
     chai.request(app)
       .get('/api/v1/loans/user/lemoisson@quick-credit.com/')
-      .set('Authorization', `Bearer ${users[0].token}`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
@@ -154,7 +154,7 @@ describe('Get current loans spec', () => {
   it('it should return the currents loans', (done) => {
     chai.request(app)
       .get('/api/v1/loans/?status=approved&repaid=false')
-      .set('Authorization', `Bearer ${users[0].token}`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
@@ -166,7 +166,7 @@ describe('Get current loans spec', () => {
   it('it should return the current loans of lemoisson@quick-credit.com', (done) => {
     chai.request(app)
       .get('/api/v1/loans/user/lemoisson@quick-credit.com/?status=approved&repaid=false')
-      .set('Authorization', `Bearer ${users[1].token}`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
@@ -180,7 +180,7 @@ describe('Get all repaid loans specs', () => {
   it('it should return all the repaid loans', (done) => {
     chai.request(app)
       .get('/api/v1/loans/?status=approved&repaid=true')
-      .set('Authorization', `Bearer ${users[0].token}`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
@@ -192,7 +192,7 @@ describe('Get all repaid loans specs', () => {
   it('it should return all the repaid loans for a specific user', (done) => {
     chai.request(app)
       .get('/api/v1/loans/user/lemoisson@quick-credit.com/?status=approved&repaid=true')
-      .set('Authorization', `Bearer ${users[0].token}`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
@@ -206,7 +206,7 @@ describe('Get all pending loans specs', () => {
   it('it should return all the pending loans for a specific user', (done) => {
     chai.request(app)
       .get('/api/v1/loans/user/lemoisson@quick-credit.com/?status=pending')
-      .set('Authorization', `Bearer ${users[0].token}`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
@@ -218,11 +218,11 @@ describe('Get all pending loans specs', () => {
   it('it should return all the pending loans ', (done) => {
     chai.request(app)
       .get('/api/v1/loans/?status=pending')
-      .set('Authorization', `Bearer ${users[0].token}`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
-        chai.expect(2).to.be.equal(res.body.data.length);
+        chai.expect(1).to.be.equal(res.body.data.length);
 
         done();
       });
@@ -233,7 +233,7 @@ describe('Get all rejected  loans specs', () => {
   it('it should return all the rejected loans for a specific user', (done) => {
     chai.request(app)
       .get('/api/v1/loans/user/lemoisson@quick-credit.com/?status=rejected')
-      .set('Authorization', `Bearer ${users[0].token}`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
@@ -245,7 +245,7 @@ describe('Get all rejected  loans specs', () => {
   it('it should return all the rejected loans for a specific user', (done) => {
     chai.request(app)
       .get('/api/v1/loans/?status=rejected')
-      .set('Authorization', `Bearer ${users[0].token}`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
