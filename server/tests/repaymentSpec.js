@@ -14,27 +14,56 @@ const fakeRepaymentData = {
   amount: 'lemoisson',
 };
 const correctRepaymentData = {
-  amount: '210',
+  amount: '2100',
 };
+const loginDetailsAdmin = {
+  email: 'admin@quick-credit.com',
+  password: '12345678',
+};
+let adminToken = '';
+it('should return a 200 status and user data when everything is okey', (done) => {
+  chai.request(app)
+    .post('/api/v1/auth/signin')
+    .send(loginDetailsAdmin)
+    .end((err, res) => {
+      adminToken = res.body.data.token;
+      done();
+    });
+});
+let loanID = 0;
 describe('Post a repayment transaction', () => {
+  let loanAmount = 0;
+  it('it should return the currents loans', (done) => {
+    chai.request(app)
+      .get('/api/v1/loans/?status=approved&repaid=false')
+      .set('Authorization', `Bearer ${adminToken}`)
+      .send('')
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res.body.data.length).to.be.equal(1);
+        loanID = res.body.data[0].id;
+        loanAmount = res.body.data.amount;
+        done();
+      });
+  });
   it('it should return a 400 status when amount is  not a number', (done) => {
     chai.request(app)
-      .post('/api/v1/loans/0/repayment')
-      .set('Authorization', `Bearer ${users.users[0].token}`)
+      .post(`/api/v1/loans/${loanID}/repayment`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send(fakeRepaymentData)
       .end((err, res) => {
-        res.should.have.status(403);
+        res.should.have.status(400);
         done();
       });
   });
 
   it('it should return a 400 status when amount is  undefined', (done) => {
     chai.request(app)
-      .post('/api/v1/loans/0/repayment')
-      .set('Authorization', `Bearer ${users.users[0].token}`)
+      .post(`/api/v1/loans/${loanID}/repayment`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send('')
       .end((err, res) => {
-        res.should.have.status(403);
+        res.should.have.status(400);
         done();
       });
   });
@@ -42,7 +71,7 @@ describe('Post a repayment transaction', () => {
   it('it should return a 400 status when the loan is not found', (done) => {
     chai.request(app)
       .post('/api/v1/loans/650/repayment')
-      .set('Authorization', `Bearer ${users.users[0].token}`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send(correctRepaymentData)
       .end((err, res) => {
         res.should.have.status(404);
@@ -53,11 +82,11 @@ describe('Post a repayment transaction', () => {
 
   it('it should return a 200 status when everything is okey', (done) => {
     chai.request(app)
-      .post('/api/v1/loans/0/repayment')
-      .set('Authorization', `Bearer ${users.users[0].token}`)
+      .post(`/api/v1/loans/${loanID}/repayment`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send(correctRepaymentData)
       .end((err, res) => {
-        res.should.have.status(403);
+        res.should.have.status(201);
 
         done();
       });
@@ -65,11 +94,11 @@ describe('Post a repayment transaction', () => {
 
   it('it should return a 403 status loan is already repaid', (done) => {
     chai.request(app)
-      .post('/api/v1/loans/1/repayment')
-      .set('Authorization', `Bearer ${users.users[0].token}`)
+      .post(`/api/v1/loans/${loanID}/repayment`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send(correctRepaymentData)
       .end((err, res) => {
-        res.should.have.status(404);
+        res.should.have.status(403);
         done();
       });
   });
@@ -78,8 +107,8 @@ describe('Post a repayment transaction', () => {
 describe('Get a loan repayment transaction', () => {
   it('it should return a 200 and a list containing one repayment', (done) => {
     chai.request(app)
-      .get('/api/v1/loans/0/repayment')
-      .set('Authorization', `Bearer ${users.users[0].token}`)
+      .get(`/api/v1/loans/${loanID}/repayment`)
+      .set('Authorization', `Bearer ${adminToken}`)
       .send('')
       .end((err, res) => {
         res.should.have.status(200);

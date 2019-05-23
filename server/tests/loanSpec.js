@@ -78,6 +78,16 @@ describe('Post a new loan', () => {
         done();
       });
   });
+  it('it should a 400 status because of Undefinned values', (done) => {
+    chai.request(app)
+      .post('/api/v1/loans/')
+      .set('Authorization', `Bearer ${normalToken}`)
+      .send({ tenor: 10 })
+      .end((err, res) => {
+        res.should.have.status(400);
+        done();
+      });
+  });
 
   it('it should a 401 status because the token is not defined', (done) => {
     chai.request(app)
@@ -339,6 +349,20 @@ describe('approve or reject loan', () => {
       .end((err, res) => {
         res.should.have.status(403);
         expect(res.body.error).to.be.equal('You are not authorized to acces this loan status');
+        done();
+      });
+  });
+
+  it('it should a 400 status incorrect data provided', (done) => {
+    const requestString = {
+      status: 'approv',
+    };
+    chai.request(app)
+      .patch(`/api/v1/loans/${newLoanID}`)
+      .set('Authorization', `Bearer ${adminToken}`)
+      .send(requestString)
+      .end((err, res) => {
+        res.should.have.status(400);
         done();
       });
   });

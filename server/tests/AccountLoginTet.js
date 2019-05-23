@@ -21,14 +21,28 @@ const loginDetailsEmpty = {
   password: '',
 };
 
+const loginDetailsEmptyPass = {
+  email: 'lemoisson@quick-credit.com',
+};
 describe('login', () => {
-  it('it should not login with undefinned values', (done) => {
+  it('it should not login with email', (done) => {
     chai.request(app)
       .post('/api/v1/auth/signin')
       .send('')
       .end((err, res) => {
         res.should.have.status(400);
         chai.expect(res.body.message).equal('The email is required');
+        done();
+      });
+  });
+
+  it('it should not login with undefinned password', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signin')
+      .send(loginDetailsEmptyPass)
+      .end((err, res) => {
+        res.should.have.status(400);
+        chai.expect(res.body.message).equal('The password is required');
         done();
       });
   });

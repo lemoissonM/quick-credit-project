@@ -4,32 +4,16 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-let user = '';
-let database = '';
-let password = '';
-let host = '';
+let connectionString = '';
 if (process.env.NODE_ENV === 'production') {
-  user = process.env.userProduction;
-  database = process.env.databaseProduction;
-  password = process.env.passwordProduction;
-  host = process.env.hostProduction;
+  connectionString = process.env.DATABASE_URL;
 } else if (process.env.NODE_ENV === 'test') {
-  user = process.env.userTest;
-  database = process.env.databaseTest;
-  password = process.env.passwordTest;
-  host = process.env.hostTest;
+  connectionString = process.env.DATABASE_URL_TEST;
 } else {
-  user = process.env.user;
-  database = process.env.database;
-  password = process.env.password;
-  host = process.env.host;
+  connectionString = process.env.DATABASE_URL;
 }
 
-
 const pool = new Pool({
-  user,
-  host,
-  database,
-  password,
+  connectionString,
 });
 export default pool;

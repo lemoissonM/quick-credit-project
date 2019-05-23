@@ -29,10 +29,6 @@ function signup(req, res) {
           message: 'User already exist',
         });
       }
-      console.debug(err);
-      res.status(204).send({
-        status: 204,
-      });
     });
 }
 module.exports = signup;

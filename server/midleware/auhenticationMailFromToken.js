@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
-import { checkLoan } from '../helper/userHelper';
 import {
-  validateToken, notValidToken, tokenError,
+  validateToken, tokenError,
 } from '../helper/middlewareHelper';
 
 export default function checkToken(req, res, next) {
@@ -11,7 +10,7 @@ export default function checkToken(req, res, next) {
     const { secret } = process.env;
     jwt.verify(token, secret, (err, decoded) => {
       if (err) {
-        return notValidToken(res);
+        return tokenError(res);
       }
       req.decoded = decoded;
 

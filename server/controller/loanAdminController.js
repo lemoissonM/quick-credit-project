@@ -1,9 +1,10 @@
 import {
-  getCurrentLoans, getRepaidLoans, getAllLoans, getSingleLoan,
-  updateLoan, getPendingLoans, getDeniedLoans, getApprovedLoans,
+  getCurrentLoans, getRepaidLoans, getAllLoans,
+  getPendingLoans, getDeniedLoans, getApprovedLoans,
 } from '../helper/loansHelper';
 import pool from '../config/configDb';
-import { getSpecificLoanQuery, UpdateLoanQuery, approveLoanQuery } from '../models/Queries';
+import { getSpecificLoanQuery, approveLoanQuery } from '../models/Queries';
+import { sendLoanMail } from '../helper/sendMail';
 
 export function getloans(req, res) {
   const { status, repaid } = req.query;
@@ -56,6 +57,7 @@ export function approveLoan(req, res) {
       if (result.rows[0].status === 'pending') {
         pool.query(approveLoanQuery([loanID, status])).then((newRepayment) => {
           newLoan.status = status;
+          sendLoanMail(`Your loan application has been ${status} `, newLoan.usermail, newLoan);
           res.status(200).send({
             status: 200,
             data: newLoan,
