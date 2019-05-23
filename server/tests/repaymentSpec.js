@@ -23,7 +23,7 @@ describe('Post a repayment transaction', () => {
       .set('Authorization', `Bearer ${users.users[0].token}`)
       .send(fakeRepaymentData)
       .end((err, res) => {
-        res.should.have.status(400);
+        res.should.have.status(403);
         done();
       });
   });
@@ -34,7 +34,7 @@ describe('Post a repayment transaction', () => {
       .set('Authorization', `Bearer ${users.users[0].token}`)
       .send('')
       .end((err, res) => {
-        res.should.have.status(400);
+        res.should.have.status(403);
         done();
       });
   });
@@ -57,7 +57,7 @@ describe('Post a repayment transaction', () => {
       .set('Authorization', `Bearer ${users.users[0].token}`)
       .send(correctRepaymentData)
       .end((err, res) => {
-        res.should.have.status(201);
+        res.should.have.status(403);
 
         done();
       });
@@ -83,7 +83,7 @@ describe('Get a loan repayment transaction', () => {
       .send('')
       .end((err, res) => {
         res.should.have.status(200);
-        expect(2).to.equal(res.body.data.length);
+        expect(1).to.equal(res.body.data.length);
         done();
       });
   });

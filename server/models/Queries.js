@@ -100,3 +100,21 @@ export const UpdateLoanQuery = values => ({
   text: 'update loans set status = $2, repaid = $1, balance = $3 where id = $4 RETURNING *',
   values,
 });
+export const setUserTokenQuery = values => ({
+  text: 'update users set token=$1 where email=$2',
+  values,
+});
+
+export const addRepaymentQuery = values => ({
+  text: 'insert into loanrepayments (createdon, loanid,amount,tenorcovered) values ($1, $2, $3, $4) RETURNING id ',
+  values,
+});
+
+export const getRepaymentQuery = values => ({
+  text: 'select * from loanrepayments where loanid = $1',
+  values,
+});
+export const approveLoanQuery = values => ({
+  text: 'update loans set status = $2 where id = $1 returning *',
+  values,
+});

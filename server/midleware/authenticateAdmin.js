@@ -15,7 +15,6 @@ export default function checkAdmin(req, res, next) {
         return notValidToken(res);
       }
       req.decoded = decoded;
-      console.log(decoded.id);
       pool.query(isadminQuery([req.decoded.id]))
         .then((result) => {
           if (result.rowCount > 0) next();

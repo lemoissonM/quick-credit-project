@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 // configuring my database
 import { Pool } from 'pg';
 import dotenv from 'dotenv';
