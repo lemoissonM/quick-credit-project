@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import path from 'path';
 import authRouter from './routes/v1/authRoutes';
 import userRouter from './routes/v1/userRoutes';
 import loanRouter from './routes/v1/loanRoutes';
@@ -11,6 +12,7 @@ export const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(express.static(path.join(__dirname, '../UI/documentation')));
 app.use('/api/v1/auth', authRouter);
 
 app.use('/api/v1/users', userRouter);
