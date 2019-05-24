@@ -8,7 +8,7 @@ const users = require('../models/User');
 chai.use(chaiHttp);
 
 const loginDetailsAdmin = {
-  email: 'admin@quick-credit.com',
+  email: 'admin2@quick-credit.com',
   password: '12345678',
   firstname: 'lemoissn',
   lastname: 'metre',
@@ -20,7 +20,7 @@ const loginDetailsAdmin = {
 let adminToken = '';
 it('should return a 200 status and user data when everything is okey', (done) => {
   chai.request(app)
-    .post('/api/v1/auth/signin')
+    .post('/api/v1/auth/signup')
     .send(loginDetailsAdmin)
     .end((err, res) => {
       adminToken = res.body.data.token;
