@@ -11,43 +11,6 @@ export class Loan {
     this.createdOn = new Date();
     this.status = 'pending';
   }
-
-  getID() {
-    return this.id;
-  }
-
-  getStatus() {
-    return this.status;
-  }
-
-  setStatus(status) {
-    this.status = status;
-  }
-
-  getPaymentInstallment() {
-    return this.paymentInstallment;
-  }
-
-  getBalance() {
-    return this.balance;
-  }
-
-  isRepaid() {
-    return this.repaid;
-  }
-
-  setRepaidStatus(repaidStatus) {
-    this.repaid = repaidStatus;
-  }
-
-  setBalance(balance) {
-    this.balance = balance;
-    if (balance <= 0) {
-      this.setRepaidStatus(true);
-      this.setStatus('repaid');
-      this.balance = 0;
-    }
-  }
 }
 
 const firstLoan = new Loan(0, 'lemoisson@quick-credit.com', 12, 1200);

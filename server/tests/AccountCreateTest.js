@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import pool from '../config/configDb';
 import { getDeleteUserQuery } from '../models/Queries';
 
@@ -37,7 +36,7 @@ const loginDetailsInvalidMail = {
 };
 
 const loginDetailsInvalidPassword = {
-  email: 'lemoissonquick-credit.com',
+  email: 'lemoisson@quick-credit.com',
   password: '1234',
 };
 
@@ -102,6 +101,7 @@ describe('Signup', () => {
       .send(loginDetailsInvalidPassword)
       .end((err, res) => {
         res.should.have.status(400);
+        chai.expect('Password should be at least 8 characters long and should not contain spaces only').equal(res.body.message);
         closeServer();
         done();
       });

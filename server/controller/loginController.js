@@ -13,7 +13,7 @@ export default function login(req, res) {
         const user = result.rows[0];
         if (user && comparePassword(password, user.password)) {
           user.token = createToken(email);
-          user.password = '';
+          delete user.password;
           pool.query(setUserTokenQuery([user.token, user.email])).catch((err) => {
             res.status(500).send({
               status: 500,

@@ -118,3 +118,18 @@ export const approveLoanQuery = values => ({
   text: 'update loans set status = $2 where id = $1 returning *',
   values,
 });
+
+export const updateUserStatusQuery = values => ({
+  text: 'update users set status = \'verified\' where email = $1 returning *',
+  values,
+});
+
+export const updateUserPasswordQuery = values => ({
+  text: 'update users set password = $1 where email = $2',
+  values,
+});
+
+export const getSingleUserQuery = values => ({
+  text: 'select * from users where email = $1',
+  values,
+});

@@ -16,11 +16,6 @@ export class User {
     this.isAdmin = isAdmin;
   }
 
-  validatePassword(password) {
-    if (comparePassword(password, this.password)) return true;
-    return false;
-  }
-
   toJSON() {
     const obj = {
       token: this.token,
@@ -34,15 +29,6 @@ export class User {
       isAdmin: this.isAdmin,
     };
     return obj;
-  }
-
-  setStatus(status) {
-    this.status = status;
-  }
-
-
-  getUserID() {
-    return this.id;
   }
 }
 

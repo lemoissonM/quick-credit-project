@@ -5,5 +5,5 @@ import adminCheck from '../../midleware/authenticateAdmin';
 const router = express.Router();
 
 router.patch('/:userEmail/verify', adminCheck, verify);
-router.patch('/:userEmail/resetPass', resetPassword);
+router.patch('/:userEmail/resetPassword', resetPassword);
 export default router;
