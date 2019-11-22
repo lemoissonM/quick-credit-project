@@ -1,6 +1,7 @@
 /* eslint-disable linebreak-style */
 import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import authRouter from './routes/v1/auth_routes';
 import userRouter from './routes/v1/user_routes';
 import loanRouter from './routes/v1/loan_routes';
@@ -8,6 +9,7 @@ import loanRouter from './routes/v1/loan_routes';
 export const app = express();
 
 // Parse incoming requests data
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 

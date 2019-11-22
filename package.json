@@ -49,12 +49,11 @@
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
     "chai-http": "4.3.0",
+    "cors": "^2.8.5",
     "express": "^4.16.4",
-    "jsdoc": "^3.6.1",
+    "jsdoc": "^3.6.3",
     "jsonwebtoken": "^8.5.1",
     "mocha": "^6.1.4",
     "uuid": "^3.3.2"
   }
 }
-
-
